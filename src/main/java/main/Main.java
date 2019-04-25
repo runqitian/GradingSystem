@@ -3,6 +3,7 @@ package main;
 import controllers.Controller;
 import core.GradingSystem;
 import gui.MainFrame;
+import core.DatabaseStorage;
 
 public class Main {
 
@@ -11,6 +12,7 @@ public class Main {
         MainFrame mainFrame = new MainFrame();
 //        Controller controller = new Controller(mainFrame, gradingSystem);
 //        mainFrame.test();
+        DatabaseStorage.connectToDB();
 
     }
 
