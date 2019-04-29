@@ -1,13 +1,17 @@
 package core;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.MongoClientURI;
 import static com.mongodb.client.model.Filters.*;
 import org.bson.Document;
-
+import com.mongodb.Block;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Vector;
 
 
 public class DatabaseStorage {
@@ -43,7 +47,7 @@ public class DatabaseStorage {
     public static void addSubCategory (String name, Double gradWeight, Double ugradWeight, ArrayList<SubCategory> subCategories, String categoryBelongTo, Double maxPossible, HashMap<String, Double> grades){
         MongoDatabase db = connectToDB();
         MongoCollection<Document> collection = db.getCollection("testCategories");
-        Document newDocument = new Document("name", name).append("gradWeight", gradWeight).append("uGradWeight", ugradWeight).append("subCategories", subCategories.toArray()).append("categoryBelongTo", categoryBelongTo).append("maxPossible", maxPossible).append("grades", grades);
+        Document newDocument = new Document("name", name).append("gradWeight", gradWeight).append("uGradWeight", ugradWeight).append("subCategories", Arrays.asList(subCategories)).append("categoryBelongTo", categoryBelongTo).append("maxPossible", maxPossible).append("grades", grades);
         collection.insertOne(newDocument);
     }
 
@@ -53,7 +57,7 @@ public class DatabaseStorage {
         MongoDatabase db = connectToDB();
         MongoCollection<Document> collection = db.getCollection("testCategories");
         Document possibleMatch = collection.find(eq("name", name)).first();
-        if((possibleMatch != null) && (possibleMatch.get("categoryBelongTo") == categoryBelongTo)){
+        if((possibleMatch != null) && (possibleMatch.get("categoryBelongTo").equals(categoryBelongTo))){
             ArrayList ret = new ArrayList();
             ret.add(possibleMatch.get("name"));
             ret.add(possibleMatch.get("gradWeight"));
@@ -65,6 +69,28 @@ public class DatabaseStorage {
             return ret;
         }
         return new ArrayList();
+    }
+
+    public static Vector<Vector<String>> getAllSubCategories(){
+
+        final Vector<Vector<String>> item = new Vector<Vector<String>>();
+
+        Block<Document> operateBlock = new Block<Document>() {
+            public void apply(final Document document) {
+                System.out.println(document.toJson());
+                Vector<String> temp = new Vector<String>();
+                temp.add(document.get("categoryBelongTo").toString());
+                temp.add(document.get("name").toString());
+                item.add(temp);
+
+            }
+        };
+
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("testCategories");
+        collection.find().forEach(operateBlock);
+        System.out.println(item);
+        return item;
     }
 
 }
