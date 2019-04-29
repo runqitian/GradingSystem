@@ -1,14 +1,17 @@
 package gui;
 
-import controllers.Controller;
+
+import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel implements ActionListener {
 
     // controller is an ActionListener
-    Controller controller;
+    MainFrame mainFrame;
 
     // layout
     GridBagConstraints layout;
@@ -19,8 +22,8 @@ public class LoginPanel extends JPanel {
     JLabel pwdLabel;
     JTextField pwd;
 
-    public LoginPanel(Controller controller){
-        this.controller = controller;
+    public LoginPanel(MainFrame mainFrame){
+        this.mainFrame = mainFrame;
 //        this.setLayout(new GridBagLayout());
         init();
 //        this.setVisible(true);
@@ -59,5 +62,7 @@ public class LoginPanel extends JPanel {
     }
 
 
+    public void actionPerformed(ActionEvent e) {
 
+    }
 }

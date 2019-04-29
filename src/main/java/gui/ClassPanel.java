@@ -1,16 +1,16 @@
 package gui;
 
-import controllers.Controller;
-
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ClassPanel extends JPanel {
+public class ClassPanel extends JPanel implements ActionListener{
 
-    Controller controller;
+    MainFrame mainFrame;
 
     JPanel selectPanel;
     JPanel mainPanel;
@@ -25,12 +25,13 @@ public class ClassPanel extends JPanel {
     JButton classReportBtn;
     JButton studentManageBtn;
     JButton gradeSelectedBtn;
+    JFileChooser fileChooser;
 
 
     DefaultTableCellRenderer tcr   =   new   DefaultTableCellRenderer();
 
-    public ClassPanel(Controller controller){
-        this.controller = controller;
+    public ClassPanel(MainFrame mainFrame){
+        this.mainFrame = mainFrame;
         init();
     }
 
@@ -44,8 +45,8 @@ public class ClassPanel extends JPanel {
 //        selectPanel.setBorder(BorderFactory.createLineBorder(Color.red, 3));
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createEtchedBorder());
-        this.add(selectPanel,new GBC(0,0,1,1,0.1,1));
-        this.add(mainPanel,new GBC(1,0,1,1,0.9,1));
+        this.add(selectPanel,new GBC(0,0,1,1,0.2,1));
+        this.add(mainPanel,new GBC(1,0,1,1,0.8,1));
         initSelectPanel();
         initMainPanel();
     }
@@ -66,7 +67,7 @@ public class ClassPanel extends JPanel {
 
         JLabel lb1 = new JLabel("Course List",JLabel.CENTER);
 
-        selectPanel.add(lb1,new GBC(0,0,1,1,0,0.08));
+        selectPanel.add(lb1,new GBC(0,0,1,1,0,0.08, GridBagConstraints.BOTH,  new Insets(20,0,20,0)));
         selectPanel.add(courseList,new GBC(0,1,1,1,1,0.92));
     }
 
@@ -83,10 +84,10 @@ public class ClassPanel extends JPanel {
         this.deleteBtn = new JButton("delete");
 
         mainPanel.add(subMainPanel, new GBC(0,0,4,1,4,9));
-        mainPanel.add(createNewBtn, new GBC(0,1,1,1,1,1, GridBagConstraints.NONE));
-        mainPanel.add(templateBtn, new GBC(1,1,1,1,1,1, GridBagConstraints.NONE));
-        mainPanel.add(new Label(""), new GBC(2,1,1,1,1,1, GridBagConstraints.NONE));
-        mainPanel.add(deleteBtn, new GBC(3,1,1,1,1,1, GridBagConstraints.NONE));
+        mainPanel.add(createNewBtn, new GBC(0,1,1,1,1,1, GridBagConstraints.NONE, new Insets(20,0,20,0)));
+        mainPanel.add(templateBtn, new GBC(1,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
+        mainPanel.add(new Label(""), new GBC(2,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
+        mainPanel.add(deleteBtn, new GBC(3,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
 
     }
 
@@ -99,6 +100,9 @@ public class ClassPanel extends JPanel {
         studentManageBtn = new JButton("student");
         gradeSelectedBtn = new JButton("grade");
 
+        this.importBtn.setActionCommand("import");
+        this.importBtn.addActionListener(this);
+
         CategoryTableModel myModel = new CategoryTableModel();
 
         // JTable
@@ -107,14 +111,14 @@ public class ClassPanel extends JPanel {
         categoryTable.setRowHeight(30);
 
 
-        subMainPanel.add(lb1,new GBC(0,0,8,1,0.8,1));
-        subMainPanel.add(importBtn, new GBC(8,0,1,1,0.1,1, GridBagConstraints.NONE));
-        subMainPanel.add(settingBtn, new GBC(9,0,1,1,0.1,1, GridBagConstraints.NONE));
+        subMainPanel.add(lb1,new GBC(0,0,8,1,0.8,1,GridBagConstraints.BOTH,new Insets(20,0,0,0)));
+        subMainPanel.add(importBtn, new GBC(8,0,1,1,0.1,1, GridBagConstraints.NONE, new Insets(20,0,0,0)));
+        subMainPanel.add(settingBtn, new GBC(9,0,1,1,0.1,1, GridBagConstraints.NONE, new Insets(20,0,0,0)));
         subMainPanel.add(categoryTable,new GBC(0,1,14,1,1,10,GridBagConstraints.HORIZONTAL));
         subMainPanel.add(new Label(""), new GBC(0,2,7,1,0.7,1));
-        subMainPanel.add(classReportBtn, new GBC(7,2,1,1,0.1,1, GridBagConstraints.NONE));
-        subMainPanel.add(studentManageBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE));
-        subMainPanel.add(gradeSelectedBtn, new GBC(9,2,1,1,0.1,1, GridBagConstraints.NONE));
+        subMainPanel.add(classReportBtn, new GBC(7,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
+        subMainPanel.add(studentManageBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
+        subMainPanel.add(gradeSelectedBtn, new GBC(9,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
 //        subMainPanel.add(new Button("hello"), new GBC(0,3,1,1,0.1,1, GridBagConstraints.NONE));
 //        subMainPanel.add(new Button("hello"), new GBC(1,3,1,1,0.1,1, GridBagConstraints.NONE));
 //        subMainPanel.add(new Button("hello"), new GBC(2,3,1,1,0.1,1, GridBagConstraints.NONE));
@@ -127,5 +131,8 @@ public class ClassPanel extends JPanel {
 //        subMainPanel.add(new Button("hello"), new GBC(9,3,1,1,0.1,1, GridBagConstraints.NONE));
     }
 
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
 

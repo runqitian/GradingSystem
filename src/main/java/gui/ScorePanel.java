@@ -1,16 +1,16 @@
 package gui;
 
-import controllers.Controller;
+import main.Main;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ScorePanel extends JPanel {
 
-    Controller controller;
+    MainFrame mainFrame;
 
-    public ScorePanel(Controller controller){
-        this.controller = controller;
+    public ScorePanel(MainFrame mainFrame){
+        this.mainFrame = mainFrame;
         init();
     }
 
@@ -20,9 +20,9 @@ public class ScorePanel extends JPanel {
         JPanel tablePanel = new JPanel();
         infoPanel.setBackground(Color.RED);
         tablePanel.setBackground(Color.BLUE);
+        tablePanel.setBorder(BorderFactory.createEtchedBorder());
         this.add(infoPanel,new GBC(0,0,1,1,0.2,1));
         this.add(tablePanel,new GBC(1,0,1,1,0.8,1));
     }
-
 
 }
