@@ -30,13 +30,20 @@ public class MainFrame extends JFrame {
         this.setBounds(window_x, window_y, window_width, window_height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+//        this.setLayout(null);
         //set up panels
-        loginPanel = new LoginPanel(controller);
-        loginPanel.setBounds(0, 0, 500, 500);
-        this.add(loginPanel);
-        loginPanel.setEnabled(true);
-        loginPanel.setVisible(true);
-        System.out.println("this is MainFrame");
+        ClassPanel classPanel = new ClassPanel(controller);
+        this.add(classPanel);
+
+//        ChartPanel chartPanel = new ChartPanel();
+//        this.add(chartPanel);
+
+//        ScorePanel scorePanel = new ScorePanel(controller);
+//        this.add(scorePanel);
+
+//        loginPanel = new LoginPanel(controller);
+//        loginPanel.setBounds(0, 0, 500, 500);
+//        this.getContentPane().add(loginPanel);
         this.setVisible(true);
         this.setEnabled(true);
 

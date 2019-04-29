@@ -19,7 +19,6 @@ public class Controller implements ActionListener {
         System.out.println("this is controller");
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         // empty
     }

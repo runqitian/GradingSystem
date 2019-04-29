@@ -31,6 +31,7 @@ public class LoginPanel extends JPanel {
         // initialize layout
 //        this.layout = new GridBagConstraints();
         this.setBackground(Color.BLUE);
+//        this.setLayout(null);
 //         initialize panel
         this.userLabel = new JLabel("user");
         this.username = new JTextField();
@@ -39,13 +40,15 @@ public class LoginPanel extends JPanel {
 //        this.add(userLabel);
 //        this.add(pwd);
         JPanel inputPanel = new JPanel();
+        inputPanel.setPreferredSize(new Dimension(300,200));
         inputPanel.add(userLabel);
         inputPanel.add(username);
         inputPanel.add(pwdLabel);
         inputPanel.add(pwd);
         inputPanel.setBackground(Color.RED);
-        inputPanel.setVisible(true);
         inputPanel.setEnabled(true);
+        inputPanel.setVisible(true);
+
         this.add(inputPanel);
         System.out.println("yes");
 
