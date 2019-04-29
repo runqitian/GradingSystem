@@ -1,18 +1,9 @@
 package core;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.ConnectionString;
-import com.mongodb.ServerAddress;
-import com.mongodb.MongoCredential;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClientURI;
 import static com.mongodb.client.model.Filters.*;
-import com.mongodb.client.model.CreateCollectionOptions;
-import com.mongodb.client.model.ValidationOptions;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -23,7 +14,7 @@ public class DatabaseStorage {
 
     // Connects to mongo instance
     public static MongoDatabase connectToDB(){
-        MongoClient mongoClient = MongoClients.create();
+        MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://test:testing1@ds135624.mlab.com:35624/cs591"));
         MongoDatabase database = mongoClient.getDatabase("591Test");
         return database;
     }

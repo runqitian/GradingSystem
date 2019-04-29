@@ -10,7 +10,7 @@ public class Main {
         GradingSystem gradingSystem = new GradingSystem();
         MainFrame mainFrame = new MainFrame();
 //        mainFrame.test();
-//        DatabaseStorage.connectToDB();
+        DatabaseStorage.connectToDB();
 
     }
 
