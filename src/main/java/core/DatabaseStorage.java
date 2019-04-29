@@ -16,6 +16,7 @@ public class DatabaseStorage {
     public static MongoDatabase connectToDB(){
         MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://test:testing1@ds135624.mlab.com:35624/cs591"));
         MongoDatabase database = mongoClient.getDatabase("cs591");
+
         return database;
     }
 
