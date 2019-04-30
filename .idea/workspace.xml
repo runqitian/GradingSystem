@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b17dfcec-02a9-47a9-9ec8-b46fde5bcde2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/GradingTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/SubCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/SubCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/demo/Demo1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/demo/Demo1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/API.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ClassPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ClassPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/DatabaseStorage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/DatabaseStorage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/DatabaseStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/DatabaseStorage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/GradingSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GradingSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/API.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/ClassPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/ClassPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/MainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tools/Tools.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tools/Tools.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/GradingTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/GradingTable.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -78,11 +62,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/GradingTable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+            <state relative-caret-position="294">
+              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#132#145#0" expanded="true" />
+                <element signature="e#205#221#0" expanded="true" />
                 <element signature="e#285#293#0" expanded="true" />
+                <element signature="e#797#813#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -160,7 +147,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="840" />
     <option name="y" value="23" />
     <option name="width" value="840" />
@@ -294,18 +281,27 @@
       <workItem from="1556571720753" duration="3897000" />
       <workItem from="1556596139651" duration="532000" />
       <workItem from="1556628348117" duration="3786000" />
-      <workItem from="1556648872083" duration="2973000" />
+      <workItem from="1556648872083" duration="3634000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20336000" />
+    <option name="totallyTimeSpent" value="20997000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="840" y="23" width="840" height="974" extended-state="0" />
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.35714287" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17399268" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -318,8 +314,8 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.23129252" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32993197" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.20816326" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="9" weight="0.32312927" />
       <window_info anchor="bottom" id="Version Control" order="10" />
@@ -580,11 +576,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/core/GradingTable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+        <state relative-caret-position="294">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#132#145#0" expanded="true" />
+            <element signature="e#205#221#0" expanded="true" />
             <element signature="e#285#293#0" expanded="true" />
+            <element signature="e#797#813#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -5,20 +5,28 @@ import java.util.Vector;
 
 public class GradingTable {
 
-    Vector<Vector<Object>> table;
+    Vector<SubCategory> cols = new Vector<SubCategory>();
+    Vector<Vector<Object>> table = new Vector<Vector<Object>>();
 
     public GradingTable(List<Student> students, List<SubCategory> subCategories){
+
+        for (SubCategory sub : subCategories){
+            cols.add(sub);
+        }
+
         for(int i=0; i<students.size(); i++){
             Vector<Object> row = new Vector<Object>();
             row.add(students.get(i));
             for (int j=0; j<subCategories.size(); j++){
-                row.add(new GradeEntity(subCategories.get(j),0.0));
+                row.add(new Double(0));
             }
             table.add(row);
         }
     }
 
-    public void getGUITable(){
+    public void getGUITable(List<SubCategory> subCategories){
+
+        Vector<Vector<Object>> output = new Vector<Vector<Object>>();
 
     }
 
