@@ -1,7 +1,9 @@
 package gui;
 
 
+import com.sun.corba.se.impl.ior.GenericIdentifiable;
 import main.Main;
+import sun.awt.image.GifImageDecoder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,59 +12,67 @@ import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel implements ActionListener {
 
-    // controller is an ActionListener
-    MainFrame mainFrame;
-
-    // layout
-    GridBagConstraints layout;
+    API api;
 
     // user
     JLabel userLabel;
-    JTextField username;
+    JTextField usernameInput;
     JLabel pwdLabel;
-    JTextField pwd;
+    JPasswordField pwdInput;
+    JButton loginBtn;
 
-    public LoginPanel(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
-//        this.setLayout(new GridBagLayout());
+    public LoginPanel(API api){
+        this.setVisible(false);
+        this.setEnabled(false);
+
+        this.api = api;
+//        this.setBackground(Color.CYAN);
+        this.setLayout(new GridBagLayout());
         init();
-//        this.setVisible(true);
-//        this.setEnabled(true);
     }
 
+    public void showPanel(){
+        this.setVisible(true);
+        this.setEnabled(true);
+    }
+
+    public void hidePanel(){
+        this.setVisible(false);
+        this.setEnabled(false);
+    }
+
+
     private void init(){
-        // initialize layout
-//        this.layout = new GridBagConstraints();
-        this.setBackground(Color.BLUE);
-//        this.setLayout(null);
-//         initialize panel
-        this.userLabel = new JLabel("user");
-        this.username = new JTextField();
-        this.pwdLabel = new JLabel("password");
-        this.pwd = new JTextField();
-//        this.add(userLabel);
-//        this.add(pwd);
-        JPanel inputPanel = new JPanel();
-        inputPanel.setPreferredSize(new Dimension(300,200));
-        inputPanel.add(userLabel);
-        inputPanel.add(username);
-        inputPanel.add(pwdLabel);
-        inputPanel.add(pwd);
-        inputPanel.setBackground(Color.RED);
-        inputPanel.setEnabled(true);
-        inputPanel.setVisible(true);
+        userLabel = new JLabel("username");
+        userLabel.setPreferredSize(new Dimension(100,30));
+        usernameInput = new JTextField();
+        usernameInput.setPreferredSize(new Dimension(200,30));
+        pwdLabel = new JLabel("password");
+        pwdLabel.setPreferredSize(new Dimension(100,30));
+        pwdInput = new JPasswordField();
+        pwdInput.setPreferredSize(new Dimension(200,30));
+        loginBtn = new JButton("login");
+        loginBtn.setActionCommand("login");
+        loginBtn.addActionListener(this);
 
-        this.add(inputPanel);
-        System.out.println("yes");
-
-
-//        this.add(inputPanel);
-
+        this.add(userLabel, new GBC(0,0,1,1,0,0));
+        this.add(usernameInput, new GBC(1,0,1,1,0,0));
+        this.add(pwdLabel, new GBC(0,1,1,1,0,0));
+        this.add(pwdInput, new GBC(1,1,1,1,0,0));
+        this.add(loginBtn, new GBC(1,2,1,1,0,0, GridBagConstraints.NONE,GridBagConstraints.LINE_END));
 
     }
 
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("login")){
+            String password = new String(this.pwdInput.getPassword());
+            boolean success = api.login(this.usernameInput.getText(),password);
+//            boolean success = false;
+            if (!success){
+                JOptionPane.showMessageDialog(this,"login failed!");
+            }
 
+        }
     }
 }

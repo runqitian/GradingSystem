@@ -2,9 +2,24 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class CategoryTableModel extends AbstractTableModel {
+
+//    Vector<Vector<Object>> content;
+//
+//    public CategoryTableModel(Vector<Vector<Object>> content){
+//        this.content = content;
+//        Vector<Object[]> temp = new Vector<Object[]>();
+//        for(int i=0; i<content.size(); i++){
+//            content.get(i).add(new Boolean(false));
+//            temp.add(content.get(i).toArray());
+//        }
+//        System.out.println(content.toArray());
+//        data = (Object[][]) temp.toArray();
+//        System.out.println(data);
+//    }
 
     // 定义表格每一列的数据类型
 
@@ -13,7 +28,7 @@ public class CategoryTableModel extends AbstractTableModel {
     String[] head = {"category","sub-category", "checked"};
     Object[][] data = {{"homework","assignment1", new Boolean(false)},{"homework","assignment2", new Boolean(false)},
             {"mid-term","writing", new Boolean(false)},{"mid-term","coding", new Boolean(false)},{"final","project", new Boolean(false)}};
-
+//    Object[][] data;
     // 获得表格的列数
     public int getColumnCount() {
         return head.length;
@@ -38,7 +53,7 @@ public class CategoryTableModel extends AbstractTableModel {
     // 使表格具有可编辑性
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return false;
     }
 
     // 替换单元格的值

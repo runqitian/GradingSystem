@@ -6,6 +6,7 @@ import java.util.Vector;
 
 public class Course {
 
+    // unique
     String courseName;
 
     List<Category> categoryList = new ArrayList<Category>();
@@ -15,8 +16,8 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public Vector<Vector<String>> getAll(){
-        Vector<Vector<String>> result =
+    public Vector<Vector<Object>> getAll(){
+        Vector<Vector<Object>> result = DatabaseStorage.getAllSubCategories();
         return result;
     }
 

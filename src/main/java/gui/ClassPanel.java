@@ -1,5 +1,7 @@
 package gui;
 
+import core.Course;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class ClassPanel extends JPanel implements ActionListener{
 
-    MainFrame mainFrame;
+    API api;
 
     JPanel selectPanel;
     JPanel mainPanel;
@@ -28,14 +30,36 @@ public class ClassPanel extends JPanel implements ActionListener{
     JFileChooser fileChooser;
 
 
+    // test
+    // test initial
+    Course course = new Course("ood");
+
+
+
     DefaultTableCellRenderer tcr   =   new   DefaultTableCellRenderer();
 
-    public ClassPanel(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+    public ClassPanel(API api){
+
+        this.setVisible(false);
+        this.setEnabled(false);
+
+        this.api = api;
         init();
     }
 
+    public void showPanel(){
+        this.setVisible(true);
+        this.setEnabled(true);
+    }
+
+    public void hidePanel(){
+        this.setVisible(false);
+        this.setEnabled(false);
+    }
+
     public void init(){
+
+
         tcr.setHorizontalAlignment(JLabel.CENTER);
 
         this.setLayout(new GridBagLayout());
