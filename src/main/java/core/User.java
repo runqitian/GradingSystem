@@ -8,7 +8,7 @@ public class User {
     private String username;
     private String password;
 
-    private List<Course> courseList = new ArrayList<Course>();
+    private List<String> courseNameList = new ArrayList<String>();
 
 
     public User(String username, String password){
@@ -21,8 +21,8 @@ public class User {
         return success;
     }
 
-    public List<Course> loadUserConfig(){
-        courseList.addAll(DatabaseStorage.loadCourseList(username));
-        return courseList;
+    public List<String> loadUserCourseName(){
+        courseNameList.addAll(DatabaseStorage.loadCourseNameList(username));
+        return courseNameList;
     }
 }

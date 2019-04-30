@@ -75,16 +75,15 @@ public class ClassPanel extends JPanel implements ActionListener{
         initMainPanel();
     }
 
-    public void initSelectPanel(){
+    public void initSelectPanel(Object[][] courseNames){
         selectPanel.setLayout(new GridBagLayout());
 
         String[] colName = {"course"};
-        Object[][] courseListValues = {{"course1"},{"course2"},{"course3"}};
 
         DefaultTableCellRenderer r   =   new   DefaultTableCellRenderer();
         r.setHorizontalAlignment(JLabel.CENTER);
 
-        this.courseList = new JTable(courseListValues,colName);
+        this.courseList = new JTable(courseNames,colName);
         this.courseList.setRowHeight(30);
 
         courseList.setDefaultRenderer(Object.class,   r);

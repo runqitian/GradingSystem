@@ -2,32 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b17dfcec-02a9-47a9-9ec8-b46fde5bcde2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/API.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tools/Tools.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/core/DatabaseStorage$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Grader.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/GradingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/GradingSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/CategoryTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/CategoryTableModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/API.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/ClassPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ClassPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/GBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/GBC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/LoginPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/Category.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/Course.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/DatabaseStorage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/DatabaseStorage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/Grader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/core/GradingSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/core/GradingSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/CategoryTableModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/CategoryTableModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/ClassPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/ClassPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/GBC.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/GBC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/LoginPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/LoginPanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gui/MainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/MainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tools/Tools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tools/Tools.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -54,7 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/Course.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="285">
               <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -66,8 +47,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+            <state relative-caret-position="345">
+              <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#202#210#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/ClassPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,10 +70,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/gui/ClassPanel.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tools/Tools.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+            <state relative-caret-position="345">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/gui/API.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+            <state relative-caret-position="330">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -99,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
+            <state relative-caret-position="347">
+              <caret line="96" column="67" lean-forward="true" selection-start-line="96" selection-start-column="67" selection-end-line="96" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -114,22 +108,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/GradingSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="376">
+              <caret line="28" column="43" lean-forward="true" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/gui/CategoryTableModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#217#225#0" expanded="true" />
+                <element signature="e#262#263#0" expanded="true" />
+                <element signature="e#294#295#0" expanded="true" />
+                <element signature="e#342#343#0" expanded="true" />
+                <element signature="e#384#385#0" expanded="true" />
+                <element signature="e#424#425#0" expanded="true" />
+                <element signature="e#460#461#0" expanded="true" />
+                <element signature="e#518#519#0" expanded="true" />
+                <element signature="e#568#569#0" expanded="true" />
+                <element signature="e#615#616#0" expanded="true" />
+                <element signature="e#652#653#0" expanded="true" />
+                <element signature="e#718#719#0" expanded="true" />
+                <element signature="e#770#771#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -174,25 +169,25 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/tools/Tools.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/core/Grader.java" />
         <option value="$PROJECT_DIR$/src/main/java/core/Course.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/GBC.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/LoginPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/CategoryTableModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/gui/ClassPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/MainFrame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/gui/API.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/GradingSystem.java" />
         <option value="$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/GradingSystem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tools/Tools.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/API.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/ClassPanel.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1969" />
-    <option name="y" value="136" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="289" />
+    <option name="y" value="106" />
     <option name="width" value="1260" />
     <option name="height" value="834" />
   </component>
@@ -323,15 +318,15 @@
       <updated>1556571716277</updated>
       <workItem from="1556571720753" duration="3897000" />
       <workItem from="1556596139651" duration="532000" />
-      <workItem from="1556628348117" duration="13000" />
+      <workItem from="1556628348117" duration="1730000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13590000" />
+    <option name="totallyTimeSpent" value="15307000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1969" y="136" width="1260" height="834" extended-state="0" />
+    <frame x="289" y="106" width="1260" height="834" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22824302" />
@@ -348,7 +343,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.27493262" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.27493262" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="9" weight="0.32345015" />
       <window_info anchor="bottom" id="Version Control" order="10" />
@@ -463,13 +458,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tools/Tools.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -482,63 +470,6 @@
     </entry>
     <entry file="file:///Volumes/Samsung_T5/Backups/201904-macbook/Workspace/CS591/Banking/src/banking/gui/Main.java" />
     <entry file="file:///Volumes/Samsung_T5/Backups/201904-macbook/Workspace/CS591/Banking/src/banking/gui/MainFrame.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/LoginPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/Course.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/ClassPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/API.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/GradingSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/gui/CategoryTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -563,10 +494,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/LoginPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="45" lean-forward="true" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#202#210#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/GradingSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="28" column="43" lean-forward="true" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#217#225#0" expanded="true" />
+            <element signature="e#262#263#0" expanded="true" />
+            <element signature="e#294#295#0" expanded="true" />
+            <element signature="e#342#343#0" expanded="true" />
+            <element signature="e#384#385#0" expanded="true" />
+            <element signature="e#424#425#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#615#616#0" expanded="true" />
+            <element signature="e#652#653#0" expanded="true" />
+            <element signature="e#718#719#0" expanded="true" />
+            <element signature="e#770#771#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="96" column="67" lean-forward="true" selection-start-line="96" selection-start-column="67" selection-end-line="96" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tools/Tools.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/ClassPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
-          <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
+          <caret line="73" column="24" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

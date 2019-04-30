@@ -94,7 +94,7 @@ public class DatabaseStorage {
      *  to do list
      */
 
-    public static List<Course> loadCourseList(String username){
+    public static List<String> loadCourseNameList(String username){
         // return the list of courses which this user teaches.
         return null;
     }

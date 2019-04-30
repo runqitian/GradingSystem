@@ -1,6 +1,7 @@
 package gui;
 
 import core.GradingSystem;
+import tools.Tools;
 
 import javax.swing.*;
 
@@ -21,7 +22,8 @@ public class API {
     public boolean login(String username, String password){
         boolean success = gradingSystem.login(username,password);
         if (success){
-            System.out.println("yes");
+            Object[][] data = Tools.list1DToArray2D(gradingSystem.getCourseNameList());
+
             mainFrame.loginPanel.hidePanel();
             mainFrame.classPanel.showPanel();
         }
