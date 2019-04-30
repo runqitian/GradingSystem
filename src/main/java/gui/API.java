@@ -22,7 +22,7 @@ public class API {
     public boolean login(String username, String password){
         boolean success = gradingSystem.login(username,password);
         if (success){
-            Object[][] data = Tools.list1DToArray2D(gradingSystem.getCourseNameList());
+//            Object[][] data = Tools.list1DToArray2D(gradingSystem.getCourseNameList());
 
             mainFrame.loginPanel.hidePanel();
             mainFrame.classPanel.showPanel();

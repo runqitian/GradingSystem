@@ -15,16 +15,5 @@ public class Category {
         this.subCategoryList = new ArrayList<SubCategory>();
     }
 
-    public void modifyName(){
-
-    }
-
-    public void modifyWeight(){
-
-    }
-
-    public void modifySubCategory(){
-
-    }
 
 }

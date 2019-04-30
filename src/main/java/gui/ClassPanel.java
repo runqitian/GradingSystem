@@ -5,6 +5,7 @@ import core.Course;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,8 @@ public class ClassPanel extends JPanel implements ActionListener{
     JButton studentManageBtn;
     JButton gradeSelectedBtn;
     JFileChooser fileChooser;
+
+    DefaultTableModel courseListModel;
 
 
     // test
@@ -75,15 +78,18 @@ public class ClassPanel extends JPanel implements ActionListener{
         initMainPanel();
     }
 
-    public void initSelectPanel(Object[][] courseNames){
+    public void initSelectPanel(){
         selectPanel.setLayout(new GridBagLayout());
 
         String[] colName = {"course"};
+        Object[][] courseNames = {{"course1"},{"course2"}};
+
+        courseListModel = new DefaultTableModel(courseNames,colName);
 
         DefaultTableCellRenderer r   =   new   DefaultTableCellRenderer();
         r.setHorizontalAlignment(JLabel.CENTER);
 
-        this.courseList = new JTable(courseNames,colName);
+        this.courseList = new JTable(courseListModel);
         this.courseList.setRowHeight(30);
 
         courseList.setDefaultRenderer(Object.class,   r);
@@ -154,9 +160,17 @@ public class ClassPanel extends JPanel implements ActionListener{
 //        subMainPanel.add(new Button("hello"), new GBC(9,3,1,1,0.1,1, GridBagConstraints.NONE));
     }
 
+    public void updateCourseList(Object[][] courseNames){
+        String[] colName = {"course"};
+        this.courseListModel.setDataVector(courseNames,colName);
+        this.courseListModel.fireTableDataChanged();
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("import")){
             //
+            Object[][] courseNames = {{"demo1"},{"demo2"}};
+            updateCourseList(courseNames);
         }
     }
 }
