@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b17dfcec-02a9-47a9-9ec8-b46fde5bcde2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/controllers/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/controllers/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/Comment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/Course.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/Grader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/GradingSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/core/SubCategory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/demo/Demo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/gui/LoginPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/gui/MainFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GradingSystem/main/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/DatabaseStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/GradingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/GradingSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/GradingTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/GradingTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/SubCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/SubCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/API.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/API.java" afterDir="false" />
-    </list>
+    <list default="true" id="b17dfcec-02a9-47a9-9ec8-b46fde5bcde2" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,12 +25,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="32" />
+          <entry key="java" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="32" />
+          <entry key="JAVA" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -85,10 +61,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/core/Category.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
+            <state relative-caret-position="371">
               <caret line="33" column="2" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -143,6 +119,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="259">
               <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/API.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -340,12 +328,12 @@
       <workItem from="1556648872083" duration="3634000" />
       <workItem from="1556653400229" duration="4184000" />
       <workItem from="1556731512580" duration="2815000" />
-      <workItem from="1556754561017" duration="6336000" />
+      <workItem from="1556754561017" duration="6738000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34332000" />
+    <option name="totallyTimeSpent" value="34734000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -357,7 +345,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1802949" />
@@ -585,16 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/API.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/core/Student.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -648,7 +626,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/core/Category.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
+        <state relative-caret-position="371">
           <caret line="33" column="2" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -660,6 +638,16 @@
             <element signature="e#659#660#0" expanded="true" />
             <element signature="e#703#704#0" expanded="true" />
             <element signature="e#739#740#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
