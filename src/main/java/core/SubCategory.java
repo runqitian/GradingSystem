@@ -12,11 +12,16 @@ public class SubCategory extends Category{
     Map<Student, Score> stuScore = new HashMap<Student, Score>();
 
     public SubCategory(Category category, String subCategoryName, Double weight, Integer maxGrade) {
-        super(subCategoryName, weight);
+        super(subCategoryName);
         this.category = category;
-        this.categoryName = subCategoryName;
+//        this.categoryName = subCategoryName;
         this.weight = weight;
         this.maxGrade = maxGrade;
+    }
+
+    public SubCategory(Category category, String subCategoryName) {
+        super(subCategoryName);
+        this.category = category;
     }
 
     public Category getCategory() {

@@ -10,10 +10,15 @@ public class Category {
     protected Double weight;
 //    Vector<SubCategory> subCategoryList;
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+//        this.weight = weight;
+//        this.subCategoryList = new Vector<SubCategory>();
+    }
+
     public Category(String categoryName, Double weight) {
         this.categoryName = categoryName;
         this.weight = weight;
-//        this.subCategoryList = new Vector<SubCategory>();
     }
 
     public String getName() {
