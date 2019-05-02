@@ -24,7 +24,7 @@ public class DatabaseStorage {
     // Allows users to sign up - might not but necessary for what we are doing
     public static void signUp(String user, String pass){
         MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("testAccounts");
+        MongoCollection<Document> collection = db.getCollection("Users");
         Document newDocument = new Document("username", user).append("password", pass);
         collection.insertOne(newDocument);
     }
@@ -32,7 +32,7 @@ public class DatabaseStorage {
     // Allows user to login. Returns true if the login was successful or false otherwise
     public static Boolean logIn(String user, String pass){
         MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("testAccounts");
+        MongoCollection<Document> collection = db.getCollection("Users");
         Document possibleMatch = collection.find(eq("username", user)).first();
         if((possibleMatch != null) && (possibleMatch.get("password").equals(pass))){
             return true;
@@ -43,7 +43,7 @@ public class DatabaseStorage {
     // Adds a new category to the database. Based off the design found here: https://docs.google.com/document/d/1Eq5BSkV4JUp511XVhcvLPc3SBE5irwBFiqChFFtwCpQ/edit
     public static void addSubCategory (String name, Double gradWeight, Double ugradWeight, ArrayList<SubCategory> subCategories, String categoryBelongTo, Double maxPossible, HashMap<String, Double> grades){
         MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("testCategories");
+        MongoCollection<Document> collection = db.getCollection("Courses");
         Document newDocument = new Document("name", name).append("gradWeight", gradWeight).append("uGradWeight", ugradWeight).append("subCategories", Arrays.asList(subCategories)).append("categoryBelongTo", categoryBelongTo).append("maxPossible", maxPossible).append("grades", grades);
         collection.insertOne(newDocument);
     }
@@ -52,7 +52,7 @@ public class DatabaseStorage {
     // Fetches a category entry from the database.
     public static ArrayList findSubCategory(String name, String categoryBelongTo){
         MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("testCategories");
+        MongoCollection<Document> collection = db.getCollection("Courses");
         Document possibleMatch = collection.find(eq("name", name)).first();
         if((possibleMatch != null) && (possibleMatch.get("categoryBelongTo").equals(categoryBelongTo))){
             ArrayList ret = new ArrayList();
@@ -83,7 +83,7 @@ public class DatabaseStorage {
         };
 
         MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("testCategories");
+        MongoCollection<Document> collection = db.getCollection("Courses");
         collection.find().forEach(operateBlock);
         System.out.println(item);
         return item;
