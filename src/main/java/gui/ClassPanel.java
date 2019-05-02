@@ -10,6 +10,7 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class ClassPanel extends JPanel implements ActionListener{
 
@@ -30,12 +31,12 @@ public class ClassPanel extends JPanel implements ActionListener{
     JButton gradeSelectedBtn;
     JFileChooser fileChooser;
 
-    DefaultTableModel courseListModel;
+    MyTableModel courseListModel;
 
 
-    // test
-    // test initial
-    Course course = new Course("ood");
+    Vector<Object> colName = new Vector<Object>();
+    Vector<Vector<Object>> courseNames = new Vector<Vector<Object>>();
+
 
 
 
@@ -81,18 +82,20 @@ public class ClassPanel extends JPanel implements ActionListener{
     public void initSelectPanel(){
         selectPanel.setLayout(new GridBagLayout());
 
-        String[] colName = {"course"};
-        Object[][] courseNames = {{"course1"},{"course2"}};
+        colName.add("couse list");
+        Vector<Object> course1 = new Vector<Object>();
+        course1.add("Java");
+        Vector<Object> course2 = new Vector<Object>();
+        course2.add("Python");
+        courseNames.add(course1);
+        courseNames.add(course2);
 
-        courseListModel = new DefaultTableModel(courseNames,colName);
-
-        DefaultTableCellRenderer r   =   new   DefaultTableCellRenderer();
-        r.setHorizontalAlignment(JLabel.CENTER);
+        courseListModel = new MyTableModel(courseNames,colName,new Vector<Integer>());
 
         this.courseList = new JTable(courseListModel);
         this.courseList.setRowHeight(30);
 
-        courseList.setDefaultRenderer(Object.class,   r);
+        courseList.setDefaultRenderer(Object.class, new MyTableCellRenderer());
 
         JLabel lb1 = new JLabel("Course List",JLabel.CENTER);
 
@@ -148,21 +151,11 @@ public class ClassPanel extends JPanel implements ActionListener{
         subMainPanel.add(classReportBtn, new GBC(7,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
         subMainPanel.add(studentManageBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
         subMainPanel.add(gradeSelectedBtn, new GBC(9,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
-//        subMainPanel.add(new Button("hello"), new GBC(0,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(1,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(2,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(3,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(4,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(5,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(6,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(7,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(8,3,1,1,0.1,1, GridBagConstraints.NONE));
-//        subMainPanel.add(new Button("hello"), new GBC(9,3,1,1,0.1,1, GridBagConstraints.NONE));
+
     }
 
-    public void updateCourseList(Object[][] courseNames){
-        String[] colName = {"course"};
-        this.courseListModel.setDataVector(courseNames,colName);
+    public void updateCourseList(Vector<Vector<Object>> courseNames){
+        this.courseListModel.setDataVector(courseNames,this.colName,new Vector<Integer>());
         this.courseListModel.fireTableDataChanged();
     }
 
@@ -170,7 +163,7 @@ public class ClassPanel extends JPanel implements ActionListener{
         if (e.getActionCommand().equals("import")){
             //
             Object[][] courseNames = {{"demo1"},{"demo2"}};
-            updateCourseList(courseNames);
+//            updateCourseList(courseNames);
         }
     }
 }

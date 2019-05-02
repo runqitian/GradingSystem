@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -55,6 +56,12 @@ public class MyTableModel extends AbstractTableModel {
 
     public Object getValueAt(int rowIndex, int columnIndex) {
         return data.get(rowIndex).get(columnIndex);
+    }
+
+    public void setDataVector(Vector<Vector<Object>> data, Vector<Object> header, Vector<Integer> notEditable){
+        this.header = header;
+        this.data = data;
+        this.notEditable = notEditable;
     }
 
     @Override

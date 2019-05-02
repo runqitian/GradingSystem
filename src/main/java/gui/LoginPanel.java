@@ -69,11 +69,9 @@ public class LoginPanel extends JPanel implements ActionListener {
         if (e.getActionCommand().equals("login")){
             String password = new String(this.pwdInput.getPassword());
             boolean success = api.login(this.usernameInput.getText(),password);
-//            boolean success = false;
             if (!success){
                 JOptionPane.showMessageDialog(this,"login failed!");
             }
-
         }
     }
 }

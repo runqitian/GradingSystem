@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     public LoginPanel loginPanel;
     public ClassPanel classPanel;
     public WeightPanel weightPanel;
-    public ScorePanel scorePanel;
+    public GradingPanel gradingPanel;
 
 
     // put the window to central on your computer
@@ -52,22 +52,24 @@ public class MainFrame extends JFrame {
         weightPanel = new WeightPanel(api);
         this.add(weightPanel);
         weightPanel.setBounds(0,0,900,540);
+        gradingPanel = new GradingPanel(api);
+        this.add(gradingPanel);
+        gradingPanel.setBounds(0,0,900,540);
+
 
 //        ChartPanel chartPanel = new ChartPanel();
 //        this.add(chartPanel);
 
-        scorePanel = new ScorePanel(api);
-        this.add(scorePanel);
-        scorePanel.setBounds(0,0,900,540);
 
 //        loginPanel = new LoginPanel(controller);
 //        loginPanel.setBounds(0, 0, 500, 500);
 //        this.getContentPane().add(loginPanel);
 
 //        loginPanel.showPanel();
-//        classPanel.showPanel();
+        classPanel.showPanel();
 //        weightPanel.showPanel();
-        scorePanel.showPanel();
+//        gradingPanel.showPanel();
+
         this.setVisible(true);
         this.setEnabled(true);
     }

@@ -14,18 +14,11 @@ public class API {
         this.gradingSystem = gradingSystem;
     }
 
-//    public JTable loadGradingSummaryTable(){
-//        gradingSystem.getGradingSummary();
-//        return null;
-//    }
-
     public boolean login(String username, String password){
         boolean success = gradingSystem.login(username,password);
         if (success){
-//            Object[][] data = Tools.list1DToArray2D(gradingSystem.getCourseNameList());
-
+            // load and initialize
             mainFrame.loginPanel.hidePanel();
-            //
             mainFrame.classPanel.showPanel();
         }
         return success;

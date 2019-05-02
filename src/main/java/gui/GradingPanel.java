@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ScorePanel extends JPanel implements ActionListener {
+public class GradingPanel extends JPanel implements ActionListener {
 
     API api;
 
@@ -28,7 +28,7 @@ public class ScorePanel extends JPanel implements ActionListener {
     JScrollPane gradingPane;
     JTable gradingTable;
 
-    public ScorePanel(API api){
+    public GradingPanel(API api){
         this.api = api;
         this.setLayout(new GridBagLayout());
         this.setVisible(false);
@@ -85,7 +85,6 @@ public class ScorePanel extends JPanel implements ActionListener {
 
         tablePanel.setLayout(new GridBagLayout());
         tablePanel.add(gradingPane, new GBC(0,0,1,1,1,1));
-
 
     }
 
