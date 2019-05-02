@@ -1,5 +1,7 @@
 package gui;
 
+import tools.Tools;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -11,69 +13,84 @@ public class WeightPanel extends JPanel implements ActionListener {
 
     API api;
 
+    JPanel titlePanel;
     JTable cTable;
     JTable sTable;
+    JScrollPane categoryPane;
+    JScrollPane subcategoryPane;
+
+
+    JPanel downPanel;
+    JButton saveBtn;
+    JButton cancelBtn;
+    JTextField categoryInput;
+    JButton categoryAddBtn;
+    JComboBox subBelong;
+    JTextField subInput;
+    JButton subAddBtn;
+
 
     public WeightPanel(API api){
         this.api = api;
 
-        this.setBackground(Color.CYAN);
+//        this.setBackground(Color.CYAN);
         this.setLayout(new GridBagLayout());
-
+        this.setVisible(false);
+        this.setEnabled(false);
         init();
     }
 
     public void init(){
-
-
         MyTableModel cModel = new MyTableModel();
         MyTableModel sModel = new MyTableModel();
-//        DefaultTableModel cTableModel = new DefaultTableModel(categoryNames,categoryCol);
-//        DefaultTableModel sTableModel = new DefaultTableModel(subcategoryNames,subcategoryCol);
 
+        titlePanel = new JPanel();
         cTable = new JTable(cModel);
         sTable = new JTable(sModel);
-//        categoryWeightTable.setDefaultRenderer(Object.class,new MyTableCellRenderer());
-//        subcategoryWeightTable.setDefaultRenderer(Object.class, new MyTableCellRenderer());
-//        categoryWeightTable.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
-//        subcategoryWeightTable.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
-////        categoryWeightTable.getTableHeader().setBackground(Color.GREEN);
-//        categoryWeightTable.setRowHeight(50);
-//        subcategoryWeightTable.setRowHeight(50);
-//        categoryWeightTable.setFont(new Font("TimesRoman", Font.PLAIN, 22));
-//        subcategoryWeightTable.setFont(new Font("TimesRoman", Font.PLAIN, 22));
-        cTable.setDefaultRenderer(Object.class, new MyTableCellRenderer());
-        cTable.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
-        cTable.setRowHeight(50);
-        cTable.getTableHeader().setBackground(Color.GRAY);
-        cTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-        cTable.setGridColor(Color.LIGHT_GRAY);
-        cTable.setShowGrid(true);
-        cTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        downPanel = new JPanel();
+        categoryInput = new JTextField();
+        categoryAddBtn = new JButton("add");
+        subBelong = new JComboBox();
+        subInput = new JTextField();
+        subAddBtn = new JButton("add");
+        saveBtn = new JButton("save");
+        cancelBtn = new JButton("cancel");
 
-        sTable.setDefaultRenderer(Object.class, new MyTableCellRenderer());
-        sTable.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
-        sTable.setRowHeight(30);
-        sTable.getTableHeader().setBackground(Color.GRAY);
-        sTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-        sTable.setGridColor(Color.LIGHT_GRAY);
-        sTable.setShowGrid(true);
-        sTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        saveBtn.setPreferredSize(new Dimension(70,40));
+        cancelBtn.setPreferredSize(new Dimension(70,40));
 
-//        sTable.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
-//        sTable.setDefaultRenderer(Object.class, new MyTableCellRenderer());
-//        sTable.setRowHeight(30);
-//        cTable.setFont(new Font("TimesRoman", Font.PLAIN, 22));
+        titlePanel.setBackground(Color.LIGHT_GRAY);
+        titlePanel.setLayout(new GridBagLayout());
+        JLabel titleLabel = new JLabel("Change Weight");
+        titleLabel.setFont(new Font("TimesRoman", Font.BOLD, 35));
+        titlePanel.add(titleLabel, new GBC(0,0,1,1,0.5,1,GridBagConstraints.NONE,GridBagConstraints.LINE_START, new Insets(0,60,0,0)));
+        titlePanel.add(saveBtn, new GBC(1,0,1,1,0.5,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END, new Insets(0,0,0,170 )));
+        titlePanel.add(cancelBtn, new GBC(1,0,1,1,0.5,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END, new Insets(0,0,0,70 )));
+        Tools.beautifyJTable(cTable);
+        Tools.beautifyJTable(sTable);
+        categoryPane = new JScrollPane(cTable);
+        subcategoryPane = new JScrollPane(sTable , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        cTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        sTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        JScrollPane categoryPane = new JScrollPane(cTable);
-        categoryPane.setPreferredSize(new Dimension(300,400));
-        JScrollPane subcategoryPane = new JScrollPane(sTable , ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        subcategoryPane.setPreferredSize(new Dimension(300,400));
-        subcategoryPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        this.add(categoryPane, new GBC(0,1,1,1,0.5,0.8,GridBagConstraints.NONE,GridBagConstraints.CENTER));
-        this.add(subcategoryPane, new GBC(1,1,1,1,0.5,0.8,GridBagConstraints.NONE,GridBagConstraints.CENTER));
+
+        categoryInput.setPreferredSize(new Dimension(120,35));
+        categoryAddBtn.setPreferredSize(new Dimension(70,40));
+        subInput.setPreferredSize(new Dimension(120,35));
+        subAddBtn.setPreferredSize(new Dimension(70,40));
+        subBelong.setPreferredSize(new Dimension(120,40));
+
+//        downPanel.setBackground(Color.GRAY);
+        downPanel.setLayout(new GridBagLayout());
+
+        this.add(titlePanel,new GBC(0,0,2,1,1,0.2,GridBagConstraints.BOTH));
+        this.add(categoryPane, new GBC(0,1,1,1,0.4,0.6,GridBagConstraints.BOTH,GridBagConstraints.CENTER, new Insets(10,55,10,55)));
+        this.add(subcategoryPane, new GBC(1,1,1,1,0.6,0.6,GridBagConstraints.BOTH,GridBagConstraints.CENTER, new Insets(10,55,10,55)));
+
+        downPanel.add(categoryInput, new GBC(0,0,1,1,0.4,1, GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,155)));
+        downPanel.add(categoryAddBtn, new GBC(0,0,1,1,0.4,1,GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,55)));
+        downPanel.add(subBelong, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,285)));
+        downPanel.add(subInput, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,145)));
+        downPanel.add(subAddBtn, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,55)));
+        this.add(downPanel, new GBC(0,2,5,1,1,0.2));
     }
 
     public void showPanel(){

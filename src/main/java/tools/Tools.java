@@ -1,5 +1,10 @@
 package tools;
 
+import gui.MyTableCellHeaderRenderer;
+import gui.MyTableCellRenderer;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,6 +25,18 @@ public class Tools {
             output[i][0] = input.get(i);
         }
         return output;
+    }
+
+    public static void beautifyJTable(JTable table){
+        table.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        table.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
+        table.setRowHeight(50);
+        table.getTableHeader().setBackground(Color.GRAY);
+        table.getColumnModel().getColumn(0).setPreferredWidth(150);
+        table.setGridColor(Color.LIGHT_GRAY);
+        table.setShowGrid(true);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
 }

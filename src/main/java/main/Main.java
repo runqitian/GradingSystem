@@ -20,12 +20,12 @@ public class Main {
 //        GradingSystem gradingSystem = new GradingSystem();
 //        MainFrame mainFrame = new MainFrame();
 //        mainFrame.test();
-        DatabaseStorage.connectToDB();
+//        DatabaseStorage.connectToDB();
 //        DatabaseStorage.addSubCategory("assignment2",30.00,10.00,new ArrayList<SubCategory>(),"hw",100.00,new HashMap<String, Double>());
 //        DatabaseStorage.addSubCategory("exam1",30.00,10.00,new ArrayList<SubCategory>(),"exam",100.00,new HashMap<String, Double>());
 
 //        System.out.println(DatabaseStorage.findSubCategory("assignment1", "hw"));
-        System.out.println(DatabaseStorage.getAllSubCategories());
+//        System.out.println(DatabaseStorage.getAllSubCategories());
 
     }
 

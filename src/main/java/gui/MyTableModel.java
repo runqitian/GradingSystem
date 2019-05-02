@@ -28,6 +28,8 @@ public class MyTableModel extends AbstractTableModel {
         header.add("h4444444444");
         header.add("h5");
         notEditable = new Vector<Integer>();
+        notEditable.add(0);
+        notEditable.add(1);
     }
 
     public MyTableModel(Vector<Vector<Object>> data,Vector<Object> header, Vector<Integer> notEditable){
