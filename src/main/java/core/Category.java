@@ -16,11 +16,11 @@ public class Category {
 //        this.subCategoryList = new Vector<SubCategory>();
     }
 
-    public String getCategoryName() {
+    public String getName() {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    public void setName(String categoryName) {
         this.categoryName = categoryName;
     }
 
