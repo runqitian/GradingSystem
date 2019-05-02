@@ -2,18 +2,43 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Category {
 
-    String categoryName;
-    Double weight;
-    List<SubCategory> subCategoryList;
+    protected String categoryName;
+    protected Double weight;
+//    Vector<SubCategory> subCategoryList;
 
     public Category(String categoryName, Double weight) {
         this.categoryName = categoryName;
         this.weight = weight;
-        this.subCategoryList = new ArrayList<SubCategory>();
+//        this.subCategoryList = new Vector<SubCategory>();
     }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+//        public boolean addSubCategory(String SubName, Double Weight, Integer maxpossible){
+//        SubCategory sub = new SubCategory(SubName, Weight, maxpossible);
+//        return this.subCategoryList.add(sub);
+//    }
+
+//    public boolean deleteSubCategory(String subname){
+//        if(subCategoryList.)
+//    }
 
 
 }

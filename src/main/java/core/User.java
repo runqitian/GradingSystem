@@ -25,4 +25,28 @@ public class User {
         courseNameList.addAll(DatabaseStorage.loadCourseNameList(username));
         return courseNameList;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<String> getCourseNameList() {
+        return courseNameList;
+    }
+
+    public void setCourseNameList(List<String> courseNameList) {
+        this.courseNameList = courseNameList;
+    }
 }
