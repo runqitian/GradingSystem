@@ -71,7 +71,7 @@ public class SubCategory extends Category{
     }
 
     public Map<String, Integer> getAllGrades(){
-        Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> result = new HashMap<String, Integer>();
         for (Map.Entry<Student, Score> stuS:
                 stuScore.entrySet()) {
             String SID = stuS.getKey().getSID();

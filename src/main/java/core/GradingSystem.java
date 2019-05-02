@@ -51,7 +51,7 @@ public class GradingSystem {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (SubCategory sub:
              subcates) {
-            Vector<Object> row = new Vector<>();
+            Vector<Object> row = new Vector<Object>();
             row.add(sub.getCategory().getName());
             row.add(sub.getName());
             data.add(row);
@@ -71,7 +71,7 @@ public class GradingSystem {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (Category cate:
                 cates) {
-            Vector<Object> row = new Vector<>();
+            Vector<Object> row = new Vector<Object>();
             row.add(cate.getName());
             row.add(cate.getWeight());
             data.add(row);
@@ -92,7 +92,7 @@ public class GradingSystem {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (SubCategory subcate:
                 subcates) {
-            Vector<Object> row = new Vector<>();
+            Vector<Object> row = new Vector<Object>();
             row.add(subcate.getName());
             row.add(subcate.getWeight());
             row.add(subcate.getMaxGrade());
@@ -130,7 +130,7 @@ public class GradingSystem {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (Student student:
              currentCourse.getStudents()) {
-            Vector<Object> row = new Vector<>();
+            Vector<Object> row = new Vector<Object>();
             row.add(student.getName());
             for (SubCategory subcate:
                  subs) {
