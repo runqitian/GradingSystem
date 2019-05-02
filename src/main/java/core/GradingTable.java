@@ -24,18 +24,6 @@ public class GradingTable {
         }
     }
 
-    public void getGUITable(List<SubCategory> subCategories){
-
-        Vector<Vector<Object>> output = new Vector<Vector<Object>>();
-
-    }
-
-    public void updateGradingTable(){
-
-    }
-
-
-
 }
 
 

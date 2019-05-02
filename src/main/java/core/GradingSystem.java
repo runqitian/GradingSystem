@@ -49,11 +49,5 @@ public class GradingSystem {
         }
         return success;
     }
-
-    public Vector<Vector<Object>> getGradingSummary(){
-
-        Vector<Vector<Object>> result = new Vector<Vector<Object>>();
-        return result;
-    }
-
+    //todo
 }
