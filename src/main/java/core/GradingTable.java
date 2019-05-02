@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class GradingTable {
-
+    Course course;
     Vector<SubCategory> cols = new Vector<SubCategory>();
     Vector<Vector<Object>> table = new Vector<Vector<Object>>();
 
@@ -13,12 +13,13 @@ public class GradingTable {
         for (SubCategory sub : subCategories){
             cols.add(sub);
         }
-
-        for(int i=0; i<students.size(); i++){
+        //sub start index: 0
+        //score start index: 1
+        for(Student stu: students){
             Vector<Object> row = new Vector<Object>();
-            row.add(students.get(i));
-            for (int j=0; j<subCategories.size(); j++){
-                row.add(new Double(0));
+            row.add(stu);
+            for (SubCategory sub : subCategories){
+                row.add(new Integer(0));
             }
             table.add(row);
         }
