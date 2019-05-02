@@ -27,16 +27,19 @@ public class Tools {
         return output;
     }
 
-    public static void beautifyJTable(JTable table){
-        table.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+    public static void beautifyJTable(JTable table, boolean autosize, int fontsize, int rowHeight){
+        table.setDefaultRenderer(Object.class, new MyTableCellRenderer(fontsize));
         table.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
-        table.setRowHeight(50);
+        table.setRowHeight(rowHeight);
         table.getTableHeader().setBackground(Color.GRAY);
         table.getColumnModel().getColumn(0).setPreferredWidth(150);
         table.setGridColor(Color.LIGHT_GRAY);
         table.setShowGrid(true);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        if (!autosize){
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }
     }
+
+
 
 }

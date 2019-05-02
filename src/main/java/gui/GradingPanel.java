@@ -1,5 +1,7 @@
 package gui;
 
+import com.sun.deploy.panel.JreTableModel;
+import core.Student;
 import main.Main;
 import tools.Tools;
 
@@ -7,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class GradingPanel extends JPanel implements ActionListener {
 
@@ -27,6 +30,13 @@ public class GradingPanel extends JPanel implements ActionListener {
 
     JScrollPane gradingPane;
     JTable gradingTable;
+    MyTableModel gradingModel;
+    Vector<Integer> notEditable;
+    Vector<Student> studentVector;
+    Vector<Vector<Object>> gradeCache;
+    Vector<Object> headerCache;
+    // "plus" "minus" "percentage"
+    String gradeForm;
 
     public GradingPanel(API api){
         this.api = api;
@@ -50,10 +60,16 @@ public class GradingPanel extends JPanel implements ActionListener {
         method = new JComboBox();
         weightBtn = new JButton("change weight");
         backBtn = new JButton("back");
-        gradingTable = new JTable(new MyTableModel());
+        gradingModel = new MyTableModel();
+        notEditable = new Vector<Integer>();
+        gradingTable = new JTable(gradingModel);
         gradingPane = new JScrollPane(gradingTable);
+        notEditable.add(0);
+        this.studentVector = new Vector<Student>();
+        gradeCache = new Vector<Vector<Object>>();
+        headerCache = new Vector<Object>();
 
-        Tools.beautifyJTable(gradingTable);
+        Tools.beautifyJTable(gradingTable, true, 20,50);
 
         infoPanel.setBackground(Color.LIGHT_GRAY);
         tablePanel.setBackground(Color.GRAY);
@@ -88,6 +104,22 @@ public class GradingPanel extends JPanel implements ActionListener {
 
     }
 
+    public void transformGrade(String signal){
+
+    }
+
+    public void updateInfoPanelBySelected(){
+        int rowIdx = this.gradingTable.getSelectedRow();
+        int colIdx = this.gradingTable.getSelectedColumn();
+        Student currentStudent = studentVector.get(rowIdx);
+    }
+
+    public void updateTable(Vector<Vector<Object>> data, Vector<Object> header){
+        gradeCache = data;
+        headerCache = header;
+        this.gradingModel.setDataVector(data,header,this.notEditable);
+    }
+
     public void showPanel(){
         this.setVisible(true);
         this.setEnabled(true);
@@ -99,6 +131,13 @@ public class GradingPanel extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("update_table")){
+//            api.getGradingData
+
+        }
+        else if (e.getActionCommand().equals("update_info_by_selected")){
+
+        }
 
     }
 }

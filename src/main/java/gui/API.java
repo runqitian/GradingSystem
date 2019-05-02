@@ -24,6 +24,10 @@ public class API {
         return success;
     }
 
+    public void saveWeightChange(){
+
+    }
+
     
 
 
