@@ -13,4 +13,10 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
 //        this.setFont(new Font("TimesRoman", Font.PLAIN, 50));
     }
 
+    public MyTableCellRenderer(int fontSize){
+        super();
+        this.setHorizontalAlignment(JLabel.CENTER);
+        this.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
+    }
+
 }

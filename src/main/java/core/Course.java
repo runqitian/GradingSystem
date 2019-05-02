@@ -47,10 +47,18 @@ public class Course {
         return subCategoryList;
     }
 
-    public boolean addCategory(String CategoryName, Double Weight){
-        Category category = new Category(CategoryName, Weight);
+    public boolean addCategory(String CategoryName){
+        Category category = new Category(CategoryName);
 //        this .categoryList.addElement(category);
         return this.categoryList.add(category);
+    }
+
+    public void setCategoryList(Vector<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public void setSubCategoryList(Vector<SubCategory> subCategoryList) {
+        this.subCategoryList = subCategoryList;
     }
 
     public boolean deleteCategory(String CategoryName){
@@ -69,15 +77,24 @@ public class Course {
         return false;
     }
 
-    public void modifyCategory(){
-        //todo
+    public boolean modifyCategory(String cateName, Double newWeight){
+        for (Category cate:
+             this.getCategoryList()) {
+            if(cate.getName().equals(cateName)){
+                cate.setWeight(newWeight);
+                return true;
+            }
+        }
+        System.out.println("no such Cate");
+        return false;
+        
     }
 
-    public boolean addSubCategory(String CategoryName, String SubName, Double Weight, Integer MaxGrade){
+    public boolean addSubCategory(String CategoryName, String SubName){
         for (Category category:
              categoryList) {
             if(category.getName() == CategoryName){
-                SubCategory sub = new SubCategory(category, SubName, Weight, MaxGrade);
+                SubCategory sub = new SubCategory(category, SubName);
                 return subCategoryList.add(sub);
             }
         }
@@ -94,8 +111,17 @@ public class Course {
         return false;
     }
 
-    public void modifySubCategory(){
-        //todo check score
+    public boolean modifySubCategory(String subName, Double newWeight, Integer maxpossible){
+        for (SubCategory subcate:
+                this.getSubCategoryList()) {
+            if(subcate.getName().equals(subName)){
+                subcate.setWeight(newWeight);
+                subcate.setMaxGrade(maxpossible);
+                return true;
+            }
+        }
+        System.out.println("no such subCate");
+        return false;
     }
 
 
