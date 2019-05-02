@@ -135,10 +135,10 @@ public class ClassPanel extends JPanel implements ActionListener{
         this.importBtn.setActionCommand("import");
         this.importBtn.addActionListener(this);
 
-        CategoryTableModel myModel = new CategoryTableModel();
+//        CategoryTableModel myModel = new CategoryTableModel();
 
         // JTable
-        categoryTable = new JTable(myModel);
+        categoryTable = new JTable(new DefaultTableModel());
         categoryTable.setDefaultRenderer(Object.class, tcr);
         categoryTable.setRowHeight(30);
 

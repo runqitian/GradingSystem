@@ -132,12 +132,8 @@ public class GradingSystem {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (SubCategory subcate:
                 subcates) {
-<<<<<<< HEAD
-            Vector<Object> row = new Vector<Object>();
-=======
             Vector<Object> row = new Vector<>();
             row.add(subcate.getCategory().getName());
->>>>>>> 617196817743b4c5a408b0c1b1d069d7121c263a
             row.add(subcate.getName());
             row.add(subcate.getWeight());
             row.add(subcate.getMaxGrade());
