@@ -43,6 +43,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 
 
     private void init(){
+
         userLabel = new JLabel("username");
         userLabel.setPreferredSize(new Dimension(100,30));
         usernameInput = new JTextField();

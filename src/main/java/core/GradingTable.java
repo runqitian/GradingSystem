@@ -38,16 +38,5 @@ public class GradingTable {
 
 }
 
-class GradeEntity {
-
-    SubCategory belong;
-    Double score;
-
-    public GradeEntity(SubCategory belong, Double score){
-        this.belong = belong;
-        this.score = score;
-    }
-
-}
 
 
