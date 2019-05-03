@@ -3,6 +3,7 @@ package gui;
 import com.sun.deploy.panel.JreTableModel;
 import core.Student;
 import main.Main;
+import sun.rmi.server.InactiveGroupException;
 import tools.Tools;
 
 import javax.swing.*;
@@ -120,7 +121,8 @@ public class GradingPanel extends JPanel implements ActionListener {
         this.gradingModel.setDataVector(data,header,this.notEditable);
     }
 
-    public void showPanel(){
+    public void showPanel(Vector<Vector<Object>> data, Vector<Object> header){
+        refreshPage(data,header);
         this.setVisible(true);
         this.setEnabled(true);
     }
@@ -130,14 +132,18 @@ public class GradingPanel extends JPanel implements ActionListener {
         this.setEnabled(false);
     }
 
+    public void refreshPage(Vector<Vector<Object>> data, Vector<Object> header){
+        this.gradingModel.setDataVector(data,header,new Vector<Integer>());
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("update_table")){
 //            api.getGradingData
 
         }
-        else if (e.getActionCommand().equals("update_info_by_selected")){
+        else if (e.getActionCommand().equals("update_info_by_selected")) {
 
         }
-
     }
 }

@@ -156,6 +156,9 @@ public class ClassPanel extends JPanel implements ActionListener{
         this.gradeSelectedBtn.setActionCommand("grade_selected");
         this.gradeSelectedBtn.addActionListener(this);
 
+        this.settingBtn.setActionCommand("set_weight");
+        this.settingBtn.addActionListener(this);
+
         Tools.beautifyJTable(categoryTable,true,25,30);
 
 
@@ -208,6 +211,9 @@ public class ClassPanel extends JPanel implements ActionListener{
                 result.add(this.categoryModel.getValueAt(row,1).toString());
             }
             api.uploadGradingSelected(result);
+        }
+        else if(e.getActionCommand().equals("set_weight")){
+            api.classToWeightPanel();
         }
     }
 }

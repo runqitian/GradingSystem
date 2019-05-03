@@ -1,6 +1,7 @@
 package gui;
 
 import core.GradingSystem;
+import org.omg.CORBA.OBJ_ADAPTER;
 import tools.Tools;
 
 import javax.swing.*;
@@ -64,11 +65,37 @@ public class API {
 
     public void uploadGradingSelected(Vector<String> Names){
         Object[] objs = gradingSystem.showGradingInfo(Names);
-        System.out.println(objs);
+
+        System.out.println(objs[0]);
+        Vector<Vector<Object>> data = (Vector<Vector<Object>>)objs[0];
+        Vector<Object> header = (Vector<Object>)objs[1];
+        System.out.println(data);
+        System.out.println(header);
+
+        mainFrame.classPanel.hidePanel();
+        mainFrame.gradingPanel.showPanel(data,header);
+    }
+
+
+    public void classToWeightPanel(){
+        Object[] catObjs = gradingSystem.showCategory();
+        Object[] subObjs = gradingSystem.showSubCategories();
+        Vector<Vector<Object>> catData = (Vector<Vector<Object>>)catObjs[0];
+        Vector<Object> catHeader = (Vector<Object>)catObjs[1];
+        Vector<Vector<Object>> subData = (Vector<Vector<Object>>)subObjs[0];
+        Vector<Object> subHeader = (Vector<Object>)subObjs[1];
+        System.out.println(catData);
+        System.out.println(subData);
+        mainFrame.classPanel.hidePanel();
+        mainFrame.weightPanel.showPanel(catData,catHeader,subData,subHeader);
     }
 
 
 
+    public void weightToClassPanel(){
+        this.mainFrame.weightPanel.hidePanel();
+        this.mainFrame.classPanel.showPanel();
+    }
     
 
 

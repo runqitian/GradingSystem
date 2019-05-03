@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.invoke.VolatileCallSite;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -126,7 +127,8 @@ public class WeightPanel extends JPanel implements ActionListener {
         this.add(downPanel, new GBC(0,2,5,1,1,0.2));
     }
 
-    public void showPanel(){
+    public void showPanel(Vector<Vector<Object>> catData, Vector<Object> catHeader, Vector<Vector<Object>> subData, Vector<Object> subHeader){
+        refreshAndLoad(catData,catHeader,subData,subHeader);
         this.setVisible(true);
         this.setEnabled(true);
     }
@@ -134,6 +136,13 @@ public class WeightPanel extends JPanel implements ActionListener {
     public void hidePanel(){
         this.setVisible(false);
         this.setEnabled(false);
+    }
+
+    public void refreshAndLoad(Vector<Vector<Object>> catData, Vector<Object> catHeader, Vector<Vector<Object>> subData, Vector<Object> subHeader){
+        this.cModel.setDataVector(catData,catHeader,new Vector<Integer>());
+        this.sModel.setDataVector(subData,subHeader,new Vector<Integer>());
+        this.cModel.fireTableDataChanged();
+        this.sModel.fireTableDataChanged();
     }
 
     public boolean checkLegal(){
@@ -259,8 +268,14 @@ public class WeightPanel extends JPanel implements ActionListener {
 //            refresh_load();
         }
         else if(e.getActionCommand().equals("cancel")){
-            // api.get_weight
-//            refresh_load();
+            api.weightToClassPanel();
+        }else if(e.getActionCommand().equals("save")){
+
         }
+        else if(e.getActionCommand().equals("add_category")){
+
+        }
+//        else if(e.ge)
+
     }
 }
