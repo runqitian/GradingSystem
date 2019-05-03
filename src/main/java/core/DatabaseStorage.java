@@ -7,15 +7,22 @@ import com.mongodb.MongoClientURI;
 import static com.mongodb.client.model.Filters.*;
 import org.bson.Document;
 import com.mongodb.Block;
+
+import javax.print.Doc;
 import java.sql.Array;
 import java.util.*;
+import java.io.FileReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
 
 
 public class DatabaseStorage {
 
     // Connects to mongo instance
     public static MongoDatabase connectToDB(){
-        MongoClient mongoClient = new MongoClient("mongodb://test:testing1@ds135624.mlab.com:35624/cs591" , 27017 );
+        MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://test:testing1@ds135624.mlab.com:35624/cs591"));
         MongoDatabase database = mongoClient.getDatabase("cs591");
 
         return database;
@@ -40,60 +47,121 @@ public class DatabaseStorage {
         return false;
     }
 
-    // Adds a new category to the database. Based off the design found here: https://docs.google.com/document/d/1Eq5BSkV4JUp511XVhcvLPc3SBE5irwBFiqChFFtwCpQ/edit
-    public static void addSubCategory (String name, Double gradWeight, Double ugradWeight, ArrayList<SubCategory> subCategories, String categoryBelongTo, Double maxPossible, HashMap<String, Double> grades){
+
+    public static Vector<SubCategory> getSubCategories(String courseName, String categoryName){
         MongoDatabase db = connectToDB();
         MongoCollection<Document> collection = db.getCollection("Courses");
-        Document newDocument = new Document("name", name).append("gradWeight", gradWeight).append("uGradWeight", ugradWeight).append("subCategories", Arrays.asList(subCategories)).append("categoryBelongTo", categoryBelongTo).append("maxPossible", maxPossible).append("grades", grades);
-        collection.insertOne(newDocument);
-    }
-
-
-    // Fetches a category entry from the database.
-    public static ArrayList findSubCategory(String name, String categoryBelongTo){
-        MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("Courses");
-        Document possibleMatch = collection.find(eq("name", name)).first();
-        if((possibleMatch != null) && (possibleMatch.get("categoryBelongTo").equals(categoryBelongTo))){
-            ArrayList ret = new ArrayList();
-            ret.add(possibleMatch.get("name"));
-            ret.add(possibleMatch.get("gradWeight"));
-            ret.add(possibleMatch.get("uGradWeight"));
-            ret.add(possibleMatch.get("subCategories"));
-            ret.add(possibleMatch.get("categoryBelongTo"));
-            ret.add(possibleMatch.get("maxPossible"));
-            ret.add(possibleMatch.get("grades"));
-            return ret;
-        }
-        return new ArrayList();
-    }
-
-    public static Vector<Vector<Object>> getAllSubCategories(){
-
-        final Vector<Vector<Object>> item = new Vector<Vector<Object>>();
-
-        Block<Document> operateBlock = new Block<Document>() {
-            public void apply(final Document document) {
-                System.out.println(document.toJson());
-                Vector<Object> temp = new Vector<Object>();
-                temp.add(document.get("categoryBelongTo").toString());
-                temp.add(document.get("name").toString());
-                item.add(temp);
+        Document possibleMatch = collection.find(eq("Coursename", courseName)).first();
+        Vector<SubCategory> ret = new Vector<SubCategory>();
+        if(possibleMatch != null){
+            JSONParser jsonP = new JSONParser();
+            try{
+                JSONObject jsonO = (JSONObject) jsonP.parse(possibleMatch.toJson());
+                Map categories = (Map)jsonO.get("Categories");
+                Iterator iter = categories.keySet().iterator();
+                while(iter.hasNext()){
+                    String x = (String) iter.next();
+                    if(x.equals(categoryName)){
+                        Map subCategories = (Map) categories.get(x);
+                        Iterator innerIterator = subCategories.keySet().iterator();
+                        String weight = (String)subCategories.get("Weight");
+                        while(innerIterator.hasNext()){
+                            String z = (String) innerIterator.next();
+                            if(!z.equals("Weight")){
+                                Map temp3 = (Map) subCategories.get(z);
+                                String currWeight = (String) temp3.get("Weight");
+                                String maxScore = (String) temp3.get("maxscore");
+                                SubCategory newSub = new SubCategory(new Category(x, Double.parseDouble(weight)),z,Double.parseDouble(currWeight),Integer.parseInt(maxScore));
+                                ret.add(newSub);
+                            }
+                        }
+                    }
+                }
+            } catch(Exception e) {
+                System.out.println("broke");
             }
-        };
-
-        MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("Courses");
-        collection.find().forEach(operateBlock);
-        System.out.println(item);
-        return item;
+        }
+        return ret;
     }
 
+    public static Vector<Category> getCategories(String courseName){
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Courses");
+        Document possibleMatch = collection.find(eq("Coursename", courseName)).first();
+        Vector<Category> ret = new Vector<Category>();
+        if(possibleMatch != null) {
+            JSONParser jsonP = new JSONParser();
+            try{
+                JSONObject jsonO = (JSONObject) jsonP.parse(possibleMatch.toJson());
+                Map categories = (Map)jsonO.get("Categories");
+                Iterator iter = categories.keySet().iterator();
+                while(iter.hasNext()){
+                    Object x = iter.next();
+                    Map subc = (Map)categories.get(x);
+                    String name = (String) x;
+                    String weight = (String)subc.get("Weight");
+                    ret.add(new Category(name,Double.parseDouble(weight)));
+                }
 
-    /***
-     *  to do list
-     */
+            } catch(Exception e) {
+                System.out.println("broke");
+            }
+        }
+        return ret;
+    }
 
+    public static Map<String, String> getGradesFor(String courseName, String categoryName, String subCategoryName){
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Courses");
+        Document possibleMatch = collection.find(eq("Coursename", courseName)).first();
+        if(possibleMatch != null){
+            JSONParser jsonP = new JSONParser();
+            try{
+                JSONObject jsonO = (JSONObject) jsonP.parse(possibleMatch.toJson());
+                Map categories = (Map)jsonO.get("Categories");
+                Iterator iter = categories.keySet().iterator();
+                while(iter.hasNext()){
+                    String x = (String) iter.next();
+                    if(x.equals(categoryName)){
+                        Map subCategories = (Map) categories.get(x);
+                        Map assignment = (Map) subCategories.get(subCategoryName);
+                        Map ret = (Map) assignment.get("studentGrades");
+                        return ret;
+                    }
+                }
+            } catch(Exception e) {
+                System.out.println("broke");
+            }
+        }
+        return new HashMap<String, String>();
+    }
+//
+//    public static Vector<Vector<Object>> getAllSubCategories(){
+//
+//        final Vector<Vector<Object>> item = new Vector<Vector<Object>>();
+//
+//        Block<Document> operateBlock = new Block<Document>() {
+//            public void apply(final Document document) {
+//                System.out.println(document.toJson());
+//                Vector<Object> temp = new Vector<Object>();
+//                temp.add(document.get("categoryBelongTo").toString());
+//                temp.add(document.get("name").toString());
+//                item.add(temp);
+//            }
+//        };
+//
+//        MongoDatabase db = connectToDB();
+//        MongoCollection<Document> collection = db.getCollection("Courses");
+//        collection.find().forEach(operateBlock);
+//        System.out.println(item);
+//        return item;
+//    }
+//
+
+//    /***
+//     *  to do list
+//     */
+//
     public static List<String> loadCourseNameList(String username){
         // return the list of courses which this user teaches.
         return null;
