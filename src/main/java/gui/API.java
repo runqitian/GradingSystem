@@ -4,6 +4,7 @@ import core.GradingSystem;
 import tools.Tools;
 
 import javax.swing.*;
+import java.util.Vector;
 
 public class API {
     private MainFrame mainFrame;
@@ -27,6 +28,31 @@ public class API {
     public void saveWeightChange(){
 
     }
+
+    public Vector<Vector<Object>> loadCourseSummary(){
+        //todo
+
+        return null;
+    }
+
+    public Vector<Vector<Object>> loadCourseList(){
+        //todo
+        return null;
+    }
+
+    public void deleteCourse(String courseName){
+
+    }
+
+    public void createCourse(String courseName){
+
+    }
+
+    public void importStudent(String courseName){
+
+    }
+
+
 
     
 

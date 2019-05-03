@@ -66,9 +66,9 @@ public class MainFrame extends JFrame {
 //        this.getContentPane().add(loginPanel);
 
 //        loginPanel.showPanel();
-//        classPanel.showPanel();
+        classPanel.showPanel();
 //        weightPanel.showPanel();
-        gradingPanel.showPanel();
+//        gradingPanel.showPanel();
 
         this.setVisible(true);
         this.setEnabled(true);
