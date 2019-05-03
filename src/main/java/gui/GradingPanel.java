@@ -7,10 +7,13 @@ import sun.rmi.server.InactiveGroupException;
 import tools.Tools;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.awt.event.MouseEvent;
 
 public class GradingPanel extends JPanel implements ActionListener {
 
@@ -39,6 +42,8 @@ public class GradingPanel extends JPanel implements ActionListener {
     Vector<Object> headerCache;
     // "plus" "minus" "percentage"
     String gradeForm;
+
+    Vector<Student> students = new Vector<Student>();
 
     public GradingPanel(API api){
         this.api = api;
@@ -114,6 +119,30 @@ public class GradingPanel extends JPanel implements ActionListener {
         tablePanel.setLayout(new GridBagLayout());
         tablePanel.add(gradingPane, new GBC(0,0,1,1,1,1));
 
+        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){//仅当鼠标单击时响应
+
+//            int r= gradingTable.getSelectedRow();
+//
+//            int c= gradingTable.getSelectedColumn();
+//
+//            Object value= gradingTable.getValueAt(r, c);
+
+            Student selectedSt = students.get(gradingTable.getSelectedRow());
+
+            Double maxScore = api.getMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
+            String name = selectedSt.getName();
+            String email = selectedSt.getEmail();
+            String comment = "";
+            String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
+            nameLabel.setText(name);
+            emailLabel.setText(email);
+            commentArea.setText(comment);
+            scoreLabel.setText(scoreDetail);
+
+        }
+
+    });
+
     }
 
     public void transformGrade(String signal){
@@ -132,7 +161,8 @@ public class GradingPanel extends JPanel implements ActionListener {
         this.gradingModel.setDataVector(data,header,this.notEditable);
     }
 
-    public void showPanel(Vector<Vector<Object>> data, Vector<Object> header){
+    public void showPanel(Vector<Vector<Object>> data, Vector<Object> header,Vector<Student> students){
+        this.students = students;
         refreshPage(data,header);
         this.setVisible(true);
         this.setEnabled(true);
@@ -154,6 +184,17 @@ public class GradingPanel extends JPanel implements ActionListener {
 
         }
         else if (e.getActionCommand().equals("update_info_by_selected")) {
+//            Student selectedSt = students.get(gradingTable.getSelectedRow());
+//
+//            Double maxScore = api.getMaxScore(this.gradingModel.getColumnName(gradingTable.getSelectedColumn()));
+//            String name = selectedSt.getName();
+//            String email = selectedSt.getEmail();
+//            String comment = "";
+//            String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
+//            this.nameLabel.setText(name);
+//            this.emailLabel.setText(email);
+//            this.commentArea.setText(comment);
+//            this.scoreLabel.setText(scoreDetail);
 
         }
         else if(e.getActionCommand().equals("back")){

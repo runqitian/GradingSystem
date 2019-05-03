@@ -129,6 +129,14 @@ public class Course {
         return false;
     }
 
+    public SubCategory getSubCategoryByName(String subName){
+        for (SubCategory sub: subCategoryList){
+            if (sub.getName().equals(subName)){
+                return sub;
+            }
+        }
+        return null;
+    }
 
 
 }

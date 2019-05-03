@@ -9,10 +9,10 @@ public class SubCategory extends Category{
     Category category;
 //    String subCategoryName;
 //    Double weight;
-    Integer maxGrade;
+    Double maxGrade;
     Map<String, Score> stuScore = new HashMap<String, Score>();
 
-    public SubCategory(Category category, String subCategoryName, Double weight, Integer maxGrade) {
+    public SubCategory(Category category, String subCategoryName, Double weight, Double maxGrade) {
         super(subCategoryName);
         this.category = category;
 //        this.categoryName = subCategoryName;
@@ -33,15 +33,15 @@ public class SubCategory extends Category{
         this.category = category;
     }
 
-    public Integer getMaxGrade() {
+    public Double getMaxGrade() {
         return maxGrade;
     }
 
-    public void setMaxGrade(int maxGrade) {
-        this.maxGrade = new Integer(maxGrade);
+    public void setMaxGrade(double maxGrade) {
+        this.maxGrade = new Double(maxGrade);
     }
 
-    public boolean gradeStudent(String stuID, int score){
+    public boolean gradeStudent(String stuID, double score){
         if(!stuScore.containsKey(stuID)){
             Score grade = new Score(maxGrade);
             if (grade.setScore(score)){
@@ -57,7 +57,7 @@ public class SubCategory extends Category{
             return stuScore.get(stu).getScore();
         }
         System.out.println("student not graded");
-        return -1.0;
+        return 0.0;
     }
 
     public boolean changeGrade(String stuID, int score){

@@ -113,7 +113,7 @@ public class DatabaseStorage {
                                 Map temp3 = (Map) subCategories.get(z);
                                 String currWeight = temp3.get("Weight").toString();
                                 String maxScore = (String) temp3.get("maxscore");
-                                SubCategory newSub = new SubCategory(new Category(x, Double.parseDouble(weight)),z,Double.parseDouble(currWeight),Integer.parseInt(maxScore));
+                                SubCategory newSub = new SubCategory(new Category(x, Double.parseDouble(weight)),z,Double.parseDouble(currWeight),Double.parseDouble(maxScore));
                                 ret.add(newSub);
                             }
                         }
