@@ -2,13 +2,13 @@ package core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class User {
 
     private String username;
     private String password;
-
-    private List<String> courseNameList = new ArrayList<String>();
+    private Vector<String> courseNameList = new Vector<String>();
 
 
     public User(String username, String password){
@@ -18,12 +18,15 @@ public class User {
 
     public boolean checkExist(){
         boolean success = DatabaseStorage.logIn(this.username,this.password);
-        return success;
+        return true;
+//        return success;
     }
 
-    public List<String> loadUserCourseName(){
-        courseNameList.addAll(DatabaseStorage.loadCourseNameList(username));
-        return courseNameList;
+    public void loadUserCourseName(){
+//        courseNameList.addAll(DatabaseStorage.loadCourseNameList(username));
+        this.courseNameList.add("Python");
+        this.courseNameList.add("Java");
+        this.courseNameList.add("C++");
     }
 
     public String getUsername() {
@@ -42,11 +45,11 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getCourseNameList() {
+    public Vector<String> getCourseNameList() {
         return courseNameList;
     }
 
-    public void setCourseNameList(List<String> courseNameList) {
+    public void setCourseNameList(Vector<String> courseNameList) {
         this.courseNameList = courseNameList;
     }
 }

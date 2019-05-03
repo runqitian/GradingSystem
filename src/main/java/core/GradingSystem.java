@@ -14,39 +14,32 @@ public class GradingSystem {
 
     Course currentCourse;
 
-    List<String> courseNameList = new ArrayList<String>();
-
     Vector<Course> allcourse = new Vector<>();
 
     public boolean login(String username, String password){
         User user = new User(username,password);
         boolean success = user.checkExist();
         if (success){
+            user.loadUserCourseName();
             this.loginUser = user;
-            this.courseNameList = user.loadUserCourseName();
         }else{
             this.loginUser = null;
-            this.courseNameList = null;
         }
         return success;
     }
 
     public boolean addCourse(String className){
-        if(courseNameList.contains(className)){
+        if(loginUser.getCourseNameList().contains(className)){
             System.out.println("already have class of this name!");
             return false;
         }
         Course newclass = new Course(className);
-        courseNameList.add(className);
+        loginUser.getCourseNameList().add(className);
         this.currentCourse = newclass;
         return allcourse.add(newclass);
     }
 
-    public void deleteCourse(String name){
-        if(courseNameList.remove(name)){
-            //todo Database things
-        }
-    }
+
 
     public boolean addCategory(String Name){
         return currentCourse.addCategory(Name);
@@ -141,7 +134,9 @@ public class GradingSystem {
         return results;
     }
 
-
+    public Vector<String> getUserCourseList(){
+        return loginUser.getCourseNameList();
+    }
     public Object[] showGradingInfo(List<String> Names){
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
         Vector<SubCategory> subs = new Vector<SubCategory>();
@@ -188,17 +183,17 @@ public class GradingSystem {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(/*todo*/"stutest.csv"));
             String line = null;
-            Vector v2=new Vector();   // Each element of this vector is a student like Stu1, Stu2
+            Vector students=new Vector();   // Each element of this vector is a student like Stu1, Stu2
             while((line=reader.readLine())!=null) {
                 String item[] = line.split(",");
-                Vector v1=new Vector();   // Each element of this vector is a
+                Vector row=new Vector();   // Each element of this vector is a
                 for(int i=0;i<5;i=i+1) {
-                    v1.addElement(item[i]);
+                    row.addElement(item[i]);
                 }
-                v2.addElement(v1);
+                students.addElement(row);
             }
-            //System.out.println(v2); // v2 is the data we retrieve from csv file
-            return v2;
+            //System.out.println(students); // students is the data we retrieve from csv file
+            return students;
         }catch(Exception e){
             e.printStackTrace();
             Vector f=new Vector();

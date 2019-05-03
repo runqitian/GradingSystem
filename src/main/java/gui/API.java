@@ -19,6 +19,7 @@ public class API {
         boolean success = gradingSystem.login(username,password);
         if (success){
             // load and initialize
+            Vector<String> courseList = gradingSystem.getUserCourseList();
             mainFrame.loginPanel.hidePanel();
             mainFrame.classPanel.showPanel();
         }
