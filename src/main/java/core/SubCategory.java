@@ -1,6 +1,7 @@
 package core;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -9,7 +10,7 @@ public class SubCategory extends Category{
 //    String subCategoryName;
 //    Double weight;
     Integer maxGrade;
-    Map<Student, Score> stuScore = new HashMap<Student, Score>();
+    Map<String, Score> stuScore = new HashMap<String, Score>();
 
     public SubCategory(Category category, String subCategoryName, Double weight, Integer maxGrade) {
         super(subCategoryName);
@@ -40,11 +41,11 @@ public class SubCategory extends Category{
         this.maxGrade = new Integer(maxGrade);
     }
 
-    public boolean gradeStudent(Student stu, int score){
-        if(!stuScore.containsKey(stu)){
+    public boolean gradeStudent(String stuID, int score){
+        if(!stuScore.containsKey(stuID)){
             Score grade = new Score(maxGrade);
             if (grade.setScore(score)){
-                stuScore.put(stu, grade);
+                stuScore.put(stuID, grade);
             }
         }
         System.out.println("Student already have grade");
@@ -59,11 +60,11 @@ public class SubCategory extends Category{
         return -1;
     }
 
-    public boolean changeGrade(Student stu, int score){
-        if(stuScore.containsKey(stu)){
+    public boolean changeGrade(String stuID, int score){
+        if(stuScore.containsKey(stuID)){
             Score grade = new Score(maxGrade);
             if (grade.setScore(score)){
-                return grade.equals(stuScore.replace(stu, grade));
+                return grade.equals(stuScore.replace(stuID, grade));
                 //warning: only for java 1.8+
             }
         }
@@ -77,20 +78,23 @@ public class SubCategory extends Category{
 
     public Map<String, Integer> getAllGrades(){
         Map<String, Integer> result = new HashMap<String, Integer>();
-        for (Map.Entry<Student, Score> stuS:
+        for (Map.Entry<String, Score> stuS:
                 stuScore.entrySet()) {
-            String SID = stuS.getKey().getSID();
+            String SID = stuS.getKey();
             Integer score = stuS.getValue().getScore();
             result.put(SID, score);
         }
         return result;
     }
 
-    public void setStuScore(Map<String, String> stuScores) {
-//        for (Map<>:
-//             ) {
-//
-//        }
-//        this.stuScore = stuScore;
+    public void setStuScore(Map<String, String> stuScore) {
+        Map<String, Score> grades = new HashMap<String, Score>();
+        for (Map.Entry<String,String> ent: stuScore.entrySet()){
+            String sID = ent.getKey();
+            Integer score = new Integer(ent.getValue());
+            Score grade = new Score((Integer) score);
+            grades.put((String) sID, grade);
+        }
+        this.stuScore = grades;
     }
 }

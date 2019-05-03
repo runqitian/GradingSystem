@@ -76,6 +76,20 @@ public class GradingSystem {
         return true;
     }
 
+    public boolean loadScores(String subName){
+        String cate = "";
+        for (SubCategory sub:
+             currentCourse.getSubCategoryList()) {
+            if(sub.getName().equals(subName)){
+                cate = sub.getCategory().getName();
+                sub.setStuScore(DatabaseStorage.getGradesFor(this.currentCourse.getCourseName(), cate, subName));
+                return true;
+            }
+        }
+        System.out.println("no such subCate");
+        return false;
+    }
+
     public void buildCurrentCourse(String className){
         Course selectedCourse = new Course(className);
         selectedCourse.setCategoryList(DatabaseStorage.getCategories(className));
@@ -151,6 +165,7 @@ public class GradingSystem {
         return loginUser.getCourseNameList();
     }
 
+
     public Object[] showGradingInfo(Vector<String> Names){
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
         Vector<SubCategory> subs = new Vector<SubCategory>();
@@ -182,6 +197,7 @@ public class GradingSystem {
                  subs) {
                 row.add(subcate.getStudentGrade(student));
             }
+            data.add(row);
         }
         Object[] results = {data,header,currentCourse.getStudents()};
 //        System.out.println("data");
