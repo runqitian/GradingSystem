@@ -30,13 +30,14 @@ public class API {
     }
 
     public Object[] loadCourseSummary(){
-        gradingSystem.showClassInfo();
+        //todo
 
         return null;
     }
 
     public Object[] loadCourseList(){
         //todo
+
         return null;
     }
 
