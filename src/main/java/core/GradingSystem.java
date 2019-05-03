@@ -186,6 +186,9 @@ public class GradingSystem {
         header.add("Student");
         for (SubCategory sub:
              subs) {
+            if(!loadScores(sub.getName())){
+                System.out.println("wrongload");
+            }
             header.add(sub.getName());
         }
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
