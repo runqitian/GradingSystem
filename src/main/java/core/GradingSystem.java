@@ -14,7 +14,7 @@ public class GradingSystem {
 
     Course currentCourse;
 
-    Vector<Course> allcourse = new Vector<>();
+//    Vector<Course> allcourse = new Vector<>();
 
     public boolean login(String username, String password){
         User user = new User(username,password);
@@ -36,7 +36,8 @@ public class GradingSystem {
         Course newclass = new Course(className);
         loginUser.getCourseNameList().add(className);
         this.currentCourse = newclass;
-        return allcourse.add(newclass);
+//        return allcourse.add(newclass);
+        return true;
     }
 
 
@@ -73,6 +74,17 @@ public class GradingSystem {
             return false;
         }
         return true;
+    }
+
+    public void buildCurrentCourse(String className){
+        Course selectedCourse = new Course(className);
+        selectedCourse.setCategoryList(DatabaseStorage.getCategories(className));
+        for (Category cate:
+             selectedCourse.getCategoryList()) {
+            selectedCourse.subCategoryList.addAll(DatabaseStorage.getSubCategories(className, cate.getName()));
+        }
+
+        this.currentCourse = selectedCourse;
     }
 
     public Object[] showClassInfo(){
