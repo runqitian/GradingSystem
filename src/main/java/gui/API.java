@@ -38,8 +38,16 @@ public class API {
 
     public Object[] loadCourseList(){
         //todo
-
-        return null;
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        for (Object obj: gradingSystem.getUserCourseList()){
+            Vector<Object> row = new Vector<Object>();
+            row.add(obj);
+            data.add(row);
+        }
+        Vector<Object> header = new Vector<Object>();
+        header.add("");
+        Object[] objs  = {data,header};
+        return objs;
     }
 
     public void deleteCourse(String courseName){

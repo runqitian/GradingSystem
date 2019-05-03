@@ -23,10 +23,10 @@ public class User {
     }
 
     public void loadUserCourseName(){
-//        courseNameList.addAll(DatabaseStorage.loadCourseNameList(username));
-        this.courseNameList.add("Python");
-        this.courseNameList.add("Java");
-        this.courseNameList.add("C++");
+        courseNameList.addAll(DatabaseStorage.loadCourseNameList(username));
+//        this.courseNameList.add("Python");
+//        this.courseNameList.add("Java");
+//        this.courseNameList.add("C++");
     }
 
     public String getUsername() {
