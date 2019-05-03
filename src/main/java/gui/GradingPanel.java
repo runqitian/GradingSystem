@@ -28,6 +28,7 @@ public class GradingPanel extends JPanel implements ActionListener {
     JComboBox method;
     JButton weightBtn;
     JButton backBtn;
+    JButton saveBtn;
 
     JScrollPane gradingPane;
     JTable gradingTable;
@@ -61,6 +62,7 @@ public class GradingPanel extends JPanel implements ActionListener {
         method = new JComboBox();
         weightBtn = new JButton("change weight");
         backBtn = new JButton("back");
+        saveBtn = new JButton("save");
         gradingModel = new MyTableModel();
         notEditable = new Vector<Integer>();
         gradingTable = new JTable(gradingModel);
@@ -88,6 +90,12 @@ public class GradingPanel extends JPanel implements ActionListener {
         method.setPreferredSize(new Dimension(60,40));
         weightBtn.setPreferredSize(new Dimension(60,30));
         backBtn.setPreferredSize(new Dimension(60,30));
+        saveBtn.setPreferredSize(new Dimension(60,30));
+
+        backBtn.setActionCommand("back");
+        backBtn.addActionListener(this);
+        saveBtn.setActionCommand("save");
+        saveBtn.addActionListener(this);
 
         infoPanel.setLayout(new GridBagLayout());
         infoPanel.add(nameLabel,new GBC(0,0,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER));
@@ -99,6 +107,9 @@ public class GradingPanel extends JPanel implements ActionListener {
         infoPanel.add(method, new GBC(0,4,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
         infoPanel.add(weightBtn, new GBC(0,5,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
         infoPanel.add(weightBtn, new GBC(0,6,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(backBtn, new GBC(0,7,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(saveBtn, new GBC(0,8,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+
 
         tablePanel.setLayout(new GridBagLayout());
         tablePanel.add(gradingPane, new GBC(0,0,1,1,1,1));
@@ -144,6 +155,12 @@ public class GradingPanel extends JPanel implements ActionListener {
         }
         else if (e.getActionCommand().equals("update_info_by_selected")) {
 
+        }
+        else if(e.getActionCommand().equals("back")){
+            api.gradingToClassPanel();
+        }
+        else if(e.getActionCommand().equals("save")){
+            api.saveGrading(gradingModel.getDataVector());
         }
     }
 }

@@ -10,9 +10,9 @@ import java.util.Vector;
 
 public class GradingSystem {
 
-    User loginUser;
+    public User loginUser;
 
-    Course currentCourse;
+    public Course currentCourse;
 
 //    Vector<Course> allcourse = new Vector<>();
 
@@ -52,27 +52,18 @@ public class GradingSystem {
 
 
     public boolean modifyWeights(Vector<Vector<Object>> weights){
-        for (Vector<Object> weight:
-             weights) {
+        for (Vector<Object> weight: weights) {
+            System.out.println(weight);
             if(weight.size() == 2){
                 //cate
-                try {
-                    currentCourse.modifyCategory((String) weight.get(0), (Double) weight.get(1));
-                }catch (Exception e){
-                    System.out.println(e);
-                }
+                currentCourse.modifyCategory(weight.get(0).toString(), new Double(weight.get(1).toString()));
 
-            }else if (weight.size() ==3){
+            }else if (weight.size() == 4){
                 //subcate
-                try {
-                    currentCourse.modifySubCategory((String) weight.get(0), (Double) weight.get(1), (Integer) weight.get(2));
-                }catch (Exception e){
-                    System.out.println(e);
-                }
+                currentCourse.modifySubCategory(weight.get(1).toString(), new Double(weight.get(2).toString()), new Integer(weight.get(3).toString()));
             }
-            System.out.println("Wrong table of weights");
-            return false;
         }
+        DatabaseStorage.writeWeightsChange(currentCourse.getCourseName(), currentCourse.getCategoryList(), currentCourse.getSubCategoryList());
         return true;
     }
 
@@ -92,12 +83,14 @@ public class GradingSystem {
 
     public void buildCurrentCourse(String className){
         Course selectedCourse = new Course(className);
+        System.out.println("crrCours" + selectedCourse.getCourseName());
         selectedCourse.setCategoryList(DatabaseStorage.getCategories(className));
-        for (Category cate:
-             selectedCourse.getCategoryList()) {
+        for (Category cate: selectedCourse.getCategoryList()) {
             selectedCourse.subCategoryList.addAll(DatabaseStorage.getSubCategories(className, cate.getName()));
         }
+
         selectedCourse.setStudents(DatabaseStorage.getAllStudents());
+//        System.out.println("");
         this.currentCourse = selectedCourse;
     }
 
@@ -123,6 +116,7 @@ public class GradingSystem {
 
     public Object[] showCategory(){
         List<Category> cates = currentCourse.getCategoryList();
+        System.out.println("cates" + cates);
         Vector<Object> header = new Vector<Object>();
         header.add("Name");
         header.add("Weight");
@@ -167,16 +161,22 @@ public class GradingSystem {
 
 
     public Object[] showGradingInfo(Vector<String> Names){
+        System.out.println("print in gs");
+        for (String str: Names){
+            System.out.println(str);
+        }
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
         Vector<SubCategory> subs = new Vector<SubCategory>();
-        for (String name:
-             Names) {
-            for (SubCategory sub:
-             subcates) {
+        for (String name: Names) {
+            for (SubCategory sub: subcates) {
                 if(sub.getName().equals(name)){
                     subs.add(sub);
                 }
             }
+        }
+        System.out.println("pring in gs");
+        for (SubCategory suout: subs){
+            System.out.println(suout);
         }
         if(Names.size()!=subs.size()){
             System.out.println("wrong title in show list");
@@ -192,7 +192,6 @@ public class GradingSystem {
             header.add(sub.getName());
         }
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-        System.out.println(currentCourse.getStudents().size());
         for (Student student:
              currentCourse.getStudents()) {
             Vector<Object> row = new Vector<Object>();
@@ -203,11 +202,7 @@ public class GradingSystem {
             }
             data.add(row);
         }
-        System.out.println("data");
-        System.out.println(data);
         Object[] results = {data,header,currentCourse.getStudents()};
-//        System.out.println("data");
-//        System.out.println((Vector<Vector<Object>>)data);
         return results;
     }
 

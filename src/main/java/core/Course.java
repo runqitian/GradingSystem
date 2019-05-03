@@ -79,18 +79,6 @@ public class Course {
         return false;
     }
 
-    public boolean modifyCategory(String cateName, Double newWeight){
-        for (Category cate:
-             this.getCategoryList()) {
-            if(cate.getName().equals(cateName)){
-                cate.setWeight(newWeight);
-                return true;
-            }
-        }
-        System.out.println("no such Cate");
-        return false;
-        
-    }
 
     public boolean addSubCategory(String CategoryName, String SubName){
         for (Category category:
@@ -113,6 +101,19 @@ public class Course {
         return false;
     }
 
+    public boolean modifyCategory(String cateName, Double newWeight){
+        for (Category cate:
+                this.getCategoryList()) {
+            if(cate.getName().equals(cateName)){
+                cate.setWeight(newWeight);
+                return true;
+            }
+        }
+        System.out.println("no such Cate");
+        return false;
+
+    }
+
     public boolean modifySubCategory(String subName, Double newWeight, Integer maxpossible){
         for (SubCategory subcate:
                 this.getSubCategoryList()) {
@@ -122,9 +123,12 @@ public class Course {
                 return true;
             }
         }
-        System.out.println("no such subCate");
+        for (SubCategory sub: subCategoryList){
+            System.out.println(sub);
+        }
         return false;
     }
+
 
 
 }

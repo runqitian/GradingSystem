@@ -206,10 +206,17 @@ public class ClassPanel extends JPanel implements ActionListener{
 
         }else if(e.getActionCommand().equals("grade_selected")){
             Vector<String> result = new Vector<String>();
-            int[] rows = this.categoryTable.getSelectedRows();
+            Vector<Integer> rows = new Vector<Integer>();
+            for (int i=0; i< categoryModel.getRowCount(); i++){
+                if (new Boolean(categoryModel.getValueAt(i,2).toString())){
+                    rows.add(i);
+                }
+            }
+//            System.out.println("rows:" + rows.size());
             for (int row : rows){
                 result.add(this.categoryModel.getValueAt(row,1).toString());
             }
+//            System.out.println("class grade selected" + result);
             api.uploadGradingSelected(result);
         }
         else if(e.getActionCommand().equals("set_weight")){

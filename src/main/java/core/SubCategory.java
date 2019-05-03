@@ -91,7 +91,6 @@ public class SubCategory extends Category{
         Map<String, Score> grades = new HashMap<String, Score>();
         for (Map.Entry<String,String> ent: stuScore.entrySet()){
             String sID = ent.getKey();
-            System.out.println(ent.getValue());
             Double score = new Double(ent.getValue());
             Score grade = new Score(score);
             grades.put((String) sID, grade);

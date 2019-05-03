@@ -50,12 +50,14 @@ public class MyTableModel extends DefaultTableModel {
     }
 
     public void setDataVector(Vector<Vector<Object>> data, Vector<Object> header, Vector<Integer> notEditable){
-        int size = data.get(0).size();
-        super.setDataVector(data, header);
         this.notEditable = notEditable;
         this.typeArray = new Vector<Class>();
-        for (int i=0; i<size; i++){
-            typeArray.add(Object.class);
+        if (data.size()>0){
+            int size = data.get(0).size();
+            super.setDataVector(data, header);
+            for (int i=0; i<size; i++){
+                typeArray.add(Object.class);
+            }
         }
     }
 

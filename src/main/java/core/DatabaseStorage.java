@@ -48,42 +48,6 @@ public class DatabaseStorage {
     }
 
 
-    public static Vector<SubCategory> getSubCategories(String courseName, String categoryName){
-        MongoDatabase db = connectToDB();
-        MongoCollection<Document> collection = db.getCollection("Courses");
-        Document possibleMatch = collection.find(eq("Coursename", courseName)).first();
-        Vector<SubCategory> ret = new Vector<SubCategory>();
-        if(possibleMatch != null){
-            JSONParser jsonP = new JSONParser();
-            try{
-                JSONObject jsonO = (JSONObject) jsonP.parse(possibleMatch.toJson());
-                Map categories = (Map)jsonO.get("Categories");
-                Iterator iter = categories.keySet().iterator();
-                while(iter.hasNext()){
-                    String x = (String) iter.next();
-                    if(x.equals(categoryName)){
-                        Map subCategories = (Map) categories.get(x);
-                        Iterator innerIterator = subCategories.keySet().iterator();
-                        String weight = (String)subCategories.get("Weight");
-                        while(innerIterator.hasNext()){
-                            String z = (String) innerIterator.next();
-                            if(!z.equals("Weight")){
-                                Map temp3 = (Map) subCategories.get(z);
-                                String currWeight = (String) temp3.get("Weight");
-                                String maxScore = (String) temp3.get("maxscore");
-                                SubCategory newSub = new SubCategory(new Category(x, Double.parseDouble(weight)),z,Double.parseDouble(currWeight),Integer.parseInt(maxScore));
-                                ret.add(newSub);
-                            }
-                        }
-                    }
-                }
-            } catch(Exception e) {
-                System.out.println("broke");
-            }
-        }
-        return ret;
-    }
-
     public static Vector<Student> getAllStudents() {
         MongoDatabase db = connectToDB();
         MongoCollection<Document> collection = db.getCollection("Students");
@@ -115,10 +79,46 @@ public class DatabaseStorage {
                     Object x = iter.next();
                     Map subc = (Map)categories.get(x);
                     String name = (String) x;
-                    String weight = (String)subc.get("Weight");
+                    String weight = subc.get("Weight").toString();
                     ret.add(new Category(name,Double.parseDouble(weight)));
                 }
 
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ret;
+    }
+
+    public static Vector<SubCategory> getSubCategories(String courseName, String categoryName){
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Courses");
+        Document possibleMatch = collection.find(eq("Coursename", courseName)).first();
+        Vector<SubCategory> ret = new Vector<SubCategory>();
+        if(possibleMatch != null){
+            JSONParser jsonP = new JSONParser();
+            try{
+                JSONObject jsonO = (JSONObject) jsonP.parse(possibleMatch.toJson());
+                Map categories = (Map)jsonO.get("Categories");
+                Iterator iter = categories.keySet().iterator();
+                while(iter.hasNext()){
+                    String x = (String) iter.next();
+                    if(x.equals(categoryName)){
+                        Map subCategories = (Map) categories.get(x);
+                        Iterator innerIterator = subCategories.keySet().iterator();
+                        String weight = subCategories.get("Weight").toString();
+                        while(innerIterator.hasNext()){
+                            String z = (String) innerIterator.next();
+                            if(!z.equals("Weight")){
+                                Map temp3 = (Map) subCategories.get(z);
+                                String currWeight = temp3.get("Weight").toString();
+                                String maxScore = (String) temp3.get("maxscore");
+                                SubCategory newSub = new SubCategory(new Category(x, Double.parseDouble(weight)),z,Double.parseDouble(currWeight),Integer.parseInt(maxScore));
+                                ret.add(newSub);
+                            }
+                        }
+                    }
+                }
             } catch(Exception e) {
                 System.out.println("broke");
             }
@@ -190,6 +190,35 @@ public class DatabaseStorage {
             }
         }
         return ret;
+    }
+
+    public static boolean updateGradesFor(String CourseName, SubCategory sub){
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Courses");
+        Document possibleMatch = collection.find(eq("Coursename", CourseName)).first();
+        if(possibleMatch != null){
+            String query = "Categories." + sub.getCategory().getName() + "." + sub.getName() + ".studentGrades";
+            collection.updateOne(eq("Coursename", CourseName), new Document("$set",new Document(query, sub.getAllGrades())));
+            return true;
+        }
+        return false;
+    }
+
+
+    public static void writeWeightsChange(String CourseName, Vector<Category> categories, Vector<SubCategory> subs){
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Courses");
+        Document possibleMatch = collection.find(eq("Coursename", CourseName)).first();
+        if(possibleMatch != null){
+            for (Category cat: categories){
+                String query = "Categories." + cat.getName() + ".Weight";
+                collection.updateOne(eq("Coursename", CourseName), new Document("$set",new Document(query, cat.getWeight())));
+            }
+            for (SubCategory sub: subs){
+                String query = "Categories." + sub.getCategory().getName() + "." + sub.getName() + ".Weight";
+                collection.updateOne(eq("Coursename", CourseName), new Document("$set",new Document(query, sub.getWeight())));
+            }
+        }
     }
 
 }

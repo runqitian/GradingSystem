@@ -1,6 +1,7 @@
 package gui;
 
 import core.GradingSystem;
+import core.SubCategory;
 import org.omg.CORBA.OBJ_ADAPTER;
 import tools.Tools;
 
@@ -28,8 +29,13 @@ public class API {
     }
 
     public void saveWeightChange(Vector<Vector<Object>> catWeights, Vector<Vector<Object>> subWeights){
+        System.out.println("save weight change");
         gradingSystem.modifyWeights(catWeights);
         gradingSystem.modifyWeights(subWeights);
+
+        for (SubCategory sub : gradingSystem.currentCourse.getSubCategoryList()){
+            System.out.println(sub);
+        }
     }
 
     public Object[] loadCourseSummary(String courseName){
@@ -67,7 +73,6 @@ public class API {
     public void uploadGradingSelected(Vector<String> Names){
         Object[] objs = gradingSystem.showGradingInfo(Names);
 
-        System.out.println(objs[0]);
         Vector<Vector<Object>> data = (Vector<Vector<Object>>)objs[0];
         Vector<Object> header = (Vector<Object>)objs[1];
         System.out.println(data);
@@ -85,8 +90,8 @@ public class API {
         Vector<Object> catHeader = (Vector<Object>)catObjs[1];
         Vector<Vector<Object>> subData = (Vector<Vector<Object>>)subObjs[0];
         Vector<Object> subHeader = (Vector<Object>)subObjs[1];
-        System.out.println(catData);
-        System.out.println(subData);
+        System.out.println("this" + catData);
+        System.out.println("this " + subData);
         mainFrame.classPanel.hidePanel();
         mainFrame.weightPanel.showPanel(catData,catHeader,subData,subHeader);
     }
@@ -97,7 +102,16 @@ public class API {
         this.mainFrame.weightPanel.hidePanel();
         this.mainFrame.classPanel.showPanel();
     }
-    
+
+    public void gradingToClassPanel(){
+        this.mainFrame.gradingPanel.hidePanel();
+        this.mainFrame.classPanel.showPanel();
+    }
+
+    public void saveGrading(Vector<Vector<Object>> grading){
+
+
+    }
 
 
 }
