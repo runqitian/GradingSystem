@@ -11,6 +11,7 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.Vector;
 
 public class ClassPanel extends JPanel implements ActionListener{
@@ -53,7 +54,7 @@ public class ClassPanel extends JPanel implements ActionListener{
     public void showPanel(){
         this.setVisible(true);
         this.setEnabled(true);
-
+        refreshPage();
     }
 
     public void hidePanel(){
@@ -168,7 +169,22 @@ public class ClassPanel extends JPanel implements ActionListener{
     }
 
     public void refreshPage(){
-//        api.
+        Object[] tableData = api.loadCourseList();
+        Vector<Integer> ne1 = new Vector<Integer>();
+        ne1.add(0);
+        this.courseListModel.setDataVector((Vector<Vector<Object>>)tableData[0],(Vector<Object>)tableData[1],ne1);
+        Vector<Integer> ne2 = new Vector<Integer>();
+        ne2.add(0);
+        ne2.add(1);
+        Vector<Vector<Object>> data = (Vector<Vector<Object>>) tableData[0];
+        Vector<Object> header = (Vector<Object>) tableData[0];
+        for (Vector<Object> row : data){
+            row.add(new JCheckBox());
+        }
+        header.add("checkbox");
+        this.categoryModel.setDataVector(data,header,ne2);
+        categoryModel.fireTableDataChanged();
+        courseListModel.fireTableDataChanged();
     }
 
     public void actionPerformed(ActionEvent e) {

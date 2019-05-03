@@ -29,14 +29,15 @@ public class API {
 
     }
 
-    public Vector<Vector<Object>> loadCourseSummary(){
+    public Object[] loadCourseSummary(){
         //todo
 
         return null;
     }
 
-    public Vector<Vector<Object>> loadCourseList(){
+    public Object[] loadCourseList(){
         //todo
+
         return null;
     }
 
