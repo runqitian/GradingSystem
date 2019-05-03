@@ -2,6 +2,8 @@ package core;
 
 import gui.MyTableModel;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class GradingSystem {
         }
         Course newclass = new Course(className);
         this.currentCourse = newclass;
+        //
         return true;
     }
 
@@ -179,7 +182,7 @@ public class GradingSystem {
                 row.add(subcate.getStudentGrade(student));
             }
         }
-        Object[] results = {data,header,notE};
+        Object[] results = {data,header,notE};//todo
 //        MyTableModel table = new MyTableModel(data, header, notE);
         return results;
     }
@@ -188,5 +191,60 @@ public class GradingSystem {
         //todo
         return false;
     }
+
+    public static Vector LoadStuInfo(){
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("stutest.csv"));
+            String line = null;
+            Vector v2=new Vector();   // Each element of this vector is a student like Stu1, Stu2
+            while((line=reader.readLine())!=null) {
+                String item[] = line.split(",");
+                Vector v1=new Vector();   // Each element of this vector is a
+                for(int i=0;i<5;i=i+1) {
+                    v1.addElement(item[i]);
+                }
+                v2.addElement(v1);
+            }
+            //System.out.println(v2); // v2 is the data we retrieve from csv file
+            return v2;
+        }catch(Exception e){
+            e.printStackTrace();
+            Vector f=new Vector();
+            return f;
+        }
+    }
+
+    public void gradereport(Vector v){
+        File csv=new File("report.csv");
+        if(csv.exists()){
+            System.out.println("already exists!");
+        }else {
+            Object[] vList = v.toArray();
+            Integer stunum = new Integer(0);
+            stunum = vList.length;
+            for (int i = 0; i < vList.length; i = i + 1) {
+                String stest = vList[i].toString();
+                String stest1 = new String();
+                stest1 = stest.substring(1, stest.length() - 1);
+                String stest2[] = stest1.split(",");
+                try {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
+                    for (int j = 0; j < stest2.length; j = j + 1) {
+                        bw.write(stest2[j]);
+                        bw.write(",");
+                        bw.newLine();
+                        bw.close();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+
 
 }

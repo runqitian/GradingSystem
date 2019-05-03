@@ -32,7 +32,7 @@ public class Tools {
         table.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
         table.setRowHeight(rowHeight);
         table.getTableHeader().setBackground(Color.GRAY);
-        table.getColumnModel().getColumn(0).setPreferredWidth(150);
+//        table.getColumnModel().getColumn(0).setPreferredWidth(150);
         table.setGridColor(Color.LIGHT_GRAY);
         table.setShowGrid(true);
         if (!autosize){
