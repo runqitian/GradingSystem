@@ -52,9 +52,15 @@ public class SubCategory extends Category{
         return false;
     }
 
+<<<<<<< HEAD
     public Double getStudentGrade(String id){
         if(stuScore.containsKey(id)){
             return stuScore.get(id).getScore();
+=======
+    public Double getStudentGrade(String stu){
+        if(stuScore.containsKey(stu)){
+            return stuScore.get(stu).getScore();
+>>>>>>> 5600a8aa2d9cd2b550fa20481d097971002c8c54
         }
         System.out.println("student not graded");
         return 0.0;
@@ -78,8 +84,7 @@ public class SubCategory extends Category{
 
     public Map<String, Double> getAllGrades(){
         Map<String, Double> result = new HashMap<String, Double>();
-        for (Map.Entry<String, Score> stuS:
-                stuScore.entrySet()) {
+        for (Map.Entry<String, Score> stuS: stuScore.entrySet()) {
             String SID = stuS.getKey();
             Double score = stuS.getValue().getScore();
             result.put(SID, score);
@@ -113,6 +118,7 @@ public class SubCategory extends Category{
         }
 
     }
+
 
     public String toString(){
         return getName() + " : " + weight.toString();
