@@ -92,7 +92,8 @@ public class GradingSystem {
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
 
         Vector<Object> header = new Vector<Object>();
-
+        header.add("Category");
+        header.add("SubCategory");
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (SubCategory sub:
              subcates) {
@@ -149,6 +150,7 @@ public class GradingSystem {
     public Vector<String> getUserCourseList(){
         return loginUser.getCourseNameList();
     }
+
     public Object[] showGradingInfo(List<String> Names){
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
         Vector<SubCategory> subs = new Vector<SubCategory>();
