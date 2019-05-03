@@ -52,15 +52,9 @@ public class SubCategory extends Category{
         return false;
     }
 
-<<<<<<< HEAD
     public Double getStudentGrade(String id){
         if(stuScore.containsKey(id)){
             return stuScore.get(id).getScore();
-=======
-    public Double getStudentGrade(String stu){
-        if(stuScore.containsKey(stu)){
-            return stuScore.get(stu).getScore();
->>>>>>> 5600a8aa2d9cd2b550fa20481d097971002c8c54
         }
         System.out.println("student not graded");
         return 0.0;
@@ -93,22 +87,23 @@ public class SubCategory extends Category{
     }
 
     public void setStuScore(Map<String, Double> stuScore2) {
-        Map<String, Score> grades = new HashMap<String, Score>();
-        for (Map.Entry<String,Double> ent: stuScore2.entrySet()){
-            String sID = ent.getKey();
-            System.out.println(ent.getValue());
-            System.out.println(ent.getValue().toString());
-            Double score = new Double(ent.getValue());
-            Score grade = new Score(maxGrade);
-            grade.setScore(score);
-            grades.put(sID, grade);
-//            System.out.println(" in " + grades.get("U92094105"));
-        }
-        this.stuScore = grades;
 
-//        System.out.println("out " + grades.get("U92094105"));
-//        System.out.println("grades " + new Double(.getScore()).toString());
-//        System.out.println("chrs" + grades.get("U92094105").toString());
+//        Map<String, Score> grades = new HashMap<String, Score>();
+//        for (Map.Entry<String,Double> ent: stuScore2.entrySet()){
+//            String sID = ent.getKey();
+//            System.out.println(ent.getValue());
+//            System.out.println(ent.getValue().toString());
+//            Double score = new Double(ent.getValue());
+//            Score grade = new Score(maxGrade);
+//            grade.setScore(score);
+//            grades.put(sID, grade);
+////            System.out.println(" in " + grades.get("U92094105"));
+//        }
+//        this.stuScore = grades;
+//
+////        System.out.println("out " + grades.get("U92094105"));
+////        System.out.println("grades " + new Double(.getScore()).toString());
+////        System.out.println("chrs" + grades.get("U92094105").toString());
     }
 
     public void updateGrades(Vector<Object> grades){
@@ -118,6 +113,7 @@ public class SubCategory extends Category{
         }
 
     }
+
 
 
     public String toString(){

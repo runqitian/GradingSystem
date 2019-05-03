@@ -1,6 +1,7 @@
 package core;
 
 import gui.MyTableModel;
+import sun.security.provider.VerificationProvider;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -191,11 +192,15 @@ public class GradingSystem {
             for (SubCategory subcate: subs) {
                 row.add(subcate.getStudentGrade(student.getSID()));
             }
+//            data.add(row);
+        }
+        for (Student student: currentCourse.getStudents()){
+            Vector<Object> row = new Vector<Object>();
+            row.add(student.getName());
+            row.add(new Double(10));
+            row.add(new Double(10));
             data.add(row);
         }
-        System.out.println("output");
-        System.out.println(data.get(0).get(0).toString() + data.get(0).get(1).toString());
-        System.out.println(data.get(1).get(0).toString() + data.get(1).get(1).toString());
         Object[] results = {data,header,currentCourse.getStudents()};
         return results;
     }

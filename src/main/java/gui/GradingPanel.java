@@ -127,7 +127,7 @@ public class GradingPanel extends JPanel implements ActionListener {
             Double maxScore = api.getMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
             String name = selectedSt.getName();
             String email = selectedSt.getEmail();
-            String comment = "";
+            String comment = selectedSt.getStuComment();
             String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
             nameLabel.setText(name);
             emailLabel.setText(email);
