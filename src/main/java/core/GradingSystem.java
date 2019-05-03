@@ -161,10 +161,6 @@ public class GradingSystem {
 
 
     public Object[] showGradingInfo(Vector<String> Names){
-        System.out.println("print in gs");
-        for (String str: Names){
-            System.out.println(str);
-        }
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
         Vector<SubCategory> subs = new Vector<SubCategory>();
         for (String name: Names) {
@@ -173,10 +169,6 @@ public class GradingSystem {
                     subs.add(sub);
                 }
             }
-        }
-        System.out.println("pring in gs");
-        for (SubCategory suout: subs){
-            System.out.println(suout);
         }
         if(Names.size()!=subs.size()){
             System.out.println("wrong title in show list");

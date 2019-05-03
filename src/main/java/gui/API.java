@@ -1,6 +1,7 @@
 package gui;
 
 import core.GradingSystem;
+import core.Student;
 import core.SubCategory;
 import org.omg.CORBA.OBJ_ADAPTER;
 import tools.Tools;
@@ -75,11 +76,10 @@ public class API {
 
         Vector<Vector<Object>> data = (Vector<Vector<Object>>)objs[0];
         Vector<Object> header = (Vector<Object>)objs[1];
-        System.out.println(data);
-        System.out.println(header);
+        Vector<Student> students = (Vector<Student>)objs[2];
 
         mainFrame.classPanel.hidePanel();
-        mainFrame.gradingPanel.showPanel(data,header);
+        mainFrame.gradingPanel.showPanel(data,header,students);
     }
 
 
@@ -113,5 +113,9 @@ public class API {
 
     }
 
+    public Double getMaxScore(String subcategory){
+        Double max =  gradingSystem.currentCourse.getSubCategoryByName(subcategory).getMaxGrade();
+        return max;
+    }
 
 }
