@@ -192,6 +192,7 @@ public class GradingSystem {
             header.add(sub.getName());
         }
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        System.out.println(currentCourse.getStudents().size());
         for (Student student:
              currentCourse.getStudents()) {
             Vector<Object> row = new Vector<Object>();
@@ -202,6 +203,8 @@ public class GradingSystem {
             }
             data.add(row);
         }
+        System.out.println("data");
+        System.out.println(data);
         Object[] results = {data,header,currentCourse.getStudents()};
 //        System.out.println("data");
 //        System.out.println((Vector<Vector<Object>>)data);

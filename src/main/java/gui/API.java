@@ -27,8 +27,9 @@ public class API {
         return success;
     }
 
-    public void saveWeightChange(){
-
+    public void saveWeightChange(Vector<Vector<Object>> catWeights, Vector<Vector<Object>> subWeights){
+        gradingSystem.modifyWeights(catWeights);
+        gradingSystem.modifyWeights(subWeights);
     }
 
     public Object[] loadCourseSummary(String courseName){

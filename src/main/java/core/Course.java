@@ -6,6 +6,8 @@ import java.util.Vector;
 
 public class Course {
 
+    public static int visitTimes = 0;
+
     // unique
     String courseName;
 

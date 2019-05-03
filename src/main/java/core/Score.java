@@ -1,18 +1,18 @@
 package core;
 
 public class Score {
-    private int Score;
-    private int MaxPossible;
+    private Double Score;
+    private Double MaxPossible;
 
-    public Score(int max) {
+    public Score(double max) {
         this.MaxPossible = max;
     }
 
-    public int getScore() {
+    public double getScore() {
         return Score;
     }
 
-    public boolean setScore(int score) {
+    public boolean setScore(double score) {
         if(score<=MaxPossible && score>=0){
             this.Score = score;
             return true;
@@ -21,11 +21,11 @@ public class Score {
         return false;
     }
 
-    public int getMaxPossible() {
+    public double getMaxPossible() {
         return MaxPossible;
     }
 
-    public void setMaxPossible(int maxPossible) {
+    public void setMaxPossible(double maxPossible) {
         MaxPossible = maxPossible;
     }
 

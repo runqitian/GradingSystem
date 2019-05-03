@@ -270,7 +270,7 @@ public class WeightPanel extends JPanel implements ActionListener {
         else if(e.getActionCommand().equals("cancel")){
             api.weightToClassPanel();
         }else if(e.getActionCommand().equals("save")){
-
+            api.saveWeightChange(cModel.getDataVector(),sModel.getDataVector());
         }
         else if(e.getActionCommand().equals("add_category")){
 

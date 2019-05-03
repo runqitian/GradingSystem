@@ -44,6 +44,8 @@ public class Category {
 //    public boolean deleteSubCategory(String subname){
 //        if(subCategoryList.)
 //    }
-
+    public String toString(){
+        return categoryName + " : " + weight.toString();
+    }
 
 }

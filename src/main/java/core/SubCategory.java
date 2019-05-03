@@ -52,12 +52,12 @@ public class SubCategory extends Category{
         return false;
     }
 
-    public Integer getStudentGrade(Student stu){
+    public Double getStudentGrade(Student stu){
         if(stuScore.containsKey(stu)){
             return stuScore.get(stu).getScore();
         }
         System.out.println("student not graded");
-        return -1;
+        return -1.0;
     }
 
     public boolean changeGrade(String stuID, int score){
@@ -76,12 +76,12 @@ public class SubCategory extends Category{
         return stuScore.get(stu).equals(stuScore.remove(stu));
     }
 
-    public Map<String, Integer> getAllGrades(){
-        Map<String, Integer> result = new HashMap<String, Integer>();
+    public Map<String, Double> getAllGrades(){
+        Map<String, Double> result = new HashMap<String, Double>();
         for (Map.Entry<String, Score> stuS:
                 stuScore.entrySet()) {
             String SID = stuS.getKey();
-            Integer score = stuS.getValue().getScore();
+            Double score = stuS.getValue().getScore();
             result.put(SID, score);
         }
         return result;
@@ -91,10 +91,15 @@ public class SubCategory extends Category{
         Map<String, Score> grades = new HashMap<String, Score>();
         for (Map.Entry<String,String> ent: stuScore.entrySet()){
             String sID = ent.getKey();
-            Integer score = new Integer(ent.getValue());
-            Score grade = new Score((Integer) score);
+            System.out.println(ent.getValue());
+            Double score = new Double(ent.getValue());
+            Score grade = new Score(score);
             grades.put((String) sID, grade);
         }
         this.stuScore = grades;
+    }
+
+    public String toString(){
+        return getName() + " : " + weight.toString();
     }
 }
