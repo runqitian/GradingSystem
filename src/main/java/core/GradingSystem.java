@@ -97,7 +97,7 @@ public class GradingSystem {
              selectedCourse.getCategoryList()) {
             selectedCourse.subCategoryList.addAll(DatabaseStorage.getSubCategories(className, cate.getName()));
         }
-
+        selectedCourse.setStudents(DatabaseStorage.getAllStudents());
         this.currentCourse = selectedCourse;
     }
 

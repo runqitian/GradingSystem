@@ -84,6 +84,22 @@ public class DatabaseStorage {
         return ret;
     }
 
+    public static Vector<Student> getAllStudents() {
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Students");
+        FindIterable<Document> possibleMatch = collection.find();
+        Vector<Student> ret = new Vector<Student>();
+        Block<Document> printBlock = new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                System.out.println(document.toJson());
+                ret.add(new Student(document.getString("name"), document.getString("email"), document.getString("student_id")));
+            }
+        };
+        possibleMatch.forEach(printBlock);
+        return ret;
+    }
+
     public static Vector<Category> getCategories(String courseName){
         MongoDatabase db = connectToDB();
         MongoCollection<Document> collection = db.getCollection("Courses");
