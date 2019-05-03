@@ -2,8 +2,7 @@ package core;
 
 import gui.MyTableModel;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,8 @@ public class GradingSystem {
     Course currentCourse;
 
     List<String> courseNameList = new ArrayList<String>();
+
+    Vector<Course> allcourse = new Vector<>();
 
     public boolean login(String username, String password){
         User user = new User(username,password);
@@ -36,9 +37,9 @@ public class GradingSystem {
             return false;
         }
         Course newclass = new Course(className);
+        courseNameList.add(className);
         this.currentCourse = newclass;
-        //
-        return true;
+        return allcourse.add(newclass);
     }
 
     public void deleteCourse(String name){
@@ -81,15 +82,12 @@ public class GradingSystem {
         return true;
     }
 
-    public MyTableModel showClassInfo(){
+    public Object[] showClassInfo(){
 
-//        List<Category> cates = currentCourse.getCategoryList();
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
 
         Vector<Object> header = new Vector<Object>();
-        Vector<Integer> notE = new Vector<Integer>();
-        notE.add(0);
-        notE.add(1);
+
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (SubCategory sub:
              subcates) {
@@ -99,8 +97,8 @@ public class GradingSystem {
             data.add(row);
         }
 
-        MyTableModel table = new MyTableModel(data, header, notE);
-        return table;
+        Object[] results = {data,header};
+        return results;
     }
 
     public Object[] showCategory(){
@@ -108,8 +106,6 @@ public class GradingSystem {
         Vector<Object> header = new Vector<Object>();
         header.add("Name");
         header.add("Weight");
-        Vector<Integer> notE = new Vector<Integer>();
-        notE.add(0);
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (Category cate:
                 cates) {
@@ -118,8 +114,8 @@ public class GradingSystem {
             row.add(cate.getWeight());
             data.add(row);
         }
-        Object[] results = {data,header,notE};
-//        MyTableModel table = new MyTableModel(data, header, notE);
+        Object[] results = {data,header};
+
         return results;
     }
 
@@ -130,8 +126,6 @@ public class GradingSystem {
         header.add("SubName");
         header.add("Weight");
         header.add("MaxPossible");
-        Vector<Integer> notE = new Vector<Integer>();
-        notE.add(0);
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (SubCategory subcate:
                 subcates) {
@@ -142,8 +136,8 @@ public class GradingSystem {
             row.add(subcate.getMaxGrade());
             data.add(row);
         }
-        Object[] results = {data,header,notE};
-//        MyTableModel table = new MyTableModel(data, header, notE);
+        Object[] results = {data,header};
+
         return results;
     }
 
@@ -170,8 +164,6 @@ public class GradingSystem {
              subs) {
             header.add(sub.getName());
         }
-        Vector<Integer> notE = new Vector<Integer>();
-        notE.add(0);
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         for (Student student:
              currentCourse.getStudents()) {
@@ -182,8 +174,8 @@ public class GradingSystem {
                 row.add(subcate.getStudentGrade(student));
             }
         }
-        Object[] results = {data,header,notE};//todo
-//        MyTableModel table = new MyTableModel(data, header, notE);
+        Object[] results = {data,header,currentCourse.getStudents()};
+
         return results;
     }
 
@@ -194,7 +186,7 @@ public class GradingSystem {
 
     public static Vector LoadStuInfo(){
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("stutest.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader(/*todo*/"stutest.csv"));
             String line = null;
             Vector v2=new Vector();   // Each element of this vector is a student like Stu1, Stu2
             while((line=reader.readLine())!=null) {
@@ -215,7 +207,7 @@ public class GradingSystem {
     }
 
     public void gradereport(Vector v){
-        File csv=new File("report.csv");
+        File csv=new File( currentCourse.getCourseName()+ "report.csv");
         if(csv.exists()){
             System.out.println("already exists!");
         }else {

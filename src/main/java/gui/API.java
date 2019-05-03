@@ -29,13 +29,13 @@ public class API {
 
     }
 
-    public Vector<Vector<Object>> loadCourseSummary(){
-        //todo
+    public Object[] loadCourseSummary(){
+        gradingSystem.showClassInfo();
 
         return null;
     }
 
-    public Vector<Vector<Object>> loadCourseList(){
+    public Object[] loadCourseList(){
         //todo
         return null;
     }
