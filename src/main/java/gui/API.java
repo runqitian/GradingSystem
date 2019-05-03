@@ -1,5 +1,6 @@
 package gui;
 
+import core.DatabaseStorage;
 import core.GradingSystem;
 import core.Student;
 import core.SubCategory;
@@ -7,6 +8,9 @@ import org.omg.CORBA.OBJ_ADAPTER;
 import tools.Tools;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class API {
@@ -108,8 +112,12 @@ public class API {
         this.mainFrame.classPanel.showPanel();
     }
 
-    public void saveGrading(Vector<Vector<Object>> grading){
-
+    public void saveGrading(HashMap<String, Vector<Object>> grading){
+        for (Map.Entry<String,Vector<Object>> ent: grading.entrySet()){
+            SubCategory sub = gradingSystem.currentCourse.getSubCategoryByName(ent.getKey());
+            sub.updateGrades(ent.getValue());
+            DatabaseStorage.updateGradesFor(gradingSystem.currentCourse.getCourseName(), sub);
+        }
 
     }
 

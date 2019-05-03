@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Vector;
 import java.awt.event.MouseEvent;
 
@@ -119,13 +120,7 @@ public class GradingPanel extends JPanel implements ActionListener {
         tablePanel.setLayout(new GridBagLayout());
         tablePanel.add(gradingPane, new GBC(0,0,1,1,1,1));
 
-        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){//仅当鼠标单击时响应
-
-//            int r= gradingTable.getSelectedRow();
-//
-//            int c= gradingTable.getSelectedColumn();
-//
-//            Object value= gradingTable.getValueAt(r, c);
+        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){
 
             Student selectedSt = students.get(gradingTable.getSelectedRow());
 
@@ -140,6 +135,7 @@ public class GradingPanel extends JPanel implements ActionListener {
             scoreLabel.setText(scoreDetail);
 
         }
+
 
     });
 
@@ -201,7 +197,24 @@ public class GradingPanel extends JPanel implements ActionListener {
             api.gradingToClassPanel();
         }
         else if(e.getActionCommand().equals("save")){
-            api.saveGrading(gradingModel.getDataVector());
+            HashMap<String,Vector<Object>> output = new HashMap<String,Vector<Object>>();
+            Vector<Vector<Object>> processed = new Vector<Vector<Object>>();
+            for (int i=1; i<gradingModel.getColumnCount(); i++){
+                Vector<Object> objs = new Vector<Object>();
+                processed.add(objs);
+                output.put(gradingModel.getColumnName(i).toString(),objs);
+            }
+            Vector<Vector<Object>> data = gradingModel.getDataVector();
+            for (int i=0; i<data.size(); i++){
+                Vector<Object> row = data.get(i);
+                for (int j=1; j<row.size(); j++){
+                    processed.get(j-1).add(data.get(i).get(j));
+                }
+            }
+            System.out.println("the shape of data");
+            System.out.println(processed.size());
+            System.out.println(processed.get(0).size());
+            api.saveGrading(output);
         }
     }
 }

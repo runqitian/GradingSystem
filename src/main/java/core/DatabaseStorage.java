@@ -126,7 +126,7 @@ public class DatabaseStorage {
         return ret;
     }
 
-    public static Map<String, String> getGradesFor(String courseName, String categoryName, String subCategoryName){
+    public static Map<String, Double> getGradesFor(String courseName, String categoryName, String subCategoryName){
         MongoDatabase db = connectToDB();
         MongoCollection<Document> collection = db.getCollection("Courses");
         Document possibleMatch = collection.find(eq("Coursename", courseName)).first();
@@ -141,6 +141,7 @@ public class DatabaseStorage {
                     if(x.equals(categoryName)){
                         Map subCategories = (Map) categories.get(x);
                         Map assignment = (Map) subCategories.get(subCategoryName);
+                        System.out.println(assignment.get("studentGrades"));
                         Map ret = (Map) assignment.get("studentGrades");
                         return ret;
                     }
@@ -149,7 +150,7 @@ public class DatabaseStorage {
                 System.out.println("broke");
             }
         }
-        return new HashMap<String, String>();
+        return new HashMap<String, Double>();
     }
 //
 //    public static Vector<Vector<Object>> getAllSubCategories(){

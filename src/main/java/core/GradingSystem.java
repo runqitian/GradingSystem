@@ -183,17 +183,19 @@ public class GradingSystem {
             }
             header.add(sub.getName());
         }
+        System.out.println("demmoooo" + currentCourse.getSubCategoryByName("Exam 1").getAllGrades());
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-        for (Student student:
-             currentCourse.getStudents()) {
+        for (Student student: currentCourse.getStudents()) {
             Vector<Object> row = new Vector<Object>();
             row.add(student.getName());
-            for (SubCategory subcate:
-                 subs) {
-                row.add(subcate.getStudentGrade(student));
+            for (SubCategory subcate: subs) {
+                row.add(subcate.getStudentGrade(student.getSID()));
             }
             data.add(row);
         }
+        System.out.println("output");
+        System.out.println(data.get(0).get(0).toString() + data.get(0).get(1).toString());
+        System.out.println(data.get(1).get(0).toString() + data.get(1).get(1).toString());
         Object[] results = {data,header,currentCourse.getStudents()};
         return results;
     }
