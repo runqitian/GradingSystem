@@ -30,10 +30,10 @@ public class API {
 
     }
 
-    public Object[] loadCourseSummary(){
+    public Object[] loadCourseSummary(String courseName){
         //todo
-
-        return null;
+        gradingSystem.buildCurrentCourse(courseName);
+        return gradingSystem.showClassInfo();
     }
 
     public Object[] loadCourseList(){
@@ -60,6 +60,11 @@ public class API {
 
     public void importStudent(String courseName){
 
+    }
+
+    public void uploadGradingSelected(Vector<String> Names){
+        Object[] objs = gradingSystem.showGradingInfo(Names);
+        System.out.println(objs);
     }
 
 

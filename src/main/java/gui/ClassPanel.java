@@ -153,6 +153,8 @@ public class ClassPanel extends JPanel implements ActionListener{
         this.studentManageBtn.setPreferredSize(new Dimension(120,40));
         this.gradeSelectedBtn.setPreferredSize(new Dimension(120,40));
 
+        this.gradeSelectedBtn.setActionCommand("grade_selected");
+        this.gradeSelectedBtn.addActionListener(this);
 
         Tools.beautifyJTable(categoryTable,true,25,30);
 
@@ -170,19 +172,25 @@ public class ClassPanel extends JPanel implements ActionListener{
 
     public void refreshPage(){
         Object[] tableData = api.loadCourseList();
+        Vector<Vector<Object>> courseNamelist = (Vector<Vector<Object>>)tableData[0];
         Vector<Integer> ne1 = new Vector<Integer>();
         ne1.add(0);
         this.courseListModel.setDataVector((Vector<Vector<Object>>)tableData[0],(Vector<Object>)tableData[1],ne1);
+        Object[] summaryTableData = api.loadCourseSummary(courseNamelist.get(0).get(0).toString());
         Vector<Integer> ne2 = new Vector<Integer>();
         ne2.add(0);
         ne2.add(1);
-        Vector<Vector<Object>> data = (Vector<Vector<Object>>) tableData[0];
-        Vector<Object> header = (Vector<Object>) tableData[0];
+        Vector<Vector<Object>> data = (Vector<Vector<Object>>) summaryTableData[0];
+        Vector<Object> header = (Vector<Object>) summaryTableData[1];
         for (Vector<Object> row : data){
-            row.add(new JCheckBox());
+            row.add(new Boolean(false));
         }
         header.add("checkbox");
-        this.categoryModel.setDataVector(data,header,ne2);
+        Vector<Class> typeArray = new Vector<Class>();
+        typeArray.add(Object.class);
+        typeArray.add(Object.class);
+        typeArray.add(Boolean.class);
+        this.categoryModel.setDataVector(data,header,ne2,typeArray);
         categoryModel.fireTableDataChanged();
         courseListModel.fireTableDataChanged();
     }
@@ -193,6 +201,13 @@ public class ClassPanel extends JPanel implements ActionListener{
         }
         else if(e.getActionCommand().equals("refresh")){
 
+        }else if(e.getActionCommand().equals("grade_selected")){
+            Vector<String> result = new Vector<String>();
+            int[] rows = this.categoryTable.getSelectedRows();
+            for (int row : rows){
+                result.add(this.categoryModel.getValueAt(row,1).toString());
+            }
+            api.uploadGradingSelected(result);
         }
     }
 }

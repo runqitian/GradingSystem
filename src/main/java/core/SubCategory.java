@@ -87,10 +87,10 @@ public class SubCategory extends Category{
     }
 
     public void setStuScore(Map<String, String> stuScores) {
-        for (Map<>:
-             ) {
-            
-        }
-        this.stuScore = stuScore;
+//        for (Map<>:
+//             ) {
+//
+//        }
+//        this.stuScore = stuScore;
     }
 }
