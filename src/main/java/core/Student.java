@@ -12,6 +12,9 @@ public class Student {
         this.name = name;
         this.email = email;
         this.SID = SID;
+        this.stuComment = new Comment();
+        String str = "Good!";
+        stuComment.addComment(name, str);
     }
 
     public String getName() {
@@ -38,8 +41,8 @@ public class Student {
         this.SID = SID;
     }
 
-    public Comment getStuComment() {
-        return stuComment;
+    public String getStuComment() {
+        return stuComment.getAllComment();
     }
 
     public void setStuComment(Comment stuComment) {
