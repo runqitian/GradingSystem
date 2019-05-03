@@ -86,6 +86,11 @@ public class SubCategory extends Category{
         return result;
     }
 
-
-
+    public void setStuScore(Map<String, String> stuScores) {
+        for (Map<>:
+             ) {
+            
+        }
+        this.stuScore = stuScore;
+    }
 }

@@ -151,7 +151,7 @@ public class GradingSystem {
         return loginUser.getCourseNameList();
     }
 
-    public Object[] showGradingInfo(List<String> Names){
+    public Object[] showGradingInfo(Vector<String> Names){
         List<SubCategory> subcates = currentCourse.getSubCategoryList();
         Vector<SubCategory> subs = new Vector<SubCategory>();
         for (String name:
