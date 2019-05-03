@@ -158,13 +158,22 @@ public class DatabaseStorage {
 //    }
 //
 
-//    /***
+    //    /***
 //     *  to do list
 //     */
 //
-    public static List<String> loadCourseNameList(String username){
-        // return the list of courses which this user teaches.
-        return null;
+    public static Vector<String> loadCourseNameList(String username){
+        MongoDatabase db = connectToDB();
+        MongoCollection<Document> collection = db.getCollection("Users");
+        Document possibleMatch = collection.find(eq("username", username)).first();
+        Vector<String> ret = new Vector<String>();
+        if(possibleMatch != null){
+            ArrayList<String> temp = (ArrayList<String>) possibleMatch.get("courses");
+            for(int i = 0; i < temp.size(); i++){
+                ret.add(temp.get(i).toString());
+            }
+        }
+        return ret;
     }
 
 }
