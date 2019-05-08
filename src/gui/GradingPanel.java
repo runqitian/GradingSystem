@@ -37,7 +37,6 @@ public class GradingPanel extends JPanel implements ActionListener {
     JScrollPane gradingPane;
     JTable gradingTable;
     MyTableModel gradingModel;
-    Vector<Integer> notEditable;
     Vector<Student> studentVector;
     Vector<Vector<Object>> gradeCache;
     Vector<Object> headerCache;
@@ -70,10 +69,8 @@ public class GradingPanel extends JPanel implements ActionListener {
         backBtn = new JButton("back");
         saveBtn = new JButton("save");
         gradingModel = new MyTableModel();
-        notEditable = new Vector<Integer>();
         gradingTable = new JTable(gradingModel);
         gradingPane = new JScrollPane(gradingTable);
-        notEditable.add(0);
         this.studentVector = new Vector<Student>();
         gradeCache = new Vector<Vector<Object>>();
         headerCache = new Vector<Object>();
@@ -120,19 +117,20 @@ public class GradingPanel extends JPanel implements ActionListener {
         tablePanel.setLayout(new GridBagLayout());
         tablePanel.add(gradingPane, new GBC(0,0,1,1,1,1));
 
-        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){
 
-//            Student selectedSt = students.get(gradingTable.getSelectedRow());
-//
-//            Double maxScore = api.getMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
-//            String name = selectedSt.getName();
-//            String email = selectedSt.getEmail();
+        Tools.formattingGradingTable(gradingTable);
+        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){
+            Student selectedSt = students.get(gradingTable.getSelectedRow());
+
+            Double maxScore = api.getSubCategoryMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
+            String name = selectedSt.getName();
+            String email = selectedSt.getEmail();
 //            String comment = selectedSt.getStuComment();
-//            String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
-//            nameLabel.setText(name);
-//            emailLabel.setText(email);
+            String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
+            nameLabel.setText(name);
+            emailLabel.setText(email);
 //            commentArea.setText(comment);
-//            scoreLabel.setText(scoreDetail);
+            scoreLabel.setText(scoreDetail);
 
         }
 
@@ -154,12 +152,11 @@ public class GradingPanel extends JPanel implements ActionListener {
     public void updateTable(Vector<Vector<Object>> data, Vector<Object> header){
         gradeCache = data;
         headerCache = header;
-        this.gradingModel.setDataVector(data,header,this.notEditable);
+        Integer[] notEditable = {0};
+        this.gradingModel.setDataVector(data,header,notEditable);
     }
 
-    public void showPanel(Vector<Vector<Object>> data, Vector<Object> header,Vector<Student> students){
-        this.students = students;
-        refreshPage(data,header);
+    public void showPanel(){
         this.setVisible(true);
         this.setEnabled(true);
     }
@@ -169,11 +166,16 @@ public class GradingPanel extends JPanel implements ActionListener {
         this.setEnabled(false);
     }
 
-    public void refreshPage(Vector<Vector<Object>> data, Vector<Object> header){
-        this.gradingModel.setDataVector(data,header,new Vector<Integer>());
-
+    public void refreshPage(Vector<Vector<Object>> data, Vector<Object> header, Vector<Student> students){
+        this.students = students;
+        Integer[] ne = {0};
+        this.gradingModel.setDataVector(data,header,ne);
+        Tools.formattingGradingTable(gradingTable);
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("back")){
+            api.gradingToClassPanel();
+        }
     }
 }

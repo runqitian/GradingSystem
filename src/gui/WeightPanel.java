@@ -1,5 +1,7 @@
 package gui;
 
+import com.sun.codemodel.internal.JOp;
+import core.Course;
 import tools.Tools;
 
 import javax.swing.*;
@@ -23,8 +25,8 @@ public class WeightPanel extends JPanel implements ActionListener {
     JTable sTable;
     Vector<Object> cHeader;
     Vector<Object> sHeader;
-    Vector<Integer> cNotEditable;
-    Vector<Integer> sNotEditable;
+    Integer[] cNotEditable = {0};
+    Integer[] sNotEditable = {0,1};
 
     JScrollPane categoryPane;
     JScrollPane subcategoryPane;
@@ -35,9 +37,11 @@ public class WeightPanel extends JPanel implements ActionListener {
     JButton cancelBtn;
     JTextField categoryInput;
     JButton categoryAddBtn;
+    JButton categoryDelBtn;
     JComboBox subBelong;
     JTextField subInput;
     JButton subAddBtn;
+    JButton subDelBtn;
 
 
     public WeightPanel(API api){
@@ -60,11 +64,6 @@ public class WeightPanel extends JPanel implements ActionListener {
         sHeader.add("SubCategory");
         sHeader.add("Weight");
         sHeader.add("Max Score");
-        cNotEditable = new Vector<Integer>();
-        sNotEditable = new Vector<Integer>();
-        cNotEditable.add(0);
-        sNotEditable.add(0);
-        sNotEditable.add(1);
         cModel = new MyTableModel(new Vector<Vector<Object>>(),cHeader,cNotEditable);
         sModel = new MyTableModel(new Vector<Vector<Object>>(),sHeader,sNotEditable);
 
@@ -74,16 +73,18 @@ public class WeightPanel extends JPanel implements ActionListener {
         downPanel = new JPanel();
         categoryInput = new JTextField();
         categoryAddBtn = new JButton("add");
+        categoryDelBtn = new JButton("delete");
         subBelong = new JComboBox();
         subInput = new JTextField();
         subAddBtn = new JButton("add");
+        subDelBtn = new JButton("delete");
         saveBtn = new JButton("save");
         cancelBtn = new JButton("cancel");
 
         saveBtn.setPreferredSize(new Dimension(70,40));
         cancelBtn.setPreferredSize(new Dimension(70,40));
 
-        saveBtn.setActionCommand("save_weight_change");
+        saveBtn.setActionCommand("save_change");
         saveBtn.addActionListener(this);
         cancelBtn.setActionCommand("cancel");
         cancelBtn.addActionListener(this);
@@ -103,14 +104,20 @@ public class WeightPanel extends JPanel implements ActionListener {
 
         categoryInput.setPreferredSize(new Dimension(120,35));
         categoryAddBtn.setPreferredSize(new Dimension(70,40));
+        categoryDelBtn.setPreferredSize(new Dimension(70,40));
         subInput.setPreferredSize(new Dimension(120,35));
         subAddBtn.setPreferredSize(new Dimension(70,40));
         subBelong.setPreferredSize(new Dimension(120,40));
+        subDelBtn.setPreferredSize(new Dimension(70,40));
 
+        categoryDelBtn.setActionCommand("delete_category");
+        categoryDelBtn.addActionListener(this);
         categoryAddBtn.setActionCommand("add_category");
         categoryAddBtn.addActionListener(this);
         subAddBtn.setActionCommand("add_subcategory");
         subAddBtn.addActionListener(this);
+        subDelBtn.setActionCommand("delete_subcategory");
+        subDelBtn.addActionListener(this);
 
 //        downPanel.setBackground(Color.GRAY);
         downPanel.setLayout(new GridBagLayout());
@@ -119,16 +126,17 @@ public class WeightPanel extends JPanel implements ActionListener {
         this.add(categoryPane, new GBC(0,1,1,1,0.4,0.6,GridBagConstraints.BOTH,GridBagConstraints.CENTER, new Insets(10,55,10,55)));
         this.add(subcategoryPane, new GBC(1,1,1,1,0.6,0.6,GridBagConstraints.BOTH,GridBagConstraints.CENTER, new Insets(10,55,10,55)));
 
-        downPanel.add(categoryInput, new GBC(0,0,1,1,0.4,1, GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,155)));
-        downPanel.add(categoryAddBtn, new GBC(0,0,1,1,0.4,1,GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,55)));
-        downPanel.add(subBelong, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,285)));
-        downPanel.add(subInput, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,145)));
-        downPanel.add(subAddBtn, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,55)));
+        downPanel.add(categoryInput, new GBC(0,0,1,1,0.4,1, GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,215)));
+        downPanel.add(categoryAddBtn, new GBC(0,0,1,1,0.4,1,GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,135)));
+        downPanel.add(categoryDelBtn, new GBC(0,0,1,1,0.4,1,GridBagConstraints.NONE, GridBagConstraints.LINE_END, new Insets(10,0,10,55)));
+        downPanel.add(subBelong, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,345)));
+        downPanel.add(subInput, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,215)));
+        downPanel.add(subAddBtn, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,135)));
+        downPanel.add(subDelBtn, new GBC(1,0,1,1,0.6,1,GridBagConstraints.NONE,GridBagConstraints.LINE_END,new Insets(10,0,10,55)));
         this.add(downPanel, new GBC(0,2,5,1,1,0.2));
     }
 
-    public void showPanel(Vector<Vector<Object>> catData, Vector<Object> catHeader, Vector<Vector<Object>> subData, Vector<Object> subHeader){
-        refreshAndLoad(catData,catHeader,subData,subHeader);
+    public void showPanel(){
         this.setVisible(true);
         this.setEnabled(true);
     }
@@ -139,8 +147,8 @@ public class WeightPanel extends JPanel implements ActionListener {
     }
 
     public void refreshAndLoad(Vector<Vector<Object>> catData, Vector<Object> catHeader, Vector<Vector<Object>> subData, Vector<Object> subHeader){
-        this.cModel.setDataVector(catData,catHeader,new Vector<Integer>());
-        this.sModel.setDataVector(subData,subHeader,new Vector<Integer>());
+        this.cModel.setDataVector(catData,catHeader,cNotEditable);
+        this.sModel.setDataVector(subData,subHeader,sNotEditable);
         this.cModel.fireTableDataChanged();
         this.sModel.fireTableDataChanged();
     }
@@ -217,22 +225,60 @@ public class WeightPanel extends JPanel implements ActionListener {
 //
 //    }
 
-    public void refresh_load(Vector<Vector<Object>> cData,Vector<Vector<Object>> sData){
+    public void refresh_load(Course course){
         categoryInput.setText("");
         subInput.setText("");
-        this.cModel.setDataVector(cData, cHeader, cNotEditable);
-        this.sModel.setDataVector(sData, sHeader, sNotEditable);
+        this.cModel.setDataVector(course.getCategoryWeight(), cHeader, cNotEditable);
+        this.sModel.setDataVector(course.getSubCategoryWeight(), sHeader, sNotEditable);
         this.cModel.fireTableDataChanged();
         this.sModel.fireTableDataChanged();
         this.subBelong.removeAllItems();
-        for (int i=0; i<cData.size(); i++){
-            this.subBelong.addItem(cData.get(i).get(0).toString());
+        for (int i=0; i<course.getCategoryWeight().size(); i++){
+            this.subBelong.addItem(course.getCategoryWeight().get(i).get(0).toString());
         }
     }
 
 
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("add_category")){
+            if (api.addCategory(this.categoryInput.getText())){
+                JOptionPane.showMessageDialog(this,"add new category!");
+            }else{
+                JOptionPane.showMessageDialog(this,"operation failed!");
+            }
+        }
+        else if (e.getActionCommand().equals("add_subcategory")){
+            if (api.addSubCategory(this.subInput.getText(),this.subBelong.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(this,"add new subcategory!");
+            }else{
+                JOptionPane.showMessageDialog(this,"operation failed!");
+            }
+        }
+        else if (e.getActionCommand().equals("delete_category")){
+            if (api.deleteCategory(this.categoryInput.getText())){
+                JOptionPane.showMessageDialog(this,"delete success!");
+            }else{
+                JOptionPane.showMessageDialog(this,"operation failed!");
+            }
+        }
+        else if (e.getActionCommand().equals("delete_subcategory")){
+            if (api.deleteSubCategory(this.subInput.getText())){
+                JOptionPane.showMessageDialog(this,"delete success!");
+            }else{
+                JOptionPane.showMessageDialog(this,"operation failed!");
+            }
+        }
+        else if (e.getActionCommand().equals("save_change")){
+            checkLegal();
+            cModel.fireTableDataChanged();
+            sModel.fireTableDataChanged();
+            api.saveWeightChange(cModel.getDataVector(),sModel.getDataVector());
+            JOptionPane.showMessageDialog(this,"changes saved!");
+        }
+        else if (e.getActionCommand().equals("cancel")){
+            api.weightToClassPanel();
+        }
 
     }
 }

@@ -57,14 +57,6 @@ public class MainFrame extends JFrame {
         gradingPanel.setBounds(0,0,900,540);
 
 
-//        ChartPanel chartPanel = new ChartPanel();
-//        this.add(chartPanel);
-
-
-//        loginPanel = new LoginPanel(controller);
-//        loginPanel.setBounds(0, 0, 500, 500);
-//        this.getContentPane().add(loginPanel);
-
         loginPanel.showPanel();
 //        classPanel.showPanel();
 //        weightPanel.showPanel();

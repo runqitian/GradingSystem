@@ -28,6 +28,7 @@ public class ClassPanel extends JPanel implements ActionListener{
     JButton importBtn;
     JButton settingBtn;
     JTable categoryTable;
+    JScrollPane categoryPane;
     JButton classReportBtn;
     JButton studentManageBtn;
     JButton gradeSelectedBtn;
@@ -52,7 +53,6 @@ public class ClassPanel extends JPanel implements ActionListener{
     public void showPanel(){
         this.setVisible(true);
         this.setEnabled(true);
-        refreshPage();
     }
 
     public void hidePanel(){
@@ -84,6 +84,7 @@ public class ClassPanel extends JPanel implements ActionListener{
         gradeSelectedBtn = new JButton("grade");
         categoryModel = new MyTableModel();
         categoryTable = new JTable(categoryModel);
+        this.categoryPane = new JScrollPane(categoryTable);
 
 
 
@@ -104,15 +105,8 @@ public class ClassPanel extends JPanel implements ActionListener{
 
         Vector<Object> colName = new Vector<Object>();
         Vector<Vector<Object>> courseNames = new Vector<Vector<Object>>();
-        colName.add("couse list");
-        Vector<Object> course1 = new Vector<Object>();
-        course1.add("Java");
-        Vector<Object> course2 = new Vector<Object>();
-        course2.add("Python");
-        courseNames.add(course1);
-        courseNames.add(course2);
-
-        courseListModel.setDataVector(courseNames, colName,new Vector<Integer>());
+        Integer[] notEditable = {0};
+        courseListModel.setDataVector(courseNames, colName,notEditable);
 //        courseListModel.fireTableDataChanged();
         Tools.beautifyJTable(courseListTable, true, 25,30);
         courseListTable.setBackground(Color.LIGHT_GRAY);
@@ -157,12 +151,13 @@ public class ClassPanel extends JPanel implements ActionListener{
         this.settingBtn.addActionListener(this);
 
         Tools.beautifyJTable(categoryTable,true,25,30);
+        this.categoryPane.setPreferredSize(new Dimension(600,400));
 
 
         subMainPanel.add(courseTitle,new GBC(0,0,8,1,0.8,1,GridBagConstraints.NONE,GridBagConstraints.LINE_START,new Insets(5,60,0,0)));
         subMainPanel.add(importBtn, new GBC(8,0,1,1,0.1,1, GridBagConstraints.NONE, new Insets(20,0,0,0)));
         subMainPanel.add(settingBtn, new GBC(9,0,1,1,0.1,1, GridBagConstraints.NONE, new Insets(20,0,0,0)));
-        subMainPanel.add(categoryTable,new GBC(0,1,14,1,1,10,GridBagConstraints.HORIZONTAL));
+        subMainPanel.add(categoryPane,new GBC(0,1,14,1,1,10,GridBagConstraints.BOTH));
         subMainPanel.add(new Label(""), new GBC(0,2,7,1,0.7,1));
         subMainPanel.add(classReportBtn, new GBC(7,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
         subMainPanel.add(studentManageBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
@@ -170,13 +165,34 @@ public class ClassPanel extends JPanel implements ActionListener{
 
     }
 
-    public void refreshPage(){
-        Vector<String> courselistheader = new Vector<String>();
-        courselistheader.add("list");
-        this.courseListModel.setDataVector(api.getCourseNameList(),courselistheader,new Vector<Integer>());
+    public void refreshPage(Course course){
+        Integer[] notEditable = {0};
+        this.courseListModel.setDataVector(api.getCourseNameList(),api.getCourseNamelistHeader(),notEditable);
+        this.courseTitle.setText(course.getName());
+        Integer[] ne = {0,1};
+        Class[] types = {Object.class,Object.class,Boolean.class};
+        this.categoryModel.setDataVector(course.getSelecteSubCategoryTableModelData(),course.getSelecteSubCategoryTableModelHeader(),ne,types);
+
     }
 
     public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("set_weight")){
+            api.classToWeightPanel();
+        }
+        else if (e.getActionCommand().equals("grade_selected")){
+            Vector<String> result = new Vector<String>();
+            Vector<Integer> rows = new Vector<Integer>();
+            for (int i=0; i< categoryModel.getRowCount(); i++){
+                if (new Boolean(categoryModel.getValueAt(i,2).toString())){
+                    rows.add(i);
+                }
+            }
+            for (int row : rows){
+                result.add(this.categoryModel.getValueAt(row,1).toString());
+            }
+//            System.out.println("class grade selected" + result);
+            api.gradeSelected(result);
+        }
     }
 }
 

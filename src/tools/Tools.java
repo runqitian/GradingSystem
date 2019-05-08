@@ -4,7 +4,9 @@ import gui.MyTableCellHeaderRenderer;
 import gui.MyTableCellRenderer;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,6 +29,14 @@ public class Tools {
         return output;
     }
 
+    public static Vector<Object> array1DToVector1D(Object[] arr){
+        Vector<Object> vec = new Vector<Object>();
+        for (Object obj: arr){
+            vec.add(arr);
+        }
+        return vec;
+    }
+
     public static void beautifyJTable(JTable table, boolean autosize, int fontsize, int rowHeight){
         table.setDefaultRenderer(Object.class, new MyTableCellRenderer(fontsize));
         table.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
@@ -36,6 +46,26 @@ public class Tools {
         table.setGridColor(Color.LIGHT_GRAY);
         table.setShowGrid(true);
         if (!autosize){
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }
+    }
+
+    public static void formattingGradingTable(JTable table){
+        int fontsize = 25;
+        int rowHeight = 30;
+        table.setDefaultRenderer(Object.class, new MyTableCellRenderer(fontsize));
+        table.getTableHeader().setDefaultRenderer(new MyTableCellHeaderRenderer());
+        table.setRowHeight(rowHeight);
+        table.getTableHeader().setBackground(Color.GRAY);
+        table.setGridColor(Color.LIGHT_GRAY);
+        table.setShowGrid(true);
+        if (table.getColumnCount()<4){
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        }else {
+            Enumeration<TableColumn> enr = table.getColumnModel().getColumns();
+            while(enr.hasMoreElements()){
+                enr.nextElement().setPreferredWidth(200);
+            }
             table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         }
     }

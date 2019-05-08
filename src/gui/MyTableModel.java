@@ -7,27 +7,39 @@ import java.util.Vector;
 
 public class MyTableModel extends DefaultTableModel {
 
-    Vector<Integer> notEditable;
+    Integer[] notEditable;
 
-    public Vector<Class> typeArray = new Vector<Class>();
+    Class[] typeArray;
 
     public MyTableModel(){
         super();
     }
 
-    public MyTableModel(Vector<Vector<Object>> data, Vector<Object> header, Vector<Integer> notEditable){
+    public MyTableModel(Vector<Vector<Object>> data, Vector<Object> header, Integer[] notEditable){
         super(data,header);
         this.notEditable = notEditable;
-        this.typeArray = new Vector<Class>();
         if (data.size()>0){
             int size = data.get(0).size();
+            typeArray = new Class[size];
             for (int i=0; i<size; i++){
-                typeArray.add(Object.class);
+                typeArray[i] = Object.class;
             }
         }
     }
 
-    public MyTableModel(Vector<Vector<Object>> data, Vector<Object> header, Vector<Integer> notEditable,Vector<Class> typeArray){
+    public MyTableModel(Object[][] data, Object[] header, Integer[] notEditable){
+        super(data,header);
+        this.notEditable = notEditable;
+        if (data.length>0){
+            int size = data[0].length;
+            typeArray = new Class[size];
+            for (int i=0; i<size; i++){
+                typeArray[i] = Object.class;
+            }
+        }
+    }
+
+    public MyTableModel(Vector<Vector<Object>> data, Vector<Object> header, Integer[] notEditable,Class[] typeArray){
         super(data,header);
         this.notEditable = notEditable;
         this.typeArray = typeArray;
@@ -35,33 +47,45 @@ public class MyTableModel extends DefaultTableModel {
 
     @Override
     public boolean isCellEditable(int row, int column) {
-        if (notEditable.contains(column)){
-            return false;
+        for (Integer item : notEditable){
+            if (item == column){
+                return false;
+            }
         }
         return true;
     }
 
-    public void setDataVector(Vector<Vector<Object>> data, Vector<Object> header, Vector<Integer> notEditable, Vector<Class> typeArray) {
-        System.out.println(data);
-        System.out.println(header);
+    public void setDataVector(Vector<Vector<Object>> data, Vector<Object> header, Integer[] notEditable, Class[] typeArray) {
         super.setDataVector(data, header);
         this.notEditable = notEditable;
         this.typeArray = typeArray;
     }
 
-    public void setDataVector(Vector<Vector<Object>> data, Vector<Object> header, Vector<Integer> notEditable){
+    public void setDataVector(Vector<Vector<Object>> data, Vector<Object> header, Integer[] notEditable){
+        super.setDataVector(data, header);
         this.notEditable = notEditable;
-        this.typeArray = new Vector<Class>();
         if (data.size()>0){
             int size = data.get(0).size();
-            super.setDataVector(data, header);
+            typeArray = new Class[size];
             for (int i=0; i<size; i++){
-                typeArray.add(Object.class);
+                typeArray[i] = Object.class;
+            }
+        }
+    }
+
+    public void setDataVector(Object[][] data, Object[] header, Integer[] notEditable){
+        super.setDataVector(data,header);
+        this.notEditable = notEditable;
+        if (data.length>0){
+            int size = data[0].length;
+            typeArray = new Class[size];
+            for (int i=0; i<size; i++){
+                typeArray[i] = Object.class;
             }
         }
     }
 
     public Class getColumnClass(int columnIndex) {
-        return typeArray.get(columnIndex);// 返回每一列的数据类型
+        return typeArray[columnIndex];// 返回每一列的数据类型
     }
 }

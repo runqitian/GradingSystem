@@ -19,4 +19,6 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
         this.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
     }
 
+
+
 }

@@ -21,13 +21,104 @@ public class API {
     }
 
     public boolean login(String username, String password){
-        return gradingSystem.login(username,password);
+        boolean flag = gradingSystem.login(username,password);
+        if (flag == true){
+            loginToClassPanel();
+            mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
+        }
+        return flag;
     }
 
-    public Vector<String> getCourseNameList(){
+    public void loginToClassPanel(){
+        mainFrame.loginPanel.hidePanel();
+        mainFrame.classPanel.showPanel();
+    }
+
+    public void classToWeightPanel(){
+        mainFrame.classPanel.hidePanel();
+        mainFrame.weightPanel.showPanel();
+        mainFrame.weightPanel.refresh_load(gradingSystem.currentCourse);
+    }
+
+    public Vector<Vector<Object>> getCourseNameList(){
         return gradingSystem.getCourseNameList();
     }
 
+    public Vector<Object> getCourseNamelistHeader(){
+        Vector<Object> header = new Vector<Object>();
+        header.add("Courses");
+        return header;
+    }
 
+    public boolean addCategory(String categoryName){
+        if (gradingSystem.addCategory(categoryName)){
+            mainFrame.weightPanel.refresh_load(gradingSystem.currentCourse);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addSubCategory(String subCategoryName, String categoryName){
+        if (gradingSystem.addSubCategory(subCategoryName,categoryName)){
+            mainFrame.weightPanel.refresh_load(gradingSystem.currentCourse);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteCategory(String categoryName){
+        if (gradingSystem.deleteCategory(categoryName)){
+            mainFrame.weightPanel.refresh_load(gradingSystem.currentCourse);
+            return true;
+        }
+        return false;
+    }
+
+    public  boolean deleteSubCategory(String subCategoryName){
+        if (gradingSystem.deleteSubCategory(subCategoryName)){
+            mainFrame.weightPanel.refresh_load(gradingSystem.currentCourse);
+            return true;
+        }
+        return false;
+    }
+
+    public void saveWeightChange(Vector<Vector<Object>> catWeights, Vector<Vector<Object>> subWeights){
+        System.out.println("save weight change");
+        gradingSystem.changeCategoryWeight(catWeights);
+        gradingSystem.changeSubCategoryWeight(subWeights);
+        gradingSystem.updateCourse();
+        mainFrame.weightPanel.refresh_load(gradingSystem.currentCourse);
+    }
+
+    public void weightToClassPanel(){
+        mainFrame.weightPanel.hidePanel();
+        mainFrame.classPanel.showPanel();
+        mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
+    }
+
+    public void gradeSelected(Vector<String> subNames){
+        Vector<Vector<Object>> data = gradingSystem.getSeletedGrades(subNames);
+        Vector<Object> header = new Vector<Object>();
+        header.add("student");
+        for (String item: subNames){
+            header.add(item);
+        }
+        mainFrame.classPanel.hidePanel();
+        mainFrame.gradingPanel.showPanel();
+        gradingSystem.updateCourse();
+        mainFrame.gradingPanel.refreshPage(data,header,gradingSystem.currentCourse.getStudents());
+    }
+
+    public void gradingToClassPanel(){
+        mainFrame.gradingPanel.hidePanel();
+        mainFrame.classPanel.showPanel();
+        gradingSystem.updateCourse();
+        mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
+    }
+
+    public Double getSubCategoryMaxScore(String subName){
+        SubCategory sub = SubCategory.getSubCategoryByName(subName, gradingSystem.currentCourse.getSubCategories());
+        return sub.getMax();
+    }
 
 }
