@@ -1,14 +1,17 @@
 package tools;
 
+import core.Student;
 import gui.MyTableCellHeaderRenderer;
 import gui.MyTableCellRenderer;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.Enumeration;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
 
 public class Tools {
     public static Object[][] vector2DToArray2D(Vector<Vector<Object>> input){
@@ -70,7 +73,63 @@ public class Tools {
         }
     }
 
+    public static Vector<Student> importStudents(String filedir){
+        Vector<Student> students = new Vector<Student>();
 
+//        List<List<String>> records = new ArrayList<>();
 
+        try (Scanner scanner = new Scanner(new File(filedir))) {
+            while (scanner.hasNextLine()) {
+                students.add(getStudentInfoFromLine(scanner.nextLine()));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //remove header
+        students.remove(0);
+        return students;
+    }
 
+    private static Student getStudentInfoFromLine(String line) {
+        List<String> values = new ArrayList<String>();
+        try (Scanner rowScanner = new Scanner(line)) {
+            rowScanner.useDelimiter(",");
+            while (rowScanner.hasNext()) {
+                values.add(rowScanner.next());
+            }
+        }
+        String name = values.get(2) + " " + values.get(3) + " " + values.get(4);
+        Student stu = new Student(values.get(0), name, values.get(1));
+        return stu;
+    }
+
+    public static void tableToCSV(Vector<Vector<Object>> data, Vector<Object> header, String reportName){
+        File csv = new File( reportName + ".csv");
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
+            //write header
+            bw.write(writeline(header));
+            bw.newLine();
+            bw.flush();
+            bw.close();
+            //write content
+            for (Vector<Object> row: data) {
+                bw.write(writeline(row));
+                bw.newLine();
+                bw.flush();
+                bw.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String writeline(Vector<Object> data){
+        String line = "";
+        for (Object item: data) {
+            line = line + item.toString() + ",";
+        }
+        line = line.substring(0, line.length()-1);
+        return line;
+    }
 }
