@@ -104,14 +104,14 @@ public class Database {
                 e.printStackTrace();
             }
         }
-        query = "select id, name, email from student where id in (select sid from student_course where cid=%s)";
-        query = String.format(query, courseID);
+        query = "select id,name,email,comments from (student INNER JOIN (select * from student_course where cid=%s) as tab2 ON student.id=tab2.sid);";
+        query = String.format(query, new Integer(courseID).toString());
         Vector<Student> students = new Vector<Student>();
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()){
-                Student student = new Student(rs.getString(1),rs.getString(2),rs.getString(3));
+                Student student = new Student(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
                 students.add(student);
             }
         } catch (SQLException e) {
@@ -281,8 +281,39 @@ public class Database {
 
     }
 
-    public static void updateGrading(){
+    public static void updateSingleGrading(String sid, int subid, Double grade){
+        String query = "update Grading set grade=? where student=?  and subid=?";
+        try {
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setDouble(1, grade);
+            pst.setString(2,sid);
+            pst.setInt(3, subid);
+            pst.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static void addComment(String sid, int courseid, String comment){
+        String input = comment + "\n";
+        String query = "select comments from student_course where sid=? and cid=?";
+        try {
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1,sid);
+            pst.setInt(2, courseid);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()){
+                input = input.concat(rs.getString(1));
+            }
+            query = "update student_course set comments=? where sid=? and cid=?";
+            pst = conn.prepareStatement(query);
+            pst.setString(1, input);
+            pst.setString(2,sid);
+            pst.setInt(3, courseid);
+            pst.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 //    public static Student getStudent(){

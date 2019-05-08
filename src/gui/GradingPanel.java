@@ -2,6 +2,7 @@ package gui;
 
 import com.sun.deploy.panel.JreTableModel;
 import core.Student;
+import jdk.nashorn.internal.scripts.JO;
 import main.Main;
 import sun.rmi.server.InactiveGroupException;
 import tools.Tools;
@@ -92,14 +93,21 @@ public class GradingPanel extends JPanel implements ActionListener {
         commentBtn.setPreferredSize(new Dimension(45,30));
         scoreLabel.setFont(new Font("TimesRoman", Font.BOLD, 25));
         scoreLabel.setMaximumSize(new Dimension(0,40));
+        method.addItem("absolute");
+        method.addItem("minus");
+        method.addItem("percentage");
         method.setPreferredSize(new Dimension(60,40));
         backBtn.setPreferredSize(new Dimension(60,30));
         saveBtn.setPreferredSize(new Dimension(60,30));
 
+        method.setActionCommand("grade_view");
+        method.addActionListener(this);
         backBtn.setActionCommand("back");
         backBtn.addActionListener(this);
         saveBtn.setActionCommand("save");
         saveBtn.addActionListener(this);
+        commentBtn.setActionCommand("comment");
+        commentBtn.addActionListener(this);
 
         infoPanel.setLayout(new GridBagLayout());
         infoPanel.add(nameLabel,new GBC(0,0,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER, new Insets(40,0,0,0)));
@@ -119,20 +127,26 @@ public class GradingPanel extends JPanel implements ActionListener {
 
 
         Tools.formattingGradingTable(gradingTable);
-        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){
-            Student selectedSt = students.get(gradingTable.getSelectedRow());
-            Double maxScore = api.getSubCategoryMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
-            String name = selectedSt.getName();
-            String email = selectedSt.getEmail();
-//            String comment = selectedSt.getStuComment();
-            String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
-            nameLabel.setText(name);
-            emailLabel.setText(email);
-//            commentArea.setText(comment);
-            scoreLabel.setText(scoreDetail);
-        }
-    });
+        gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(MouseEvent ev){
+                refreshStudentInfo();
+            }
+        });
 
+    }
+
+    public void refreshStudentInfo(){
+        Student selectedSt = students.get(gradingTable.getSelectedRow());
+        Double maxScore = api.getSubCategoryMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
+        String name = selectedSt.getName();
+        String email = selectedSt.getEmail();
+        String comment = selectedSt.getComment();
+        String scoreDetail = gradingModel.getValueAt(gradingTable.getSelectedRow(),gradingTable.getSelectedColumn()).toString() + "/" + maxScore.toString();
+        nameLabel.setText(name);
+        emailLabel.setText(email);
+        commentArea.setText(comment);
+        scoreLabel.setText(scoreDetail);
+        commentField.setText("");
     }
 
     public void transformGrade(String signal){
@@ -165,6 +179,7 @@ public class GradingPanel extends JPanel implements ActionListener {
     public void refreshPage(Vector<Vector<Object>> data, Vector<Object> header, Vector<Student> students){
         this.students = students;
         Integer[] ne = {0};
+        this.method.setSelectedIndex(0);
         this.gradingModel.setDataVector(data,header,ne);
         Tools.formattingGradingTable(gradingTable);
     }
@@ -174,7 +189,81 @@ public class GradingPanel extends JPanel implements ActionListener {
             api.gradingToClassPanel();
         }
         else if (e.getActionCommand().equals("save")){
-//            api.saveGrading();
+            gradingModel.fireTableDataChanged();
+            Vector<Object> header = new Vector<Object>();
+            Vector<String> subNames = new Vector<String>();
+            for (int i=0; i<gradingModel.getColumnCount(); i++){
+                if (i>0){
+                    subNames.add(gradingModel.getColumnName(i));
+                }
+                header.add(gradingModel.getColumnName(i));
+            }
+            Vector<Double> maxGrades = api.getMaxGrades(subNames);
+            Vector<Vector<Object>> data = this.gradingModel.getDataVector();
+            if (method.getSelectedItem().equals("absolute")){
+                api.saveGrading(data,header);
+            }
+            else if(method.getSelectedItem().equals("percentage")){
+                for (int i=0; i<data.size(); i++){
+                    for (int j=1; j<header.size(); j++){
+                        data.get(i).set(j, Math.round(Double.parseDouble(data.get(i).get(j).toString())*maxGrades.get(j-1))/100);
+                    }
+                }
+                api.saveGrading(data,header);
+            }else if(method.getSelectedItem().equals("minus")){
+                for (int i=0; i<data.size(); i++){
+                    for (int j=1; j<header.size(); j++){
+                        data.get(i).set(j, maxGrades.get(j-1)+Double.parseDouble(data.get(i).get(j).toString()));
+                    }
+                }
+                api.saveGrading(data,header);
+            }
+        }
+        else if (e.getActionCommand().equals("comment")){
+            Student selectedSt = students.get(gradingTable.getSelectedRow());
+            api.addComment(selectedSt.getId(),this.commentField.getText());
+            refreshStudentInfo();
+            JOptionPane.showMessageDialog(this,"add comment successfully!");
+        }
+        else if (e.getActionCommand().equals("grade_view")){
+            String flag = this.method.getSelectedItem().toString();
+            Vector<String> subNames = new Vector<String>();
+            Vector<Object> header = new Vector<Object>();
+            header.add("student");
+            for (int i=1; i<gradingModel.getColumnCount(); i++){
+                subNames.add(gradingTable.getColumnName(i));
+                header.add(gradingTable.getColumnName(i));
+            }
+            Vector<Vector<Object>> data = api.getGradeData(subNames);
+            Vector<Double> maxGrades = api.getMaxGrades(subNames);
+            if (flag.equals("percentage")){
+                for (int i=0; i<maxGrades.size(); i++){
+                    Double maxGrade = maxGrades.get(i);
+                    for (int j=0; j<data.size(); j++){
+                        data.get(j).set(i+1,new Double(Math.round(Double.parseDouble(data.get(j).get(i+1).toString())/maxGrade*10000)/100));
+                    }
+                }
+                Integer[] ne = {0};
+                this.gradingModel.setDataVector(data,header,ne);
+                Tools.formattingGradingTable(gradingTable);
+            }
+            else if (flag.equals("minus")){
+                for (int i=0; i<maxGrades.size(); i++){
+                    Double maxGrade = maxGrades.get(i);
+                    for (int j=0; j<data.size(); j++){
+                        data.get(j).set(i+1,Double.parseDouble(data.get(j).get(i+1).toString())-maxGrade);
+                    }
+                }
+                Integer[] ne = {0};
+                this.gradingModel.setDataVector(data,header,ne);
+                Tools.formattingGradingTable(gradingTable);
+            }
+            else if (flag.equals("absolute")){
+                Integer[] ne = {0};
+                this.gradingModel.setDataVector(data,header,ne);
+                Tools.formattingGradingTable(gradingTable);
+            }
+
         }
     }
 }

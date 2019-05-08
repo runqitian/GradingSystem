@@ -98,9 +98,9 @@ public class GradingSystem {
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         Vector<Integer> idxs = new Vector<Integer>();
         idxs.add(0);
-        for (String subName: subNames){
-            for (int i=0; i<currentCourse.getHeader().length; i++){
-                if (currentCourse.getHeader()[i].toString() == subName){
+        for (String subName: subNames) {
+            for (int i = 0; i < currentCourse.getHeader().length; i++) {
+                if (currentCourse.getHeader()[i].toString().equals(subName)) {
                     idxs.add(i);
                 }
             }
@@ -113,6 +113,24 @@ public class GradingSystem {
             data.add(row);
         }
         return data;
+    }
+
+    public void updateGrading(Vector<Vector<Object>> data, Vector<Object> header){
+        Vector<Integer> subids = new Vector<Integer>();
+        for (int i=1; i<header.size(); i++) {
+            subids.add(SubCategory.getSubCategoryByName(header.get(i).toString(), currentCourse.getSubCategories()).getId());
+        }
+        for (int i=0; i<data.size(); i++){
+            String sid = currentCourse.students.get(i).getId();
+            Vector<Object> row = data.get(i);
+            for (int j=1; j<row.size(); j++){
+                Database.updateSingleGrading(sid,subids.get(j-1),new Double(row.get(j).toString()));
+            }
+        }
+    }
+
+    public void addComment(String sid, String comment){
+        Database.addComment(sid, currentCourse.getId(), comment);
     }
 
 

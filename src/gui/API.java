@@ -109,6 +109,19 @@ public class API {
         mainFrame.gradingPanel.refreshPage(data,header,gradingSystem.currentCourse.getStudents());
     }
 
+    public Vector<Vector<Object>> getGradeData(Vector<String> subNames){
+        Vector<Vector<Object>> data = gradingSystem.getSeletedGrades(subNames);
+        return data;
+    }
+
+    public Vector<Double> getMaxGrades(Vector<String> subNames){
+        Vector<Double> maxGrades = new Vector<Double>();
+        for (int i=0; i<subNames.size(); i++){
+            maxGrades.add(getSubCategoryMaxScore(subNames.get(i)));
+        }
+        return maxGrades;
+    }
+
     public void gradingToClassPanel(){
         mainFrame.gradingPanel.hidePanel();
         mainFrame.classPanel.showPanel();
@@ -122,7 +135,14 @@ public class API {
     }
 
     public void saveGrading(Vector<Vector<Object>> data, Vector<Object> header){
-
+        gradingSystem.updateGrading(data,header);
     }
+
+    public void addComment(String sid, String comment){
+        gradingSystem.addComment(sid, comment);
+        gradingSystem.updateCourse();
+        mainFrame.gradingPanel.students = gradingSystem.currentCourse.getStudents();
+    }
+
 
 }
