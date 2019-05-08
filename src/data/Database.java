@@ -281,6 +281,9 @@ public class Database {
 
     }
 
+    public static void updateGrading(){
+
+    }
 
 //    public static Student getStudent(){
 //        String query = "select * from Student";

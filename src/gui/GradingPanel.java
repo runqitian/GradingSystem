@@ -30,7 +30,6 @@ public class GradingPanel extends JPanel implements ActionListener {
     JButton commentBtn;
     JLabel scoreLabel;
     JComboBox method;
-    JButton weightBtn;
     JButton backBtn;
     JButton saveBtn;
 
@@ -57,15 +56,14 @@ public class GradingPanel extends JPanel implements ActionListener {
     public void init(){
         infoPanel = new JPanel();
         tablePanel = new JPanel();
-        nameLabel  = new JLabel("name");
-        emailLabel = new JLabel("email");
+        nameLabel  = new JLabel("");
+        emailLabel = new JLabel("");
         commentArea = new JTextArea();
         commentPane = new JScrollPane(commentArea);
         commentField = new JTextField();
         commentBtn = new JButton("comment");
-        scoreLabel = new JLabel("score");
+        scoreLabel = new JLabel("");
         method = new JComboBox();
-        weightBtn = new JButton("change weight");
         backBtn = new JButton("back");
         saveBtn = new JButton("save");
         gradingModel = new MyTableModel();
@@ -78,20 +76,23 @@ public class GradingPanel extends JPanel implements ActionListener {
         Tools.beautifyJTable(gradingTable, true, 20,50);
 
         infoPanel.setBackground(Color.LIGHT_GRAY);
+        infoPanel.setMaximumSize(new Dimension(315,540));
         tablePanel.setBackground(Color.GRAY);
 //        tablePanel.setBorder(BorderFactory.createEtchedBorder());
-        this.add(infoPanel,new GBC(0,0,1,1,0.2,1));
-        this.add(tablePanel,new GBC(1,0,1,1,0.8,1));
+        this.add(infoPanel,new GBC(0,0,1,1,0.35,1));
+        this.add(tablePanel,new GBC(1,0,1,1,0.65,1));
 
-        nameLabel.setFont(new Font("TimesRoman", Font.BOLD, 30));
-        emailLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        nameLabel.setFont(new Font("TimesRoman", Font.BOLD, 25));
+        nameLabel.setMaximumSize(new Dimension(0,40));
+        emailLabel.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+        emailLabel.setMaximumSize(new Dimension(0,40));
         commentArea.setEditable(false);
         commentPane.setPreferredSize(new Dimension(60,160));
         commentField.setPreferredSize(new Dimension(60,30));
         commentBtn.setPreferredSize(new Dimension(45,30));
-        scoreLabel.setFont(new Font("TimesRoman", Font.BOLD, 40));
+        scoreLabel.setFont(new Font("TimesRoman", Font.BOLD, 25));
+        scoreLabel.setMaximumSize(new Dimension(0,40));
         method.setPreferredSize(new Dimension(60,40));
-        weightBtn.setPreferredSize(new Dimension(60,30));
         backBtn.setPreferredSize(new Dimension(60,30));
         saveBtn.setPreferredSize(new Dimension(60,30));
 
@@ -101,17 +102,16 @@ public class GradingPanel extends JPanel implements ActionListener {
         saveBtn.addActionListener(this);
 
         infoPanel.setLayout(new GridBagLayout());
-        infoPanel.add(nameLabel,new GBC(0,0,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER));
+        infoPanel.add(nameLabel,new GBC(0,0,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER, new Insets(40,0,0,0)));
         infoPanel.add(emailLabel, new GBC(0,1,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER));
         infoPanel.add(commentPane, new GBC(0,2,1,1,1,0.4,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,5,0,5)));
         infoPanel.add(commentField, new GBC(0,2,1,1,1,0.4,GridBagConstraints.HORIZONTAL,GridBagConstraints.CENTER, new Insets(190,5,0,5)));
         infoPanel.add(commentBtn, new GBC(0,2,1,1,1,0.4,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(250,15,0,15)));
         infoPanel.add(scoreLabel, new GBC(0,3,1,1,1,0.1,GridBagConstraints.NONE, GridBagConstraints.CENTER));
         infoPanel.add(method, new GBC(0,4,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
-        infoPanel.add(weightBtn, new GBC(0,5,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
-        infoPanel.add(weightBtn, new GBC(0,6,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
-        infoPanel.add(backBtn, new GBC(0,7,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
-        infoPanel.add(saveBtn, new GBC(0,8,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(saveBtn, new GBC(0,5,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(backBtn, new GBC(0,6,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+
 
 
         tablePanel.setLayout(new GridBagLayout());
@@ -121,7 +121,6 @@ public class GradingPanel extends JPanel implements ActionListener {
         Tools.formattingGradingTable(gradingTable);
         gradingTable.addMouseListener(new java.awt.event.MouseAdapter(){public void mouseClicked(MouseEvent ev){
             Student selectedSt = students.get(gradingTable.getSelectedRow());
-
             Double maxScore = api.getSubCategoryMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
             String name = selectedSt.getName();
             String email = selectedSt.getEmail();
@@ -131,10 +130,7 @@ public class GradingPanel extends JPanel implements ActionListener {
             emailLabel.setText(email);
 //            commentArea.setText(comment);
             scoreLabel.setText(scoreDetail);
-
         }
-
-
     });
 
     }
@@ -176,6 +172,9 @@ public class GradingPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("back")){
             api.gradingToClassPanel();
+        }
+        else if (e.getActionCommand().equals("save")){
+//            api.saveGrading();
         }
     }
 }
