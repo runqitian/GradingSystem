@@ -151,4 +151,12 @@ public class GradingSystem {
             Tools.calculateTotal(currentCourse.categories,currentCourse.subCategories, currentCourse.gradingTable[i], currentCourse.header, currentCourse.students.get(i));
         }
     }
+
+    public void generateReport(){
+        Tools.tableToCSV(currentCourse.gradingTable,currentCourse.header,"report-"+currentCourse.getName());
+    }
+
+    public void changeCourse(String coursename){
+        currentCourse = Course.loadCourseInfoFromDatabase(currentUser,coursename);
+    }
 }

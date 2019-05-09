@@ -12,6 +12,7 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.Vector;
@@ -113,6 +114,12 @@ public class ClassPanel extends JPanel implements ActionListener{
         Tools.beautifyJTable(courseListTable, true, 25,30);
         courseListTable.setBackground(Color.LIGHT_GRAY);
 
+        this.courseListTable.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(MouseEvent ev){
+                changeCourse();
+            }
+        });
+
         selectPanel.add(courseListLabel,new GBC(0,0,1,1,0,0.08, GridBagConstraints.NONE,GridBagConstraints.CENTER,new Insets(5,0,0,0)));
         selectPanel.add(courseListTable,new GBC(0,1,1,1,1,0.92));
     }
@@ -152,6 +159,9 @@ public class ClassPanel extends JPanel implements ActionListener{
         this.settingBtn.setActionCommand("set_weight");
         this.settingBtn.addActionListener(this);
 
+        this.classReportBtn.setActionCommand("report");
+        this.classReportBtn.addActionListener(this);
+
         Tools.beautifyJTable(categoryTable,true,25,30);
         this.categoryPane.setPreferredSize(new Dimension(600,400));
 
@@ -175,6 +185,11 @@ public class ClassPanel extends JPanel implements ActionListener{
         Class[] types = {Object.class,Object.class,Boolean.class};
         this.categoryModel.setDataVector(course.getSelecteSubCategoryTableModelData(),course.getSelecteSubCategoryTableModelHeader(),ne,types);
 
+    }
+
+    public void changeCourse(){
+        String name = this.courseListTable.getValueAt(this.courseListTable.getSelectedRow(),0).toString();
+        api.changeCourse(name);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -203,6 +218,10 @@ public class ClassPanel extends JPanel implements ActionListener{
             System.out.println(file.getAbsoluteFile());
             api.importStudents(file.getAbsolutePath());
             JOptionPane.showMessageDialog(this,"import students successfully!");
+        }
+        else if (e.getActionCommand().equals("report")){
+            api.generateReport();
+            JOptionPane.showMessageDialog(this,"generate report successfully!");
         }
     }
 }

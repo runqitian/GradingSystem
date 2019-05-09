@@ -13,6 +13,7 @@ import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -106,28 +107,35 @@ public class Tools {
         return stu;
     }
 
-    public static void tableToCSV(Vector<Vector<Object>> data, Vector<Object> header, String reportName){
-        File csv = new File( reportName + ".csv");
+    public static void tableToCSV(Object[][] data, Object[] header, String reportName){
+        File csv = new File(  reportName + ".csv");
+        BufferedWriter bw = null;
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(csv, true));
+            bw = new BufferedWriter(new FileWriter(csv, true));
             //write header
             bw.write(writeline(header));
             bw.newLine();
             bw.flush();
-            bw.close();
+//            bw.close();
             //write content
-            for (Vector<Object> row: data) {
+            for (Object[] row: data) {
                 bw.write(writeline(row));
                 bw.newLine();
                 bw.flush();
-                bw.close();
+//                bw.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            try {
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static String writeline(Vector<Object> data){
+    private static String writeline(Object[] data){
         String line = "";
         for (Object item: data) {
             line = line + item.toString() + ",";
@@ -154,13 +162,9 @@ public class Tools {
         double totalpoints = 0;
         for (int i=1; i<header.length; i++){
             SubCategory sub = SubCategory.getSubCategoryByName(header[i].toString(),subCategories);
-//            System.out.println("sub" + sub.getWeight()/weightEach.get(sub.getBelong()));
-//            System.out.println("cat" + sub.getBelong().getWeight()/(categoryWeightTotal==0?1:categoryWeightTotal));
-//            System.out.println("ite" + Double.parseDouble(row[i].toString())/sub.getMax());
             totalpoints += (sub.getWeight()/(weightEach.get(sub.getBelong())==0?1:weightEach.get(sub.getBelong())))*(sub.getBelong().getWeight()/(categoryWeightTotal==0?1:categoryWeightTotal)) * (Double.parseDouble(row[i].toString())/sub.getMax());
         }
         totalpoints = Math.round(totalpoints * 10000)/100.0;
-//        System.out.println(totalpoints);
         student.setTotalGrade(totalpoints);
     }
 }

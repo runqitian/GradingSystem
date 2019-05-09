@@ -156,4 +156,14 @@ public class API {
         gradingSystem.importStudents(filepath);
         gradingSystem.updateCourse();
     }
+
+    public void generateReport(){
+        gradingSystem.generateReport();
+    }
+
+    public void changeCourse(String coursename){
+        gradingSystem.changeCourse(coursename);
+        mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
+    }
+
 }
