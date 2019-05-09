@@ -2,6 +2,7 @@ package core;
 
 import data.Database;
 import org.omg.CORBA.OBJ_ADAPTER;
+import tools.Tools;
 
 import javax.xml.crypto.Data;
 import java.util.Vector;
@@ -78,6 +79,7 @@ public class GradingSystem {
 
     public void updateCourse(){
         currentCourse = Course.loadCourseInfoFromDatabase(currentUser,currentCourse.getName());
+        calculateTotalPoints();
     }
 
     public void changeCategoryWeight(Vector<Vector<Object>> data){
@@ -133,5 +135,20 @@ public class GradingSystem {
         Database.addComment(sid, currentCourse.getId(), comment);
     }
 
+    public void importStudents(String filepath){
+        Vector<Student> importStudents = Tools.importStudents(filepath);
+        Vector<Integer> subids = new Vector<Integer>();
+        for (SubCategory sub:currentCourse.getSubCategories()){
+            subids.add(sub.getId());
+        }
+        for (Student student: importStudents){
+            Database.addStudent(currentCourse.getId(),student,subids);
+        }
+    }
 
+    public void calculateTotalPoints(){
+        for (int i=0; i<currentCourse.students.size(); i++){
+            Tools.calculateTotal(currentCourse.categories,currentCourse.subCategories, currentCourse.gradingTable[i], currentCourse.header, currentCourse.students.get(i));
+        }
+    }
 }

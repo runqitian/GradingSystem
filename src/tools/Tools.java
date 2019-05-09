@@ -1,8 +1,11 @@
 package tools;
 
+import core.Category;
 import core.Student;
+import core.SubCategory;
 import gui.MyTableCellHeaderRenderer;
 import gui.MyTableCellRenderer;
+import org.omg.CORBA.OBJ_ADAPTER;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
@@ -99,7 +102,7 @@ public class Tools {
             }
         }
         String name = values.get(2) + " " + values.get(3) + " " + values.get(4);
-        Student stu = new Student(values.get(0), name, values.get(1));
+        Student stu = new Student(values.get(0), name, values.get(1),"");
         return stu;
     }
 
@@ -131,5 +134,33 @@ public class Tools {
         }
         line = line.substring(0, line.length()-1);
         return line;
+    }
+
+    public static void calculateTotal(Vector<Category> categories, Vector<SubCategory> subCategories, Object[] row, Object[] header, Student student){
+        Double categoryWeightTotal = 0.0;
+        for (Category category: categories){
+            categoryWeightTotal += category.getWeight();
+        }
+        Map<Category, Double> weightEach = new HashMap<Category, Double>();
+        for (SubCategory sub: subCategories){
+            if (weightEach.containsKey(sub.getBelong())){
+                weightEach.put(sub.getBelong(),weightEach.get(sub.getBelong()) + sub.getWeight());
+            }
+            else{
+                weightEach.put(sub.getBelong(),sub.getWeight());
+            }
+        }
+//        System.out.println(weightEach);
+        double totalpoints = 0;
+        for (int i=1; i<header.length; i++){
+            SubCategory sub = SubCategory.getSubCategoryByName(header[i].toString(),subCategories);
+//            System.out.println("sub" + sub.getWeight()/weightEach.get(sub.getBelong()));
+//            System.out.println("cat" + sub.getBelong().getWeight()/(categoryWeightTotal==0?1:categoryWeightTotal));
+//            System.out.println("ite" + Double.parseDouble(row[i].toString())/sub.getMax());
+            totalpoints += (sub.getWeight()/(weightEach.get(sub.getBelong())==0?1:weightEach.get(sub.getBelong())))*(sub.getBelong().getWeight()/(categoryWeightTotal==0?1:categoryWeightTotal)) * (Double.parseDouble(row[i].toString())/sub.getMax());
+        }
+        totalpoints = Math.round(totalpoints * 10000)/100.0;
+//        System.out.println(totalpoints);
+        student.setTotalGrade(totalpoints);
     }
 }

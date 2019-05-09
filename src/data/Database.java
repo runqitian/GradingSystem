@@ -316,6 +316,34 @@ public class Database {
         }
     }
 
+    public static void addStudent(int courseID, Student student, Vector<Integer> subids){
+        String query = "insert into student(id,name, email) values(?,?,?)";
+        try {
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1,student.getId());
+            pst.setString(2,student.getName());
+            pst.setString(3, student.getEmail());
+            pst.execute();
+            query = "insert into student_course values(?,?,?)";
+            pst = conn.prepareStatement(query);
+            pst.setInt(1,courseID);
+            pst.setString(2,student.getId());
+            pst.setString(3,student.getComment());
+            pst.execute();
+            for (Integer item: subids){
+                query = "insert into grading values(?,?,?,?)";
+                pst = conn.prepareStatement(query);
+                pst.setString(1, student.getId());
+                pst.setInt(2,courseID);
+                pst.setInt(3,item);
+                pst.setDouble(4,0);
+                pst.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 //    public static Student getStudent(){
 //        String query = "select * from Student";
 //        try {

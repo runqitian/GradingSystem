@@ -1,6 +1,7 @@
 package gui;
 
 import core.Course;
+import jdk.nashorn.internal.scripts.JO;
 import tools.Tools;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.Vector;
 
@@ -77,7 +79,7 @@ public class ClassPanel extends JPanel implements ActionListener{
 
 
         courseTitle = new JLabel("course1");
-        importBtn = new JButton("import");
+        importBtn = new JButton("import student");
         settingBtn = new JButton("setting");
         classReportBtn = new JButton("report");
         studentManageBtn = new JButton("student");
@@ -136,7 +138,7 @@ public class ClassPanel extends JPanel implements ActionListener{
         this.courseTitle.setFont(new Font("TimesRoman", Font.PLAIN, 35));
 
         this.importBtn.setPreferredSize(new Dimension(120,40));
-        this.importBtn.setActionCommand("import");
+        this.importBtn.setActionCommand("import_student");
         this.importBtn.addActionListener(this);
 
         this.settingBtn.setPreferredSize(new Dimension(120,40));
@@ -192,6 +194,15 @@ public class ClassPanel extends JPanel implements ActionListener{
             }
 //            System.out.println("class grade selected" + result);
             api.gradeSelected(result);
+        }
+        else if (e.getActionCommand().equals("import_student")){
+            JFileChooser jfc=new JFileChooser();
+            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );
+            jfc.showDialog(new JLabel(), "选择");
+            File file=jfc.getSelectedFile();
+            System.out.println(file.getAbsoluteFile());
+            api.importStudents(file.getAbsolutePath());
+            JOptionPane.showMessageDialog(this,"import students successfully!");
         }
     }
 }

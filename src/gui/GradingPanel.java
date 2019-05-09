@@ -29,6 +29,7 @@ public class GradingPanel extends JPanel implements ActionListener {
     JTextArea commentArea;
     JTextField commentField;
     JButton commentBtn;
+    JLabel totalScore;
     JLabel scoreLabel;
     JComboBox method;
     JButton backBtn;
@@ -63,6 +64,7 @@ public class GradingPanel extends JPanel implements ActionListener {
         commentPane = new JScrollPane(commentArea);
         commentField = new JTextField();
         commentBtn = new JButton("comment");
+        totalScore = new JLabel("");
         scoreLabel = new JLabel("");
         method = new JComboBox();
         backBtn = new JButton("back");
@@ -91,6 +93,8 @@ public class GradingPanel extends JPanel implements ActionListener {
         commentPane.setPreferredSize(new Dimension(60,160));
         commentField.setPreferredSize(new Dimension(60,30));
         commentBtn.setPreferredSize(new Dimension(45,30));
+        totalScore.setFont(new Font("TimesRoman", Font.BOLD, 25));
+        totalScore.setMaximumSize(new Dimension(0,40));
         scoreLabel.setFont(new Font("TimesRoman", Font.BOLD, 25));
         scoreLabel.setMaximumSize(new Dimension(0,40));
         method.addItem("absolute");
@@ -112,13 +116,14 @@ public class GradingPanel extends JPanel implements ActionListener {
         infoPanel.setLayout(new GridBagLayout());
         infoPanel.add(nameLabel,new GBC(0,0,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER, new Insets(40,0,0,0)));
         infoPanel.add(emailLabel, new GBC(0,1,1,1,1,0.05,GridBagConstraints.NONE, GridBagConstraints.CENTER));
-        infoPanel.add(commentPane, new GBC(0,2,1,1,1,0.4,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,5,0,5)));
-        infoPanel.add(commentField, new GBC(0,2,1,1,1,0.4,GridBagConstraints.HORIZONTAL,GridBagConstraints.CENTER, new Insets(190,5,0,5)));
-        infoPanel.add(commentBtn, new GBC(0,2,1,1,1,0.4,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(250,15,0,15)));
-        infoPanel.add(scoreLabel, new GBC(0,3,1,1,1,0.1,GridBagConstraints.NONE, GridBagConstraints.CENTER));
-        infoPanel.add(method, new GBC(0,4,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
-        infoPanel.add(saveBtn, new GBC(0,5,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
-        infoPanel.add(backBtn, new GBC(0,6,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(totalScore, new GBC(0,2,1,1,1,0.1,GridBagConstraints.NONE, GridBagConstraints.CENTER));
+        infoPanel.add(commentPane, new GBC(0,3,1,1,1,0.4,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,5,0,5)));
+        infoPanel.add(commentField, new GBC(0,3,1,1,1,0.4,GridBagConstraints.HORIZONTAL,GridBagConstraints.CENTER, new Insets(190,5,0,5)));
+        infoPanel.add(commentBtn, new GBC(0,3,1,1,1,0.4,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(250,15,0,15)));
+        infoPanel.add(scoreLabel, new GBC(0,4,1,1,1,0.1,GridBagConstraints.NONE, GridBagConstraints.CENTER));
+        infoPanel.add(method, new GBC(0,5,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(saveBtn, new GBC(0,6,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
+        infoPanel.add(backBtn, new GBC(0,7,1,1,1,0.1,GridBagConstraints.HORIZONTAL, GridBagConstraints.CENTER, new Insets(0,15,0,15)));
 
 
 
@@ -145,7 +150,9 @@ public class GradingPanel extends JPanel implements ActionListener {
         nameLabel.setText(name);
         emailLabel.setText(email);
         commentArea.setText(comment);
+        System.out.println(selectedSt.getTotalGrade());
         scoreLabel.setText(scoreDetail);
+        totalScore.setText(selectedSt.getTotalGrade().toString());
         commentField.setText("");
     }
 
@@ -206,7 +213,7 @@ public class GradingPanel extends JPanel implements ActionListener {
             else if(method.getSelectedItem().equals("percentage")){
                 for (int i=0; i<data.size(); i++){
                     for (int j=1; j<header.size(); j++){
-                        data.get(i).set(j, Math.round(Double.parseDouble(data.get(i).get(j).toString())*maxGrades.get(j-1))/100);
+                        data.get(i).set(j, Math.round(Double.parseDouble(data.get(i).get(j).toString())*maxGrades.get(j-1))/100.0);
                     }
                 }
                 api.saveGrading(data,header);
@@ -218,6 +225,7 @@ public class GradingPanel extends JPanel implements ActionListener {
                 }
                 api.saveGrading(data,header);
             }
+
         }
         else if (e.getActionCommand().equals("comment")){
             Student selectedSt = students.get(gradingTable.getSelectedRow());
@@ -240,7 +248,7 @@ public class GradingPanel extends JPanel implements ActionListener {
                 for (int i=0; i<maxGrades.size(); i++){
                     Double maxGrade = maxGrades.get(i);
                     for (int j=0; j<data.size(); j++){
-                        data.get(j).set(i+1,new Double(Math.round(Double.parseDouble(data.get(j).get(i+1).toString())/maxGrade*10000)/100));
+                        data.get(j).set(i+1,new Double(Math.round(Double.parseDouble(data.get(j).get(i+1).toString())/maxGrade*10000)/100.0));
                     }
                 }
                 Integer[] ne = {0};

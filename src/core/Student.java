@@ -6,6 +6,7 @@ public class Student {
     String name;
     String email;
     String comment;
+    Double totalGrade;
 
     public Student(String id, String name, String email, String comment){
         this.id = id;
@@ -44,5 +45,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Double getTotalGrade() {
+        return totalGrade;
+    }
+
+    public void setTotalGrade(Double totalGrade) {
+        this.totalGrade = totalGrade;
     }
 }

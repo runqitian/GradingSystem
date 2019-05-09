@@ -4,6 +4,7 @@ import core.GradingSystem;
 import core.Student;
 import core.SubCategory;
 import org.omg.CORBA.OBJ_ADAPTER;
+import tools.Tools;
 
 import javax.swing.*;
 import javax.xml.crypto.Data;
@@ -136,6 +137,13 @@ public class API {
 
     public void saveGrading(Vector<Vector<Object>> data, Vector<Object> header){
         gradingSystem.updateGrading(data,header);
+        gradingSystem.updateCourse();
+        Vector<String> subNames = new Vector<String>();
+        for (int i=0; i<header.size(); i++){
+            subNames.add(header.get(i).toString());
+        }
+        Vector<Vector<Object>> newdata = gradingSystem.getSeletedGrades(subNames);
+        mainFrame.gradingPanel.refreshPage(newdata,header,gradingSystem.currentCourse.getStudents());
     }
 
     public void addComment(String sid, String comment){
@@ -144,5 +152,8 @@ public class API {
         mainFrame.gradingPanel.students = gradingSystem.currentCourse.getStudents();
     }
 
-
+    public void importStudents(String filepath){
+        gradingSystem.importStudents(filepath);
+        gradingSystem.updateCourse();
+    }
 }
