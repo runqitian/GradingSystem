@@ -132,6 +132,9 @@ public class API {
 
     public Double getSubCategoryMaxScore(String subName){
         SubCategory sub = SubCategory.getSubCategoryByName(subName, gradingSystem.currentCourse.getSubCategories());
+//        if (sub == null){
+//            return 0.0;
+//        }
         return sub.getMax();
     }
 
@@ -166,4 +169,17 @@ public class API {
         mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
     }
 
+    public void createCourse(String courseName){
+        gradingSystem.createCourse(courseName);
+    }
+
+    public void deleteCourse(){
+        gradingSystem.deleteCourse();
+        mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
+    }
+
+    public void createFromTemplate(String courseName){
+        gradingSystem.createFromTemplate(courseName);
+        mainFrame.classPanel.refreshPage(gradingSystem.currentCourse);
+    }
 }

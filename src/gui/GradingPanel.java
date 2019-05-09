@@ -141,6 +141,9 @@ public class GradingPanel extends JPanel implements ActionListener {
     }
 
     public void refreshStudentInfo(){
+        if (gradingTable.getSelectedColumn() == 0){
+            return;
+        }
         Student selectedSt = students.get(gradingTable.getSelectedRow());
         Double maxScore = api.getSubCategoryMaxScore(gradingModel.getColumnName(gradingTable.getSelectedColumn()));
         String name = selectedSt.getName();

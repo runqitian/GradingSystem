@@ -344,6 +344,63 @@ public class Database {
         }
     }
 
+    public static void deleteCourse(String username, String coursename){
+        String query = "delete from course where name=? and belong=?";
+        try {
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1,coursename);
+            pst.setString(2,username);
+            pst.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createCourseFromTemplate(String username, String coursename, Course course){
+        String query = "insert into Course(name,belong) values(?,?)";
+        try {
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, coursename);
+            pst.setString(2, username);
+            pst.execute();
+            query = "select id from course where name=?";
+            pst = conn.prepareStatement(query);
+            pst.setString(1,coursename);
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            for (Category category: course.getCategories()){
+                query = "insert into category(name,weight,belong) values(?,?,?)";
+                pst = conn.prepareStatement(query);
+                pst.setString(1,category.getName());
+                pst.setDouble(2,category.getWeight());
+                pst.setInt(3,id);
+                pst.execute();
+                query = "select id from category where name=? and belong=?";
+                pst = conn.prepareStatement(query);
+                pst.setString(1,category.getName());
+                pst.setInt(2,id);
+                rs = pst.executeQuery();
+                rs.next();
+                int catID = rs.getInt(1);
+                for (SubCategory subCategory: course.getSubCategories()){
+                    if (subCategory.getBelong().equals(category)){
+                        query = "insert into subcategory(name,weight,max,belong) values(?,?,?,?)";
+                        pst = conn.prepareStatement(query);
+                        pst.setString(1,subCategory.getName());
+                        pst.setDouble(2,subCategory.getWeight());
+                        pst.setDouble(3,subCategory.getMax());
+                        pst.setInt(4,catID);
+                        pst.execute();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 //    public static Student getStudent(){
 //        String query = "select * from Student";
 //        try {

@@ -25,6 +25,7 @@ public class ClassPanel extends JPanel implements ActionListener{
     JPanel mainPanel;
     JTable courseListTable;
     JPanel subMainPanel;
+    JTextField courseInput;
     JButton createNewBtn;
     JButton templateBtn;
     JButton deleteBtn;
@@ -33,7 +34,7 @@ public class ClassPanel extends JPanel implements ActionListener{
     JTable categoryTable;
     JScrollPane categoryPane;
     JButton classReportBtn;
-    JButton studentManageBtn;
+//    JButton studentManageBtn;
     JButton gradeSelectedBtn;
 
     MyTableModel categoryModel;
@@ -74,6 +75,7 @@ public class ClassPanel extends JPanel implements ActionListener{
 
         subMainPanel = new JPanel();
 
+        courseInput = new JTextField();
         createNewBtn = new JButton("create new");
         templateBtn = new JButton("template");
         deleteBtn = new JButton("delete");
@@ -83,13 +85,11 @@ public class ClassPanel extends JPanel implements ActionListener{
         importBtn = new JButton("import student");
         settingBtn = new JButton("setting");
         classReportBtn = new JButton("report");
-        studentManageBtn = new JButton("student");
+//        studentManageBtn = new JButton("student");
         gradeSelectedBtn = new JButton("grade");
         categoryModel = new MyTableModel();
         categoryTable = new JTable(categoryModel);
         this.categoryPane = new JScrollPane(categoryTable);
-
-
 
         selectPanel.setLayout(new GridBagLayout());
         mainPanel.setLayout(new GridBagLayout());
@@ -128,15 +128,25 @@ public class ClassPanel extends JPanel implements ActionListener{
 
         initSubMainPanel();
 
-        createNewBtn.setPreferredSize(new Dimension(120,40));
-        templateBtn.setPreferredSize(new Dimension(120,40));
-        deleteBtn.setPreferredSize(new Dimension(120,40));
+//        courseInput.setPreferredSize(new Dimension(60,40));
+        courseInput.setMinimumSize(new Dimension(120,30));
+        createNewBtn.setPreferredSize(new Dimension(60,40));
+        templateBtn.setPreferredSize(new Dimension(60,40));
+        deleteBtn.setPreferredSize(new Dimension(60,40));
 
-        mainPanel.add(subMainPanel, new GBC(0,0,4,1,4,9));
-        mainPanel.add(createNewBtn, new GBC(0,1,1,1,1,1, GridBagConstraints.NONE, new Insets(20,0,20,0)));
-        mainPanel.add(templateBtn, new GBC(1,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
-        mainPanel.add(new Label(""), new GBC(2,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
-        mainPanel.add(deleteBtn, new GBC(3,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
+        createNewBtn.setActionCommand("create_course");
+        createNewBtn.addActionListener(this);
+        deleteBtn.setActionCommand("delete_course");
+        deleteBtn.addActionListener(this);
+        templateBtn.setActionCommand("create_course_template");
+        templateBtn.addActionListener(this);
+
+        mainPanel.add(subMainPanel, new GBC(0,0,5,1,5,9));
+        mainPanel.add(courseInput, new GBC(0,1,1,1,1,1, GridBagConstraints.NONE, new Insets(20,0,20,0)));
+        mainPanel.add(createNewBtn, new GBC(1,1,1,1,1,1, GridBagConstraints.NONE, new Insets(20,0,20,0)));
+        mainPanel.add(templateBtn, new GBC(2,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
+        mainPanel.add(new Label(""), new GBC(3,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
+        mainPanel.add(deleteBtn, new GBC(4,1,1,1,1,1, GridBagConstraints.NONE,  new Insets(20,0,20,0)));
 
     }
 
@@ -150,7 +160,7 @@ public class ClassPanel extends JPanel implements ActionListener{
 
         this.settingBtn.setPreferredSize(new Dimension(120,40));
         this.classReportBtn.setPreferredSize(new Dimension(120,40));
-        this.studentManageBtn.setPreferredSize(new Dimension(120,40));
+//        this.studentManageBtn.setPreferredSize(new Dimension(120,40));
         this.gradeSelectedBtn.setPreferredSize(new Dimension(120,40));
 
         this.gradeSelectedBtn.setActionCommand("grade_selected");
@@ -169,10 +179,10 @@ public class ClassPanel extends JPanel implements ActionListener{
         subMainPanel.add(courseTitle,new GBC(0,0,8,1,0.8,1,GridBagConstraints.NONE,GridBagConstraints.LINE_START,new Insets(5,60,0,0)));
         subMainPanel.add(importBtn, new GBC(8,0,1,1,0.1,1, GridBagConstraints.NONE, new Insets(20,0,0,0)));
         subMainPanel.add(settingBtn, new GBC(9,0,1,1,0.1,1, GridBagConstraints.NONE, new Insets(20,0,0,0)));
-        subMainPanel.add(categoryPane,new GBC(0,1,14,1,1,10,GridBagConstraints.BOTH));
+        subMainPanel.add(categoryPane,new GBC(0,1,10,1,1,10,GridBagConstraints.BOTH));
         subMainPanel.add(new Label(""), new GBC(0,2,7,1,0.7,1));
-        subMainPanel.add(classReportBtn, new GBC(7,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
-        subMainPanel.add(studentManageBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
+        subMainPanel.add(classReportBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
+//        subMainPanel.add(studentManageBtn, new GBC(8,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
         subMainPanel.add(gradeSelectedBtn, new GBC(9,2,1,1,0.1,1, GridBagConstraints.NONE, new Insets(0,0,20,0)));
 
     }
@@ -222,6 +232,21 @@ public class ClassPanel extends JPanel implements ActionListener{
         else if (e.getActionCommand().equals("report")){
             api.generateReport();
             JOptionPane.showMessageDialog(this,"generate report successfully!");
+        }
+        else if (e.getActionCommand().equals("create_course")){
+            String courseName = this.courseInput.getText();
+            api.createCourse(courseName);
+            Integer[] notEditable = {0};
+            this.courseListModel.setDataVector(api.getCourseNameList(),api.getCourseNamelistHeader(),notEditable);
+            JOptionPane.showMessageDialog(this,"create course successfully!");
+        }
+        else if (e.getActionCommand().equals("delete_course")){
+            api.deleteCourse();
+            JOptionPane.showMessageDialog(this,"delete course successfully!");
+        }
+        else if (e.getActionCommand().equals("create_course_template")){
+            api.createFromTemplate(this.courseInput.getText());
+            JOptionPane.showMessageDialog(this,"create from template successfully!");
         }
     }
 }

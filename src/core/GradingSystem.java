@@ -159,4 +159,22 @@ public class GradingSystem {
     public void changeCourse(String coursename){
         currentCourse = Course.loadCourseInfoFromDatabase(currentUser,coursename);
     }
+
+    public void createCourse(String courseName){
+        Database.insertCourse(currentUser.getUsername(), courseName);
+    }
+
+    public void deleteCourse(){
+        Database.deleteCourse(currentUser.getUsername(),currentCourse.getName());
+        Vector<Vector<Object>> namelist = getCourseNameList();
+        if (namelist.size() == 0){
+            currentCourse = null;
+        }else{
+            currentCourse = Course.loadCourseInfoFromDatabase(currentUser,namelist.get(0).get(0).toString());
+        }
+    }
+
+    public void createFromTemplate(String courseName){
+        Database.createCourseFromTemplate(currentUser.getUsername(), courseName, currentCourse);
+    }
 }
